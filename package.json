@@ -1,0 +1,32 @@
+{
+  "name": "tese_slides",
+  "version": "0.0.1",
+  "description": "Slides da tese do Anderson Tavares: Interactive Segmentation Editing with Image-Foresting Transform, Supervoxels and Seed Robustness",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anderflash/tese_slides.git"
+  },
+  "author": "Anderson Tavares",
+  "license": "CC-BY-4.0",
+  "bugs": {
+    "url": "https://github.com/anderflash/tese_slides/issues"
+  },
+  "homepage": "https://github.com/anderflash/tese_slides#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "chalk": "^1.1.3",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "node-sass": "^4.5.0",
+    "rollup": "^0.41.4",
+    "rollup-plugin-typescript": "^0.8.1",
+    "rollup-plugin-uglify": "^1.0.1",
+    "rollup-watch": "^3.2.2"
+  },
+  "dependencies": {
+    "web-animations-js": "^2.2.2"
+  }
+}

@@ -1,0 +1,42 @@
+#cover{
+  padding: 5vmin;
+  padding-top: 15vmin;
+}
+#cover-defense, #cover-title, #cover-institution {
+  padding-bottom: 5vmin;
+  text-align: center;
+}
+#cover-defense, #cover-title, #cover-institution, #cover-author, #cover-people{
+
+}
+#cover-author, #cover-email {
+  font-weight: $bold;
+  text-align: center;
+}
+#cover-defense{
+  font-style: italic;
+}
+#cover-people {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  > h6{
+    font-style: italic;
+    text-align: center;
+  }
+  > div {
+    justify-content: center;
+    display: flex;
+    > div{
+      display: flex;
+      min-width: 120vmin;
+      text-align: center;
+      > div{
+        flex: 1;
+        &.right {
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+var rollup = require('rollup');
+var rts    = require('rollup-plugin-typescript');
+var rwatch = require('rollup-watch');
+var ruglify= require('rollup-plugin-uglify');
+var ts     = require('typescript');
+var minify = require('uglify-js').minify;
+var chalk  = require('chalk');
+var fs     = require('fs');
+var browserSync = require("browser-sync");
+browserSync({server: "./dist"});

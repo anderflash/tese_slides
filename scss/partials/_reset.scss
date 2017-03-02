@@ -1,0 +1,85 @@
+@mixin reset-body {
+  line-height: 1;
+}
+@mixin reset-box-model {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+@mixin reset-font {
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+@mixin reset-list-style {
+  list-style: none;
+}
+@mixin reset-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+@mixin reset-table-cell {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+@mixin reset-quotation {
+  quotes: none;
+  &:before, &:after {
+    content: "";
+    content: none;
+  }
+}
+@mixin reset-html5 {
+  #{elements-of-type(html5-block)} {
+    display: flex;
+  }
+}
+@mixin reset-image-anchor-border {
+  border: none;
+}
+@mixin global-reset {
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    @include reset-box-model;
+    @include reset-font;
+  }
+  // Unlike Eric's original reset, we reset the html element to be compatible
+  // with the vertical rhythm mixins.
+  html {
+    @include reset-body;
+  }
+  ol, ul {
+    @include reset-list-style;
+  }
+  table {
+    @include reset-table;
+  }
+  caption, th, td {
+    @include reset-table-cell;
+  }
+  q, blockquote {
+    @include reset-quotation;
+  }
+  a img {
+    @include reset-image-anchor-border;
+  }
+  @include reset-html5;
+}
+@include global-reset;
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
