@@ -1,0 +1,16 @@
+#cover{
+  padding: 2vmin;
+  .top, .bottom{
+    display: flex;
+    flex-direction: column;
+  }
+  .top{
+    justify-content:center;
+  }
+  .bottom{
+    justify-content:flex-end;
+  }
+  .bottom{
+    font-weight: 300;  
+  }
+}
