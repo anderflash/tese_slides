@@ -1,0 +1,157 @@
+#!/usr/bin/env node
+var rollup      = require('rollup');
+var rts         = require('rollup-plugin-typescript');
+var rwatch      = require('rollup-watch');
+var ruglify     = require('rollup-plugin-uglify');
+var minify      = require('uglify-js').minify;
+var ts          = require('typescript');
+var path        = require('path');
+var fs          = require('fs');
+var sass        = require('node-sass');
+var chalk       = require('chalk');
+var watch       = require('node-watch');
+var bs          = require("browser-sync").create();
+var ncp         = require('ncp').ncp;
+var args        = require('args');
+var cache;
+
+ncp.limit = 16;
+
+function filter(pattern, fn) {
+  return function(filename) {
+    if (pattern.test(filename)) {
+      fn(filename);
+    }
+  }
+}
+// Set configuration
+const config = {
+  entry: 'ts/tese.ts',
+  dest: 'dist/tese.js',
+  format: 'es',
+  cache: cache,
+  external: ['fs','chalk', 'path', 'child_process'],
+  plugins: [
+    rts({typescript: ts}),
+    ruglify({
+      mangle: {
+        toplevel:true
+      },
+      compress: true
+    }, minify)
+  ]
+};
+
+function copyToFolder(filename, folder){
+  console.log(filename);
+  fs.createReadStream(filename).pipe(fs.createWriteStream(path.join(folder, filename)));
+}
+
+function copyDep(){
+  fs.createReadStream('node_modules/gsap/TweenMax.js').pipe(fs.createWriteStream('dist/TweenMax.js'));
+}
+
+function copyAssets(){
+  ncp('assets', 'dist/assets', function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Copying files complete.');
+  });
+}
+
+function compileStyles(){
+  sass.render({
+    file: 'scss/tese.scss',
+    outputStyle: 'compressed'
+  }, function(err, result) {
+    if(!err){
+      fs.writeFile('dist/tese.css', result.css, function(err){
+        if(!err){
+          console.log(chalk.green('scss compiled!'));
+        }else{
+          console.error(chalk.red('scss not compiled!'));
+        }
+      });
+    }else{
+      console.error(chalk.red('scss not compiled!'));
+    }
+  });
+}
+function compileScripts(){
+  rollup.rollup(config).then(bundle => {
+    // Generate bundle + sourcemap
+    var result = bundle.generate({
+      // output format - 'amd', 'cjs', 'es', 'iife', 'umd'
+      format: 'es'
+    });
+
+    // Cache our bundle for later use (optional)
+    cache = bundle;
+
+    // fs.writeFileSync(config.dest, "#!/usr/bin/env node\n"+result.code);
+    // fs.chmodSync(config.dest, 0755);
+
+    console.log(chalk.green("Build success"));
+  });
+}
+
+// Process args
+args
+  .option('watch', 'Watch changes')
+  .option('serve', 'Serve the presentation')
+const flags = args.parse(process.argv)
+
+// Watch files
+if(flags.w){
+  const watcher = rwatch(rollup, config);
+  watcher.on('event', event => {
+    switch(event.code){
+      case 'ERROR':
+        console.error(chalk.red(event.code), event.error);
+      break;
+      case 'BUILD_START':
+        process.stdout.write(chalk.green("Recompiling..."));
+      break;
+      case 'BUILD_END':
+        process.stdout.write(chalk.green("end.\n"));
+        bs.reload();
+      break;
+    }
+  });
+
+  // watch index.html
+  watch('index.html', filename => {
+    copyToFolder('index.html', 'dist');
+    bs.reload("dist/index.html");
+  });
+
+  watch('./scss/', { recursive: true }, function(evt, name) {
+    // ignore node_modules
+    if (!/\.scss$/.test(name)) {
+      compileStyles();
+      bs.reload("dist/tese.css");
+    }
+  });
+
+  // watch('scss/', {recursive: true}, filter(/\.scss$/, function(filename) {
+  //   compileStyles();
+  //   bs.reload("dist/tese.css");
+  // }));
+}
+
+// Serve presentation
+if(flags.s){
+  bs.init({
+    server: "./dist",
+    browser: 'firefox'
+  });
+}
+
+// Compile all
+copyDep();
+compileScripts();
+compileStyles();
+copyToFolder('index.html', 'dist');
+copyAssets();
+
