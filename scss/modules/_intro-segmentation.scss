@@ -1,14 +1,67 @@
 #segmentation {
   padding: 1vmin;
-  .flex-row{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  // .flex-row{
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   flex: 1;
+  //   div{
+  //     flex: 1;
+  //     margin: 1vmin;
+  //   }
+  //   img{
+  //     flex: 1;
+      
+  //     width: 100%;
+  //   }
+  // }
+} 
+
+#segmentation-middle{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1;
+  align-items:center;
+  justify-items:center;
+}
+
+#segmentation-images{
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#segmentation-apps{
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  align-items:center;
+  > div {
+    align-items:flex-start;
+  }
+}
+
+.flex-row{
+  align-items:center;
+  justify-items:center;
+  flex: 1;
+  display: flex;
+  > div {
     flex: 1;
-    img{
+    margin: 1vmin;
+    display: flex;
+    flex-direction:column;
+    justify-content:center;
+    img {
       flex: 1;
-      margin: 1vmin;
       width: 100%;
     }
+    p{
+      text-align: center;
+    }
   }
-} 
+}
+
