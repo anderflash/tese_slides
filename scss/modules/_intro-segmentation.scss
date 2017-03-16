@@ -1,0 +1,14 @@
+#segmentation {
+  padding: 1vmin;
+  .flex-row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    img{
+      flex: 1;
+      margin: 1vmin;
+      width: 100%;
+    }
+  }
+} 

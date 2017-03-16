@@ -48,6 +48,7 @@ class SlideDeck {
     } else {
       this.timeScale = 1;
     }
+    i = Math.min(Math.max(i, 0), this.positions.length-1);
     this.positionIndex = i;
     // Tween the "time" (playhead) to the new position using a linear ease.
     // We could have used timeline.tweenTo() if we knew the timeline would always be a TimelineMax,
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[1].to("#cover"                 ,   0, {display:'none'} , 0.5);
   timelines[1].to("#segmentation"          ,   0, {display:'flex'} , 0.5);
   timelines[1].from("#segmentation header" , 0.5, clone(fxDownIn)  , 0.5);
+  timelines[1].from("#segmentation-images" , 0.5, clone(fxFadeIn)  , 0.5);
   tl.add(timelines[1]);
 
   timelines[2]

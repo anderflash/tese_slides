@@ -128,11 +128,16 @@ if(flags.w){
 
   watch('./scss/', { recursive: true }, function(evt, name) {
     // ignore node_modules
-    if (!/\.scss$/.test(name)) {
+    console.log(name);
+    if (/\.scss$/.test(name)) {
       compileStyles();
       bs.reload("dist/tese.css");
     }
   });
+
+  watch('./assets/', {recursive: true}, function(evt, name) {
+    copyToFolder(name , 'dist/assets');
+  })
 
   // watch('scss/', {recursive: true}, filter(/\.scss$/, function(filename) {
   //   compileStyles();
