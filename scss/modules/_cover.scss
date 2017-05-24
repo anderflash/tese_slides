@@ -1,16 +1,27 @@
 #cover{
-  padding: 2vmin;
-  .top, .bottom{
-    display: flex;
-    flex-direction: column;
-  }
-  .top{
-    justify-content:center;
-  }
-  .bottom{
-    justify-content:flex-end;
-  }
-  .bottom{
-    font-weight: 300;  
-  }
+  width: 100vw;
+  height: 100vh;
 }
+#digital-image{
+  width: 50vw;
+  height: 50vh;
+  background: blue;
+  transform: translate3d(150vw, 0vw, 0vw);
+}
+
+// #cover{
+//   padding: 2vmin;
+//   .top, .bottom{
+//     display: flex;
+//     flex-direction: column;
+//   }
+//   .top{
+//     justify-content:center;
+//   }
+//   .bottom{
+//     justify-content:flex-end;
+//   }
+//   .bottom{
+//     font-weight: 300;  
+//   }
+// }
