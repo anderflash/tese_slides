@@ -4,9 +4,21 @@ import { SlideDeck } from "./slidedeck";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const tl: TimelineMax = new TimelineMax();
-  tl.to("#blocks", 1, {css: {transform: "translate3d(-75vw,25vh,0)"}, ease: Power2.easeInOut});
-  tl.to("#blocks", 1, {css: {transform: "translate3d(-125vw,25vh,0)"}, ease: Power2.easeInOut},1);
-  tl.to("#blocks", 1, {css: {transform: "translate3d(-75vw,0vh,0)"}, ease: Power2.easeInOut},2);
+  // Capa
+  tl.to("#blocks", 1.5, {css: {transform: "translate3d(-100vw,25vh,0)"}, ease: Power2.easeInOut});
+  // Segmentação
+  tl.from("#intro-applications", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut}, 1.5);
+  tl.to("#blocks", 1.0, {css: {transform: "translate3d(-100vw,-20vh,0)"}, ease: Power2.easeInOut}, 1.5);
+  tl.from("#intro-type", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut}, 2.5);
+  tl.to("#blocks", 1.0, {css: {transform: "translate3d(-100vw,-60vh,-30vmin)"}, ease: Power2.easeInOut}, 2.5);
+  // Interactive
+  tl.from("#intro-type-interactive", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut}, 3.5);
+
+  //tl.to("#blocks", 1.0, {css: {transform: "translate3d(-180vw,-100vh,-30vmin)"}, ease: Power2.easeInOut}, 4.5);
+  // tl.to("#intro-type-automatic-arrow", 1.0, {transform: "rotate(-90deg)"}, 4.5);
+  // tl.to("#intro-type-automatic-result", 1.0, {transform: "translate(30vw, -30vh)"}, 4.5);
+
+  // tl.to("#blocks", 1, {css: {transform: "translate3d(-75vw,0vh,0)"}, ease: Power2.easeInOut},2);
 
   // Create all timelines
   // let tl: TimelineMax = new TimelineMax();

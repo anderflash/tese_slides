@@ -5,17 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="TweenMax.js"></script>
   <link rel="stylesheet" type="text/css" href="tese.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
 </head>
 <body>
 
   <div id="blocks">
+    <!-- Fundo da apresentação -->
     <div id="background"></div>
+
+    <!-- Capa -->
     <div id="cover">
       <h1>Interactive 3D Segmentation Repair with Image-Foresting Transform, Supervoxels and Seed Robustness</h1>
       <h2>Anderson Tavares</h2>
       <h2>Instituto de Matemática e Estatística</h2>
       <h2>Universidade de São Paulo</h2>
       <h2>Junho de 2017</h2>
+    </div>
+
+    <!-- Sobre segmentação -->
+    <div id="intro-segmentation">
+      <img src="assets/intro-segmentation-original.png" id="intro-segmentation-original">
+      <img src="assets/intro-segmentation-mask.png" id="intro-segmentation-mask">
+      <img src="assets/intro-segmentation-result.png" id="intro-segmentation-result">
+    </div>
+
+    <!-- Aplicações  -->
+    <div id="intro-applications">
+      <img src="assets/intro-applications-augmented-reality.png">
+      <img src="assets/intro-applications-medical-imaging.png">
+      <img src="assets/intro-applications-object-recognition.png">
+      <img src="assets/intro-applications-object-annotation.png">
+    </div>
+
+    <!-- Manual, Automático e Interativo -->
+    <div id="intro-type">
+      <div id="intro-type-manual">
+        <i id="intro-type-manual-user" class="fa fa-user"></i>
+        <i id="intro-type-manual-arrow" class="fa fa-arrow-down"></i>
+        <img src="assets/intro-segmentation-original.png" id="intro-type-manual-result">
+      </div>
+      <div id="intro-type-automatic">
+        <i id="intro-type-automatic-laptop" class="fa fa-laptop"></i>
+        <i id="intro-type-automatic-arrow" class="fa fa-arrow-down"></i>
+        <img src="assets/intro-segmentation-original.png" id="intro-type-automatic-result">
+      </div>
+      <div id="intro-type-interactive">
+        <i id="intro-type-interactive-user" class="fa fa-user"></i>
+        <i id="intro-type-interactive-arrow" class="fa fa-arrow-down"></i>
+        <img src="assets/intro-segmentation-original.png" id="intro-type-interactive-seeds">
+        <i id="intro-type-interactive-arrow2" class="fa fa-arrow-down"></i>
+        <i id="intro-type-interactive-laptop" class="fa fa-laptop"></i>
+        <i id="intro-type-interactive-arrow3" class="fa fa-arrow-down"></i>
+        <img src="assets/intro-segmentation-original.png" id="intro-type-interactive-result">
+      </div>
     </div>
     <div id="digital-image">
       

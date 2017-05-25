@@ -2,12 +2,88 @@
   width: 100vw;
   height: 100vh;
 }
-#digital-image{
-  width: 50vw;
-  height: 50vh;
-  background: blue;
-  transform: translate3d(150vw, 0vw, 0vw);
+
+// Segmentation
+#intro-segmentation {
+  width: 100vw;
+  text-align: center;
+  transform: translate3d(100vw, 0vh, 0vw);
 }
+#intro-segmentation-original, #intro-segmentation-mask, #intro-segmentation-result {
+  width: 30vw;
+}
+
+// Applications
+#intro-applications {
+  width: 100vw;
+  text-align: center;
+  transform: translate3d(100vw, 50vh, 0vw);
+  > img {
+    width: 24vw;
+  }
+}
+#intro-type{
+  transform: translate3d(100vw, 90vh, 0vw);
+}
+#intro-type-manual, #intro-type-automatic, #intro-type-interactive {
+  position: absolute;
+  text-align: center;
+  transform-style: preserve-3d;
+  > img {
+    width: 10vw;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#intro-type-manual {
+  transform: translate3d(5vw, 0vh, 0vw);
+}
+#intro-type-automatic {
+  transform: translate3d(77vw, 0vh, 0vw);
+}
+#intro-type-interactive {
+  transform: translate3d(44vw, 0vh, 0vw);
+}
+#intro-type-manual-user {
+  font-size: 20vw;
+}
+#intro-type-manual-arrow {
+  font-size: 10vw;
+}
+#intro-type-automatic-laptop {
+  font-size: 20vw;
+}
+#intro-type-automatic-arrow {
+  font-size: 10vw;
+  transform-origin: 5vw -15vh;
+}
+#intro-type-automatic-result{
+  transform-origin: 5vw -25vh;
+}
+#intro-type-interactive-user {
+  font-size: 10vw;
+}
+#intro-type-interactive-arrow {
+  font-size: 5vw;
+}
+#intro-type-interactive-arrow2 {
+  font-size: 5vw;
+}
+#intro-type-interactive-arrow3 {
+  font-size: 5vw;
+}
+#intro-type-interactive-laptop {
+  font-size: 10vw;
+}
+
+// #digital-image{
+//   width: 50vw;
+//   height: 50vh;
+//   background: blue;
+//   transform: translate3d(150vw, 0vw, 0vw);
+// }
 
 // #cover{
 //   padding: 2vmin;
@@ -25,3 +101,4 @@
 //     font-weight: 300;  
 //   }
 // }
+// 

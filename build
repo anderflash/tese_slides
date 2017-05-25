@@ -95,7 +95,20 @@ function compileScripts(){
     console.log(chalk.green("Build success"));
   });
 }
-
+function copyFontAwesome() {
+  ncp('node_modules/font-awesome/css', 'dist/assets/css', function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Copying files complete.');
+  });
+  ncp('node_modules/font-awesome/fonts', 'dist/assets/fonts', function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Copying files complete.');
+  });
+}
 // Process args
 args
   .option('watch', 'Watch changes')
@@ -159,4 +172,4 @@ compileScripts();
 compileStyles();
 copyToFolder('index.html', 'dist');
 copyAssets();
-
+copyFontAwesome();
