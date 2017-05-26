@@ -13,6 +13,7 @@ body, html {
   position: absolute;
   transform-style: preserve-3d;
 }
+
 #background{
   // background: 
   //   linear-gradient(135deg, $color1 25%, transparent 25%) -50px 0,
@@ -27,21 +28,28 @@ body, html {
   // @include background-origin(padding-box);
   // @include background-clip(border-box);
   // @include background-size(80vmin 140vmin);
-  background: -webkit-linear-gradient(60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(-60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(-60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(30deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), -webkit-linear-gradient(30deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), $color4;
-  background: -moz-linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), -moz-linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), $color4;
-  background: linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), $color4;
-  background-position: 0 0, 0 0, 40vmin 70vmin, 40vmin 70vmin, 0 0, 40vmin 70vmin;
-  -webkit-background-origin: padding-box;
-  background-origin: padding-box;
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
-  -webkit-background-size: 80vmin 140vmin;
-  background-size: 80vmin 140vmin;
+  // background: -webkit-linear-gradient(60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(-60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(-60deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -webkit-linear-gradient(30deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), -webkit-linear-gradient(30deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), $color4;
+  // background: -moz-linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), -moz-linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), -moz-linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), $color4;
+  // background: linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(30deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(150deg, $color2 12%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 87%, $color2 87.5%, $color2 0), linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), linear-gradient(60deg, $color1 25%, rgba(0,0,0,0) 25.5%, rgba(0,0,0,0) 75%, $color1 75%, $color1 0), $color4;
+  // background-position: 0 0, 0 0, 40vmin 70vmin, 40vmin 70vmin, 0 0, 40vmin 70vmin;
+  // -webkit-background-origin: padding-box;
+  // background-origin: padding-box;
+  // -webkit-background-clip: border-box;
+  // background-clip: border-box;
+  // -webkit-background-size: 80vmin 140vmin;
+  // background-size: 80vmin 140vmin;
+  background: 
+  radial-gradient(#f5f5f5 10vmin, transparent 10vmin) -21vmin 21vmin, linear-gradient(90deg, #fafafa 8vmin, transparent 8vmin) 0vmin 0vmin,
+  linear-gradient(0deg, #fafafa 8vmin, transparent 8vmin) 0vmin 0vmin;
+  background-size: 50vmin 50vmin;
+  background-color: #fff;
   width: 2000vw;
   height: 2000vh;
   transform: translate3d(-300vw, -300vh,-300vmin);
 }
-
+#blocks .katex {
+  font-size: 8vmin;
+}
 
 
 

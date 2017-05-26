@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="TweenMax.js"></script>
   <link rel="stylesheet" type="text/css" href="tese.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="/assets/katex.min.css">
+  <script type="text/javascript" src="/assets/katex.min.js"></script>
 </head>
 <body>
 
@@ -14,7 +15,7 @@
     <div id="background"></div>
 
     <!-- Capa -->
-    <div id="cover">
+    <div id="cover" class="fullscreen">
       <h1>Interactive 3D Segmentation Repair with Image-Foresting Transform, Supervoxels and Seed Robustness</h1>
       <h2>Anderson Tavares</h2>
       <h2>Instituto de Matemática e Estatística</h2>
@@ -23,7 +24,7 @@
     </div>
 
     <!-- Sobre segmentação -->
-    <div id="intro-segmentation">
+    <div id="intro-segmentation"  class="fullscreen">
       <img src="assets/intro-segmentation-original.png" id="intro-segmentation-original">
       <img src="assets/intro-segmentation-mask.png" id="intro-segmentation-mask">
       <img src="assets/intro-segmentation-result.png" id="intro-segmentation-result">
@@ -38,29 +39,64 @@
     </div>
 
     <!-- Manual, Automático e Interativo -->
-    <div id="intro-type">
+    <div id="intro-type" class="fullscreen">
       <div id="intro-type-manual">
         <i id="intro-type-manual-user" class="fa fa-user"></i>
-        <i id="intro-type-manual-arrow" class="fa fa-arrow-down"></i>
+        <i id="intro-type-manual-arrow" class="fa fa-arrow-down arrow"></i>
         <img src="assets/intro-segmentation-original.png" id="intro-type-manual-result">
       </div>
       <div id="intro-type-automatic">
         <i id="intro-type-automatic-laptop" class="fa fa-laptop"></i>
-        <i id="intro-type-automatic-arrow" class="fa fa-arrow-down"></i>
+        <i id="intro-type-automatic-arrow" class="fa fa-arrow-down arrow"></i>
         <img src="assets/intro-segmentation-original.png" id="intro-type-automatic-result">
+        <img src="assets/intro-segmentation-original.png" id="intro-type-automatic-result2">
       </div>
       <div id="intro-type-interactive">
         <i id="intro-type-interactive-user" class="fa fa-user"></i>
-        <i id="intro-type-interactive-arrow" class="fa fa-arrow-down"></i>
+        <i id="intro-type-interactive-arrow" class="fa fa-arrow-down arrow"></i>
         <img src="assets/intro-segmentation-original.png" id="intro-type-interactive-seeds">
-        <i id="intro-type-interactive-arrow2" class="fa fa-arrow-down"></i>
+        <div>
+          <i id="intro-type-interactive-arrow2"         class="fa fa-arrow-down arrow left"></i>
+          <i id="intro-type-interactive-arrow2-reverse" class="fa fa-arrow-up arrow right"></i>
+        </div>
         <i id="intro-type-interactive-laptop" class="fa fa-laptop"></i>
-        <i id="intro-type-interactive-arrow3" class="fa fa-arrow-down"></i>
+        <div>
+          <i id="intro-type-interactive-arrow3"         class="fa fa-arrow-down arrow left"></i>
+          <i id="intro-type-interactive-arrow3-reverse" class="fa fa-arrow-up arrow right"></i>
+        </div>
         <img src="assets/intro-segmentation-original.png" id="intro-type-interactive-result">
       </div>
+      <div id="intro-type-interactive-save">
+        <i id="intro-type-interactive-save-arrow"  class="fa fa-arrow-down arrow"></i>
+        <i id="intro-type-interactive-laptop"      class="fa fa-save"></i>
+        <i id="intro-type-interactive-save-arrow2" class="fa fa-arrow-down arrow"></i>
+      </div>
+      <h1 id="intro-type-automatic-fix">Corrigir Segmentação Automática</h1>
+      <h1 id="intro-type-interactive-continue">Continuar Segmentação Interativa</h1>
+      <h1 id="intro-type-edit">Editar Segmentação</h1>
+      <h1 id="intro-type-reverse">Problema reverso</h1>
     </div>
+    <div id="related">
+      <div>
+        <h1>Random Walker</h1>
+      </div>
+      <div>
+        <h1>Graph</h1>
+      </div>
+      <div>
+        <h1>Superfícies Paramêtricas</h1>
+      </div>
+      <div>
+        <h1>Usuários Robôs</h1>
+      </div>
+      <div>
+        <h1>Image-Foresting Transform</h1>
+      </div>
+    </div>    
     <div id="digital-image">
-      
+      <div id="digital-image-formula"></div>
+      <div>
+      </div>
     </div>
     <div id="graph"></div>
     <div id="image-graph"></div>

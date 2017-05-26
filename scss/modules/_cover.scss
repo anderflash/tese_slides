@@ -1,16 +1,24 @@
 #cover{
-  width: 100vw;
-  height: 100vh;
 }
 
 // Segmentation
 #intro-segmentation {
-  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
   text-align: center;
-  transform: translate3d(100vw, 0vh, 0vw);
+  transform: translate3d(100vw, -50vh, 0vw);
+}
+
+.fullscreen{
+  width: 100vw;
+  height: 100vh;
 }
 #intro-segmentation-original, #intro-segmentation-mask, #intro-segmentation-result {
-  width: 30vw;
+  max-width: 30vw;
+  max-height: 100vh;
+  margin: 0.5vmin;
 }
 
 // Applications
@@ -19,18 +27,26 @@
   text-align: center;
   transform: translate3d(100vw, 50vh, 0vw);
   > img {
-    width: 24vw;
+    max-width: 24vw;
+    max-height: 40vh;
   }
 }
 #intro-type{
-  transform: translate3d(100vw, 90vh, 0vw);
+  transform: translate3d(100vw, 100vh, 0vw);
+  display: flex;
+  align-items: center;
+  h1 {
+    position: absolute;
+    max-width: 30vw;
+    text-align: center;
+  }
 }
-#intro-type-manual, #intro-type-automatic, #intro-type-interactive {
+#intro-type-manual, #intro-type-automatic, #intro-type-interactive, #intro-type-interactive-save {
   position: absolute;
   text-align: center;
   transform-style: preserve-3d;
   > img {
-    width: 10vw;
+    max-height: 25vh;
   }
   display: flex;
   flex-direction: column;
@@ -38,45 +54,72 @@
   align-items: center;
 }
 #intro-type-manual {
-  transform: translate3d(5vw, 0vh, 0vw);
+  transform: translate3d(5vw, 0vw, 0vw);
 }
 #intro-type-automatic {
-  transform: translate3d(77vw, 0vh, 0vw);
+  transform: translate3d(77vw, 0vw, 0vw);
 }
 #intro-type-interactive {
-  transform: translate3d(44vw, 0vh, 0vw);
+  transform: translate3d(42vw, 0vw, 0vw);
+  .right {
+    color: green;
+  }
+}
+#intro-type-interactive-save {
+  transform: translate3d(42vw, 0vw, 0vw);
+  opacity: 0;
+  .arrow {
+    margin: 10vmin;
+    margin-right: 40vmin;
+  }
+  #intro-type-interactive-save-arrow{
+    transform: rotate(135deg);
+  }
+  #intro-type-interactive-save-arrow2{
+    transform: rotate(-135deg);
+  }
 }
 #intro-type-manual-user {
-  font-size: 20vw;
-}
-#intro-type-manual-arrow {
-  font-size: 10vw;
+  font-size: 20vmin;
 }
 #intro-type-automatic-laptop {
-  font-size: 20vw;
-}
-#intro-type-automatic-arrow {
-  font-size: 10vw;
-  transform-origin: 5vw -15vh;
+  font-size: 20vmin;
 }
 #intro-type-automatic-result{
   transform-origin: 5vw -25vh;
 }
+#intro-type-automatic-result2{
+  position: absolute;
+  bottom: 0px;
+  //transform: translateX(5vmin);
+}
 #intro-type-interactive-user {
-  font-size: 10vw;
-}
-#intro-type-interactive-arrow {
-  font-size: 5vw;
-}
-#intro-type-interactive-arrow2 {
-  font-size: 5vw;
-}
-#intro-type-interactive-arrow3 {
-  font-size: 5vw;
+  font-size: 20vmin;
 }
 #intro-type-interactive-laptop {
-  font-size: 10vw;
+  font-size: 20vmin;
 }
+#intro-type .arrow{
+  font-size: 10vmin;
+}
+#intro-type-automatic-fix{
+  transform: translate3d(70vw, -40vh, 0vw);
+}
+#intro-type-interactive-continue{
+  transform: translate3d(70vw, 40vh, 0vw);
+}
+#intro-type-edit{
+  transform: translate3d(70vw, -10vh, 0vw);
+}
+#intro-type-reverse{
+  transform: translate3d(70vw, 10vh, 0vw);
+  color: green;
+}
+#digital-image {
+  transform: translate3d(100vw, 100vh, 0vw);
+}
+
+
 
 // #digital-image{
 //   width: 50vw;

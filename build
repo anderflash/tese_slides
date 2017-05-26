@@ -109,6 +109,14 @@ function copyFontAwesome() {
     console.log('Copying files complete.');
   });
 }
+function copyKatex(){
+  ncp('node_modules/katex/dist', 'dist/assets', function (err) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log('Copying files complete.');
+  });
+}
 // Process args
 args
   .option('watch', 'Watch changes')
@@ -173,3 +181,4 @@ compileStyles();
 copyToFolder('index.html', 'dist');
 copyAssets();
 copyFontAwesome();
+copyKatex();
