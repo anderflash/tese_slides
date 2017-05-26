@@ -37,9 +37,11 @@
   },
   "dependencies": {
     "@types/katex": "^0.5.0",
+    "@types/knex": "0.0.52",
     "font-awesome": "^4.7.0",
     "gsap": "^1.19.1",
     "katex": "^0.7.1",
+    "knex": "^0.13.0",
     "web-animations-js": "^2.2.5"
   }
 }

@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 9;
+  const cur = -1;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
