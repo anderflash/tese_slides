@@ -1,0 +1,103 @@
+% tikzpic.tex
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+\usepackage{fourier}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{arrayjob}
+\newcommand{\lan}{\langle}
+\newcommand{\ran}{\rangle}
+\usepackage{pgfmath,pgffor}
+
+\usetikzlibrary{arrows,shapes}
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+\begin{document}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, fill=red!24]
+\tikzstyle{edge} = [draw,thick,-]
+\tikzstyle{dedge} = [draw,thick,->]
+\tikzstyle{weight} = [font=\small]
+\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
+\tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
+
+\begin{tikzpicture}[scale=1.8, auto,swap]
+  \def\names{{"Katie","Frank","Laura","Joe"}}%
+  \def\bitmapcolors{{0,  0,  0,  0,  0,  0,
+                     0,  0,  0,255,  0,  0,
+                     0,  0,  0,255,255,  0,
+                     0,255,  0,255,255,  0,
+                     0,255,  0,255,  0,  0,
+                     0,255,255,255,255,  0}}
+  \def\bitmapcolorss{{0,  0,  0,  0,  0,  0,
+                     0,  0,127,255,  0,  0,
+                     0,127,127,255,255,  0,
+                     0,255,127,255,255,  0,
+                     0,255,127,255,  0,  0,
+                     0,255,255,255,255,  0}}
+  \def\offsetx{{-1,1,0,0}}
+  \def\offsety{{0,0,-1,1}}
+  \def\rotation{{0,0,90,90}}
+  \def\seedx{{0,3}}
+  \def\seedy{{0,3}}
+  \def\seedcolor{{"blue!80","red!80!black"}}
+  \def\seedname{{"b","o"}}
+  \def\seedshape{{5,4}}
+  \foreach \x in {0,...,5}{
+    \foreach \y in {0,...,5}{
+      \pgfmathparse{\bitmapcolors[\x + \y*6]/255}
+      \definecolor{MyColor}{gray}{\pgfmathresult}
+      \pgfmathparse{1.0-\bitmapcolors[\x + \y*6]/255}
+      \definecolor{MyTextColor}{gray}{\pgfmathresult}
+      \pgfmathparse{int(\bitmapcolors[\x + \y*6])}\let\v\pgfmathresult
+      \node[vertex, fill=MyColor,draw=black!55] (\x\y) at (\x,6-\y) {\textcolor{MyTextColor}\v};
+    }
+  }
+  
+  \foreach \x in {0,...,5}{
+    \foreach \y in {0,...,5}{
+      \def\alfa{0.1}
+      \pgfmathparse{\bitmapcolors[\x + \y*6]}\let\cur\pgfmathresult
+      \pgfmathparse{\bitmapcolorss[\x + \y*6]}\let\curc\pgfmathresult
+
+      \foreach \k in {0,...,3}{
+        \pgfmathparse{\offsetx[\k]}\let\offx\pgfmathresult
+        \pgfmathparse{\offsety[\k]}\let\offy\pgfmathresult
+        \pgfmathparse{\rotation[\k]}\let\rot\pgfmathresult
+        \pgfmathparse{int(\x+\offx)}\let\neix\pgfmathresult
+        \pgfmathparse{int(\y+\offy)}\let\neiy\pgfmathresult
+        \pgfmathparse{\neix<0 || \neiy<0 || \neix>5 || \neiy>5?int(0):int(1)}\let\infcan\pgfmathresult
+        \ifnum\infcan=1\relax
+          \path[dedge] (\x\y) edge [draw=black!50,bend left=20, line width=1.5pt] node[weight, inner sep=0.5] {\large} (\neix\neiy);
+          \pgfmathparse{\bitmapcolors[\neix + \neiy*6]}\let\nei\pgfmathresult
+          \pgfmathparse{\bitmapcolorss[\neix + \neiy*6]}\let\neic\pgfmathresult
+          \pgfmathequalto{\cur}{255}\let\curcan\pgfmathresult
+          \pgfmathequalto{\nei}{0}\let\neican\pgfmathresult
+          \pgfmathparse{\curcan>0&&\neican>0?int(1):int(0)}\let\can\pgfmathresult
+          \ifnum\can=1\relax
+            \pgfmathgreaterthan{\curc}{\neic}\let\great\pgfmathresult
+            \pgfmathequalto{\curc}{\neic}\let\equal\pgfmathresult
+            \pgfmathparse{1+\alfa*(1-\equal)*(\great*2-1)}\let\orientation\pgfmathresult
+            \pgfmathparse{(255-abs(\curc-\neic))*\orientation}\let\result\pgfmathresult
+            \pgfmathprintnumberto[precision=2]{\result}{\resultt}
+            \path[dedge] (\x\y) edge [draw=red,line width=2,bend left=20,rotate=\rot] node[weight, inner sep=0.5] {\large\resultt} (\neix\neiy);
+          \fi
+        \fi
+      }
+    }
+  }
+  
+  % \foreach \i in {0,1}{
+  %   \pgfmathparse{\seedx[\i]}\let\sx\pgfmathresult
+  %   \pgfmathparse{\seedy[\i]}\let\sy\pgfmathresult
+  %   \pgfmathparse{\seedcolor[\i]}\let\sc\pgfmathresult
+  %   \pgfmathparse{\seedshape[\i]}\let\ss\pgfmathresult
+  %   \pgfmathparse{\seedname[\i]}\let\sn\pgfmathresult
+  %   \node[circle, draw=white,fill=\sc, minimum size=18,inner sep=0,outer sep=0,xshift=5,yshift=-5] at (\sx\sy){\color{white}\large\sn};
+  % }
+
+
+\end{tikzpicture}
+\end{document}

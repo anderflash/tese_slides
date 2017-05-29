@@ -167,8 +167,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const tl: TimelineMax = new TimelineMax();
 
   // Criando todas as timelines
-  const timelines: TimelineMax[] = new Array<TimelineMax>(50);
-  for (let i = 0; i < 50; i++) {
+  const timelines: TimelineMax[] = new Array<TimelineMax>(70);
+  for (let i = 0; i < 70; i++) {
     timelines[i] = new TimelineMax();
   }
 
@@ -403,10 +403,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Draw graph
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-430vw, -330vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  //timelines[c].to("#image-graph", 0.4, {opacity: 0}, 0.3);
+  timelines[c].from("#graph-segmentation", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#graph-segmentation-object", 0.4, {opacity: 0}, 0.3);
+  timelines[c].to("#graph-segmentation-bitmap", 0.4, {opacity: 0}, 0.3);
+  timelines[c].from("#graph-segmentation-object2", 0.4, {opacity: 0}, 0.3);
+  timelines[c].to("#graph-segmentation-bitmap2", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#cut1", 0.4, {opacity: 0}, 0.0);
+  timelines[c].from("#cut2", 0.4, {opacity: 0}, 0.0);
+  timelines[c].to("#graph-segmentation-object", 0.2, {opacity: 0}, 0.2);
+  timelines[c].to("#graph-segmentation-object2", 0.2, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 31;
+  const cur = 32;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);

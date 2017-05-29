@@ -293,6 +293,30 @@
   align-content: center;
   width: 100vw;
 }
+#graph-segmentation-imgs{
+
+}
+#graph-segmentation-imgs1, #graph-segmentation-imgs2{
+  display: flex;
+  justify-content: center;
+  align-content: center;  
+}
+
+#graph-segmentation {
+  width: 100vw;
+  transform: translate3d(430vw, 350vh, -20vmin);
+  img{
+    width: 80vmin;
+    height: 80vmin;
+    margin: 2vmin;
+  }
+  justify-content: center;
+}
+#graph-segmentation-object, #graph-segmentation-object2,
+#cut1, #cut2{
+  position: absolute;
+}
+
 
 // #digital-image{
 //   width: 50vw;
