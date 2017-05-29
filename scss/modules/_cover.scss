@@ -115,11 +115,184 @@
   transform: translate3d(70vw, 10vh, 0vw);
   color: green;
 }
+#related {
+  transform: translate3d(210vw, 100vh, 0vw);
+}
+#related-zehiri{
+  width: 60vw;
+}
+#related-superficies{
+  //margin-top: 5vh;
+}
+#related-jackowski, #related-valenzuela, #related-yang, #related-harrison {
+  width: 60vw;
+}
+#related-gc{
+  transform: translate3d(5vw, 0vh, 0vw);
+}
+#related-hci{
+  transform: translate3d(5vw, 5vh, 0vw);
+}
+#related-superficies-gc-hci{
+  display: flex;
+  margin-top: 5vh;
+}
+#related-karimov {
+  width: 60vw;
+}
+#related-ift, #related-user-robot{
+  transform: translate3d(5vw, -0vh, 0vw);
+  width: 70vw;
+}
+#related-rw-ift-robot, #related-ift-robot{
+  display: flex;
+}
+#related-user-robot{
+  transform: translate3d(0vw, -0vh, 0vw);
+}
+#related-miranda, #related-spina {
+  width: 60vw;
+}
 #digital-image {
-  transform: translate3d(100vw, 100vh, 0vw);
+  transform: translate3d(330vw, 150vh, -20vmin);
+  h1, #digital-image-formula{
+    padding: 2vmin;
+  }
+  .subformula .katex{
+    font-size: 6vmin;
+    color: red;
+  }
+}
+#digital-image-formula-coordinate{
+  position: absolute;
+  transform: translate3d(5vw, 0vw, 0vw);
+}
+#digital-image-formula-color{
+  transform: translate3d(23vw, 0vw, 0vw);
+}
+#digital-image-color-space {
+  width: 40vw;
+  top: 0px;
+  transform: translate3d(5vw, 0vw, 0vw);
+}
+#digital-image-coordinate-space {
+  width: 45vw;
+  transform: translate3d(2.5vw, 0vw, 0vw);
+}
+#digital-image-arrow{
+  position: absolute;
+  left: 0;
+  transform: translate3d(20vw, 10vw, 0vw);
+  width: 60vw;
+}
+#digital-image-result{
+  position: absolute;
+  width: 45vw;
+  height: 28vw;
+  left: 0;
+  transform: translate3d(2.5vw, 5.5vw, 0vw);
+}
+#graph {
+  transform: translate3d(430vw, 150vh, -20vmin);
+  > h1 {
+    margin: 2vmin;
+  }
+  .subformula .katex{
+    font-size: 6vmin;
+    color: red;
+  }
+}
+.algo{
+  color: green;
 }
 
+.graph-formula-vertices{
+  opacity: 0;
+}
+.graph-formula-arcs{
+  opacity: 0;
+}
+.graph-formula-weight{
+  opacity: 0;
+}
+#graph-formula {
+  
+}
+#graph-formula-arc {
+  position: absolute;
+  transform: translate3d(5vw, 0vw, 0vw);
+}
+#graph-formula-omega {
+  transform: translate3d(30vw, 0vw, 0vw);
+}
+#graph-picture{
+  width: 60vw;
+  height: 60vh;
+  transform: translate3d(35vw, 0vw, 0vw);
+}
+.node {
+  fill: none;
+  stroke: black;
+  stroke-width: 0.5vmin;
+}
+.edge, .arc{
+  stroke: black;
+  stroke-width: 0.5vmin;
+  fill: none;
+}
+.arc {
+  marker-end: url(#graph-picture-arrow);
+}
+.weight{
+  font-size: 4vmin;
+}
+#graph-formula-reversed{
+  position: absolute;
+  left: 0;
+  transform: translate3d(2vmin, 0vw, 0vw);
+}
+#graph-formulas{
+  display: flex;
+  margin: 2vmin;
+}
 
+#graph-adjacency {
+  transform: translate3d(330vw, 250vh, -20vmin);
+  > h1 {
+    margin: 2vmin;
+  }
+}
+.adj{
+  // display: flex;
+  // justify-content: center;
+  position: relative;
+  transform: translate3d(10vw, 0vh, 0vh);
+  > img {
+    width: 80vw;
+    max-height: 80vh;
+    + img {
+      position: absolute;
+      top: 0;
+    }
+  }
+}
+
+#image-graph {
+  transform: translate3d(430vw, 250vh, -20vmin);
+  > h1 {
+    margin: 2vmin;
+  }
+  img{
+    width: 50vw;
+    max-height: 80vh;
+  }
+}
+#image-graph-imgs{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100vw;
+}
 
 // #digital-image{
 //   width: 50vw;

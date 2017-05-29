@@ -8,19 +8,17 @@ export class SlideDeck {
     this.options       = Object.assign({}, {allowSkip: true, tweenFirst: true, from: 0} as ISlideDeckOptions, options);
     this.positionIndex = 0;
     this.timeScale     = 0;
-    console.log(timeline.getChildren(false));
     this.positions     = timeline.getChildren(false).map((tl) => tl.startTime());
     this.positions.push(timeline.duration());
-    console.log(this.positions);
     document.addEventListener("keydown", (e) => {
       switch (e.keyCode) {
         // Right, space, enter, down
-        case 39: case 40: case 13: case 32:
+        case 39: case 40: case 13: case 32: case 34:
           this.next();
           break;
 
         // Left, up, backspace
-        case 37: case 38: case 8:
+        case 37: case 38: case 8: case 33:
           this.prev();
           break;
         default:
@@ -53,7 +51,7 @@ export class SlideDeck {
     // Tween the "time" (playhead) to the new position using a linear ease.
     // We could have used timeline.tweenTo() if we knew the timeline would always be a TimelineMax,
     // but this code makes it compatible with TimelineLite too.
-    console.log(this.positionIndex, this.timeline, this.positions[i], this.timeline.time());
+    // console.log(this.positionIndex, this.timeline, this.positions[i], this.timeline.time());
     TweenLite.to(this.timeline, Math.abs(this.positions[i] - this.timeline.time()), {
       ease: Linear.easeNone,
       onComplete: () => this.timeScale = 0,

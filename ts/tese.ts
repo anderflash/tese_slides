@@ -1,11 +1,168 @@
-//import * as katex from "katex";
+// import * as katex from "katex";
 import { SlideDeck } from "./slidedeck";
+
+class GraphCanvas {
+  private svg: SVGSVGElement;
+  constructor(svg: HTMLElement) {
+    this.svg = svg as any;
+  }
+
+  public circle(x: number, y: number) {
+    // this.svg.
+  }
+  public addNode(x: number, y: number): SVGCircleElement {
+    const node: SVGCircleElement = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    node.classList.add("node");
+    node.setAttribute("cx", x + "vmin");
+    node.setAttribute("cy", y + "vmin");
+    node.setAttribute("r" , 5 + "vmin");
+    this.svg.appendChild(node);
+    return node;
+  }
+  public addEdge(n1: SVGCircleElement, n2: SVGCircleElement, group?: SVGGElement): SVGLineElement {
+    const edge: SVGLineElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    const x1 = n1.cx.baseVal.value;
+    const x2 = n2.cx.baseVal.value;
+    const y1 = n1.cy.baseVal.value;
+    const y2 = n2.cy.baseVal.value;
+    edge.classList.add("edge");
+
+    // Obter o angulo
+    const angle =  Math.atan2(y2 - y1, x2 - x1);
+
+    // Desenhar
+    edge.x1.baseVal.value = x1 + Math.cos(angle) * n1.r.baseVal.value;
+    edge.x2.baseVal.value = x2 - Math.cos(angle) * n2.r.baseVal.value;
+    edge.y1.baseVal.value = y1 + Math.sin(angle) * n1.r.baseVal.value;
+    edge.y2.baseVal.value = y2 - Math.sin(angle) * n2.r.baseVal.value;
+    if (group) {
+      group.appendChild(edge);
+    } else {
+      this.svg.appendChild(edge);
+    }
+    
+
+    // Se tiver peso, insere
+    return edge;
+  }
+
+  public addArc(n1: SVGCircleElement, n2: SVGCircleElement, bend: number = 8, group?: SVGGElement): SVGPathElement {
+    const path: SVGPathElement = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    // const line = this.addEdge(n1, n2, group);
+
+    const x1 = n1.cx.baseVal.value;
+    const x2 = n2.cx.baseVal.value;
+    const y1 = n1.cy.baseVal.value;
+    const y2 = n2.cy.baseVal.value;
+    
+    // Obter o angulo
+    const angle =  Math.atan2(y2 - y1, x2 - x1);
+
+    const x3 = x1 + Math.cos(angle + 0.25) * n1.r.baseVal.value;
+    const x4 = x2 - Math.cos(angle - 0.25) * n2.r.baseVal.value;
+    const y3 = y1 + Math.sin(angle + 0.25) * n1.r.baseVal.value;
+    const y4 = y2 - Math.sin(angle - 0.25) * n2.r.baseVal.value;
+
+    const x5 = x3 + Math.cos(angle) * 16;
+    const x6 = x4 - Math.cos(angle) * 16;
+    const y5 = y3 + Math.sin(angle) * 16;
+    const y6 = y4 - Math.sin(angle) * 16;
+
+    const xv = x2 - x1;
+    const yv = y2 - y1;
+    const mag = Math.sqrt(xv * xv + yv * yv);
+
+    const xn = xv / mag * bend;
+    const yn = yv / mag * bend;
+
+    const xm = (x3 + x4) / 2;
+    const ym = (y3 + y4) / 2;
+
+    path.setAttribute("d",
+      "M" + x3        + " " + y3        +
+      "C" + (xm - yn) + " " + (ym + xn) + ", " +
+      " " + (xm - yn) + " " + (ym + xn) + ", " +
+      " " + x4        + " " + y4        + "");
+    path.classList.add("arc");
+    if (group) {
+      group.appendChild(path);
+    } else {
+      this.svg.appendChild(path);
+    }
+    // path.style.markerEnd = "url(#graph-picture-arrow)";
+    return path;
+  }
+
+  public addWeight(edge: SVGLineElement, value: string, group?: SVGGElement) {
+    const text: SVGTextElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.textContent = value;
+    text.classList.add("weight");
+    const element: SVGSVGElement = this.svg as any;
+    const x = element.createSVGLength();
+    const y = element.createSVGLength();
+    const xv = edge.x2.baseVal.value - edge.x1.baseVal.value;
+    const yv = edge.y2.baseVal.value - edge.y1.baseVal.value;
+    const mag = Math.sqrt(xv * xv + yv * yv);
+    if (group) {
+      group.appendChild(text);
+    }else {
+      this.svg.appendChild(text);
+    }
+    const textSize = text.getBBox();
+    x.value = (edge.x1.baseVal.value + edge.x2.baseVal.value) / 2 + yv / mag * 16 - textSize.width / 2;
+    y.value = (edge.y1.baseVal.value + edge.y2.baseVal.value) / 2 - xv / mag * 16 + textSize.height / 4;
+
+    text.x.baseVal.appendItem(x);
+    text.y.baseVal.appendItem(y);
+    return text;
+  }
+
+  public addArcWeight(edge: SVGPathElement, value: string, group?: SVGGElement) {
+    const text: SVGTextElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.textContent = value;
+    text.classList.add("weight");
+    const element: SVGSVGElement = this.svg as any;
+    const x = element.createSVGLength();
+    const y = element.createSVGLength();
+
+    const totalPathLength = edge.getTotalLength();
+    const step = totalPathLength / 100;
+    const xs: number = 0;
+    const ys: number = 0;
+    const p1 = edge.getPointAtLength(0);
+    const p2 = edge.getPointAtLength(totalPathLength);
+    const xv = p2.x - p1.x;
+    const yv = p2.y - p1.y;
+    const mag = Math.sqrt(xv * xv + yv * yv);
+    if (group) {
+      group.appendChild(text);
+    }else {
+      this.svg.appendChild(text);
+    }
+    const textSize = text.getBBox();
+    x.value = (p1.x + p2.x) / 2 - yv / mag * 16 - textSize.width / 2;
+    y.value = (p1.y + p2.y) / 2 + xv / mag * 16 + textSize.height / 4;
+
+    text.x.baseVal.appendItem(x);
+    text.y.baseVal.appendItem(y);
+    return text;
+  }
+}
 
 // let clone = (fx) => Object.assign({}, fx);
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-  katex.render("c = \\pm\\sqrt{a^2 + b^2}", document.getElementById("digital-image-formula"));
+  katex.render("I: \\mathcal{I}\\rightarrow\\mathcal{V}", document.getElementById("digital-image-formula"));
+  katex.render("\\mathcal{I}\\subset\\mathbb{Z}^n", document.getElementById("digital-image-formula-coordinate"));
+  katex.render("\\mathcal{V}\\subset\\mathbb{Z}^m", document.getElementById("digital-image-formula-color"));
+
+  katex.render("G = (\\xmlClass{graph-formula-vertices}{V},\\xmlClass{graph-formula-arcs}{E},\\xmlClass{graph-formula-weight}{\\omega})", document.getElementById("graph-formula"));
+  katex.render("G^T = (\\xmlClass{graph-formula-vertices}{V},\\xmlClass{graph-formula-arcs}{E^T},\\xmlClass{graph-formula-weight}{\\omega^T})", document.getElementById("graph-formula-reversed"));
+  katex.render("E\\subset V\\times V", document.getElementById("graph-formula-arc"));
+  katex.render("\\omega: E\\rightarrow \\mathbb{R}", document.getElementById("graph-formula-omega"));
+  
+
 
   const tl: TimelineMax = new TimelineMax();
 
@@ -84,15 +241,178 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#intro-type-reverse", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
   timelines[c].to("#intro-type-automatic", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
   timelines[c].to("#intro-type-interactive-continue", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
-  // timelines[c].to("#intro-type-manual", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
-
-
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-130vw, -100vh, -30vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
+  // Algumas soluções se baseiam em random walks
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-170vw, -100vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#related-rw", 0.9, {opacity: 0}, 0.9);
+  tl.add(timelines[c++]);
+
+  // Algumas soluções se baseiam em random walks
+  timelines[c].from("#related-superficies", 0.9, {opacity: 0});
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-180vw, -180vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  // Algumas soluções se baseiam em random walks
+  timelines[c].from("#related-gc", 0.9, {opacity: 0});
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-240vw, -180vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  // Interface
+  timelines[c].from("#related-hci", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+
+  // IFT
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-240vw, -110vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#related-ift", 0.5, {opacity: 0}, 0.9);
+  tl.add(timelines[c++]);
+
+  // Usuário Robô
+  timelines[c].from("#related-user-robot", 0.9, {opacity: 0});
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-320vw, -110vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Imagem Digital (função)
+  timelines[c].from("#digital-image", 0.9, {opacity: 0});
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-330vw, -150vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Imagem Digital (resultado)
+  timelines[c].to("#digital-image-arrow", 0.4, {opacity: 0});
+  timelines[c].to("#digital-image-coordinate-space", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#digital-image-result", 0.4, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Grafos
+  const graphPicture: HTMLElement = document.getElementById("graph-picture");
+  const graphPictureEdges: SVGGElement = document.querySelector("#graph-picture .edges") as any;
+  const graphPictureEdgesWeights: SVGGElement = document.querySelector("#graph-picture .edges-weights") as any;
+  const graphPictureArcs: SVGGElement = document.querySelector("#graph-picture .arcs") as any;
+  const graphPictureArcsWeights: SVGGElement = document.querySelector("#graph-picture .arcs-weights") as any;
+  const graphPictureArcsReversed: SVGGElement = document.querySelector("#graph-picture .arcs-reversed") as any;
+  const graphPictureArcsWeightsReversed: SVGGElement = document.querySelector("#graph-picture .arcs-weights-reversed") as any;
+  const graphCanvas = new GraphCanvas(graphPicture);
+  const n1 = graphCanvas.addNode(6 , 6);
+  const n2 = graphCanvas.addNode(26, 16);
+  const n3 = graphCanvas.addNode(46, 8);
+  const n4 = graphCanvas.addNode(32, 32);
+  const n5 = graphCanvas.addNode(13, 28);
+  // [n1,n2,n3,n4,n5].forEach(n => n.classList.add)
+  let e1 = graphCanvas.addEdge(n1, n2, graphPictureEdges);
+  let e2 = graphCanvas.addEdge(n2, n5, graphPictureEdges);
+  let e3 = graphCanvas.addEdge(n5, n1, graphPictureEdges);
+  let e4 = graphCanvas.addEdge(n2, n4, graphPictureEdges);
+  let e5 = graphCanvas.addEdge(n3, n4, graphPictureEdges);
+
+  graphCanvas.addWeight(e1, "10", graphPictureEdgesWeights);
+  graphCanvas.addWeight(e2, "8", graphPictureEdgesWeights);
+  graphCanvas.addWeight(e3, "7", graphPictureEdgesWeights);
+  graphCanvas.addWeight(e4, "5", graphPictureEdgesWeights);
+  graphCanvas.addWeight(e5, "7", graphPictureEdgesWeights);
+
+  // Adicionando arcos direcionados
+  let a1 = graphCanvas.addArc(n2, n1, 10, graphPictureArcs);
+  let a2 = graphCanvas.addArc(n2, n5, 10, graphPictureArcs);
+  let a3 = graphCanvas.addArc(n5, n1, 10, graphPictureArcs);
+  let a4 = graphCanvas.addArc(n2, n4, 10, graphPictureArcs);
+  let a5 = graphCanvas.addArc(n3, n4, 10, graphPictureArcs);
+  let a6 = graphCanvas.addArc(n4, n3, 10, graphPictureArcs);
+
+  graphCanvas.addArcWeight(a1, "10", graphPictureArcsWeights);
+  graphCanvas.addArcWeight(a2, "8", graphPictureArcsWeights);
+  graphCanvas.addArcWeight(a3, "7", graphPictureArcsWeights);
+  graphCanvas.addArcWeight(a4, "5", graphPictureArcsWeights);
+  graphCanvas.addArcWeight(a5, "7", graphPictureArcsWeights);
+  graphCanvas.addArcWeight(a6, "4", graphPictureArcsWeights);
+
+  // Adicionando arcos reversos
+  a1 = graphCanvas.addArc(n1, n2, 10, graphPictureArcsReversed);
+  a2 = graphCanvas.addArc(n5, n2, 10, graphPictureArcsReversed);
+  a3 = graphCanvas.addArc(n1, n5, 10, graphPictureArcsReversed);
+  a4 = graphCanvas.addArc(n4, n2, 10, graphPictureArcsReversed);
+  a5 = graphCanvas.addArc(n4, n3, 10, graphPictureArcsReversed);
+  a6 = graphCanvas.addArc(n3, n4, 10, graphPictureArcsReversed);
+
+  graphCanvas.addArcWeight(a1, "10", graphPictureArcsWeightsReversed);
+  graphCanvas.addArcWeight(a2, "8", graphPictureArcsWeightsReversed);
+  graphCanvas.addArcWeight(a3, "7", graphPictureArcsWeightsReversed);
+  graphCanvas.addArcWeight(a4, "5", graphPictureArcsWeightsReversed);
+  graphCanvas.addArcWeight(a5, "7", graphPictureArcsWeightsReversed);
+  graphCanvas.addArcWeight(a6, "4", graphPictureArcsWeightsReversed);
+
+
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-430vw, -150vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#graph", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Grafos (vertices)
+  timelines[c].from("#graph-picture .node", 0.4, {opacity: 0}, 0);
+  timelines[c].to(".mord.graph-formula-vertices", 0.4, {opacity: 1}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Grafos (arestas)
+  timelines[c].from("#graph-picture .edge", 0.4, {opacity: 0}, 0);
+  timelines[c].to(".mord.graph-formula-arcs", 0.4, {opacity: 1}, 0);
+  timelines[c].from("#graph-formula-arc", 0.4, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Grafos (pesos)
+  timelines[c].from("#graph-picture .weight", 0.4, {opacity: 0}, 0);
+  timelines[c].to(".mord.graph-formula-weight", 0.4, {opacity: 1}, 0);
+  timelines[c].from("#graph-formula-omega", 0.4, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Grafos (não orientado)
+  timelines[c].to("#graph-picture .edges", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#graph-picture .edges-weights", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-picture .arcs", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-picture .arcs-weights", 0.4, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#graph-picture .arcs", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#graph-picture .arcs-weights", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-picture .arcs-weights-reversed", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-picture .arcs-reversed", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-formula-reversed", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#graph-formula", 0.4, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-330vw, -250vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#graph-adjacency", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#adj4", 0.4, {opacity: 0}, 0.3);
+  timelines[c].from("#adj8", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#adj8", 0.4, {opacity: 0}, 0.3);
+  timelines[c].from("#adj6", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#adj6", 0.4, {opacity: 0}, 0.3);
+  timelines[c].from("#adj18", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#adj18", 0.4, {opacity: 0}, 0.3);
+  timelines[c].from("#adj26", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-430vw, -250vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#image-graph", 0.4, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Draw graph
+
+
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = -1;
+  const cur = 31;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
 });
+
+
+
+
+
