@@ -21,11 +21,22 @@ class GraphCanvas {
   }
   public addEdge(n1: SVGCircleElement, n2: SVGCircleElement, group?: SVGGElement): SVGLineElement {
     const edge: SVGLineElement = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    edge.classList.add("edge");
+    if (group) {
+      group.appendChild(edge);
+    } else {
+      this.svg.appendChild(edge);
+    }
+    this.updateEdge(edge, n1, n2);
+
+    // Se tiver peso, insere
+    return edge;
+  }
+  public updateEdge(edge: SVGLineElement, n1: SVGCircleElement, n2: SVGCircleElement){
     const x1 = n1.cx.baseVal.value;
     const x2 = n2.cx.baseVal.value;
     const y1 = n1.cy.baseVal.value;
     const y2 = n2.cy.baseVal.value;
-    edge.classList.add("edge");
 
     // Obter o angulo
     const angle =  Math.atan2(y2 - y1, x2 - x1);
@@ -35,15 +46,6 @@ class GraphCanvas {
     edge.x2.baseVal.value = x2 - Math.cos(angle) * n2.r.baseVal.value;
     edge.y1.baseVal.value = y1 + Math.sin(angle) * n1.r.baseVal.value;
     edge.y2.baseVal.value = y2 - Math.sin(angle) * n2.r.baseVal.value;
-    if (group) {
-      group.appendChild(edge);
-    } else {
-      this.svg.appendChild(edge);
-    }
-    
-
-    // Se tiver peso, insere
-    return edge;
   }
 
   public addArc(n1: SVGCircleElement, n2: SVGCircleElement, bend: number = 8, group?: SVGGElement): SVGPathElement {
@@ -522,12 +524,41 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // OPSF
+  graphCanvas = new GraphCanvas(document.getElementById("opsf-dynamic"));
+  let n: SVGCircleElement[] = [];
+  let e: SVGLineElement[] = [];
+
+  n.push(graphCanvas.addNode(10, 20));n[0].id = "opsf-n1";
+  n.push(graphCanvas.addNode(25, 20));n[1].id = "opsf-n2";
+  n.push(graphCanvas.addNode(40, 20));n[2].id = "opsf-n3";
+  n.push(graphCanvas.addNode(55, 10));n[3].id = "opsf-n4";
+  n.push(graphCanvas.addNode(55, 30));n[4].id = "opsf-n5";
+  e.push(graphCanvas.addEdge(n[0],n[1]));
+  e.push(graphCanvas.addEdge(n[1],n[2]));
+  e.push(graphCanvas.addEdge(n[2],n[3]));
+  e.push(graphCanvas.addEdge(n[2],n[4]));
+  
   timelines[c].to("#opsf-line1", 1.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
   timelines[c].to("#opsf-line2", 1.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
   timelines[c].to("#blocks", 1.9, {transform: "translate3d(-508vw, -468vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#opsf", 1, {opacity: 0}, 0.6);
 
   tl.add(timelines[c++]);
+
+  // Dynamic Programming
+  timelines[c].from("#opsf-dynamic", 0.2, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#opsf-n1", 0.2, {attr:{cx:"40vmin"}, onUpdate:()=>{
+    graphCanvas.updateEdge(e[0], n[0], n[1]);
+  }}, 0);
+  timelines[c].to("#opsf-n2", 0.2, {attr:{cx:"40vmin"}, onUpdate:()=>{
+    graphCanvas.updateEdge(e[1], n[1], n[2]);
+  }}, 0);
+  
+  tl.add(timelines[c++]);
+
+
 
   // IFT
   graphPicture = document.getElementById("ift-steps");
@@ -561,7 +592,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   }
 
   timelines[c].to("#ift-steps-pictures", 0.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-560vw, -510vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-590vw, -480vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#ift", 1, {opacity: 0}, 0.6);
   tl.add(timelines[c++]);
 
