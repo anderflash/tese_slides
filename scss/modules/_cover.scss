@@ -294,30 +294,140 @@
   width: 100vw;
 }
 #graph-segmentation-imgs{
-
+  display: flex;
+  justify-content: center;
+  align-content: center;  
 }
 #graph-segmentation-imgs1, #graph-segmentation-imgs2{
   display: flex;
   justify-content: center;
   align-content: center;  
+  position: relative;
 }
 
 #graph-segmentation {
   width: 100vw;
   transform: translate3d(430vw, 350vh, -20vmin);
   img{
-    width: 80vmin;
-    height: 80vmin;
+    width: 60vmin;
+    height: 60vmin;
     margin: 2vmin;
+  }
+  > h1, .formulas {
+    margin: 2vmin;
+    position: relative;
   }
   justify-content: center;
 }
-#graph-segmentation-object, #graph-segmentation-object2,
-#cut1, #cut2{
+
+#cut-formula, #family-formula, #energy-formula, #energy-formula2, #seed-formula{
   position: absolute;
+  top: 0;
+}
+#energy-formula2{
+  transform: translateY(10vh);
+}
+#graph-segmentation-object, #graph-segmentation-object2,
+#cut1, #cut2, #seed1, #seed2{
+  position: absolute;
+  left: 0;
+}
+#cut-title, #family-title, #energy-title, #seed-title{
+  position: absolute;
+  left: 0;
+}
+#seed-formula .katex{
+  font-size: 5vw;
 }
 
+#graph-segmentation-imgs3{
+  transform: translateX(110vw);
+  height: 60vmin;
+  left: 0px;
+  position: absolute;
+  .katex{
+    font-size: 20vw;
+  }
+  display: flex;
+  align-items: center;
+  #family-etcetera{
+    height: 40vmin;
+  }
+}
+#scc-formula .katex, #dcc-formula .katex, #connectivity-formula .katex, #connectivity-optimum-formula .katex{
+  font-size: 4vw;
+}
+#opsf-formula .katex, #floresta-formula .katex{
+  font-size: 5vw;
+}
 
+#graph-path {
+  transform: translate3d(380vw, 410vh, -20vmin);
+  width: 50vw;
+  img {
+    width: 40vw;
+  }
+}
+#graph-predecessor {
+  transform: translate3d(430vw, 450vh, -20vmin);
+  width: 60vw;
+  img {
+    width: 40vw;
+  }
+}
+#graph-spanning {
+  transform: translate3d(490vw, 450vh, -20vmin);
+  width: 50vw;
+  img {
+    width: 40vw;
+  }
+}
+#graph-component {
+  transform: translate3d(400vw, 510vh, -20vmin);
+  width: 60vw;
+  img {
+    width: 40vw;
+    position: absolute;
+  }
+}
+#graph-connectivity{
+  transform: translate3d(490vw, 510vh, -20vmin);
+  img {
+    width: 40vw;
+  }
+}
+#graph-connectivity-optimum-path{
+  width: 90vw;
+  h2, div{
+    //display: inline-block;
+  }
+}
+#connectivity-picture{
+  // transform: translate3d(40vw, -30vw, 0vmin);
+}
+#opsf{
+  transform: translate3d(560vw, 480vh, -20vmin);
+  width: 60vw;
+}
+#opsf-lines{
+  position: absolute;
+  transform: translate3d(530vw, 480vh, -20vmin);
+  height: 50vh;
+}
+#opsf-formula{
+
+}
+#floresta-completo{
+  display: inline-block;
+}
+#ift{
+  transform: translate3d(560vw, 520vh, -20vmin);
+  width: 60vw;
+}
+#ift-steps{
+  width: 60vw;
+  height: 60vw;
+}
 // #digital-image{
 //   width: 50vw;
 //   height: 50vh;

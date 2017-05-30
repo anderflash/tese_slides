@@ -161,8 +161,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("G^T = (\\xmlClass{graph-formula-vertices}{V},\\xmlClass{graph-formula-arcs}{E^T},\\xmlClass{graph-formula-weight}{\\omega^T})", document.getElementById("graph-formula-reversed"));
   katex.render("E\\subset V\\times V", document.getElementById("graph-formula-arc"));
   katex.render("\\omega: E\\rightarrow \\mathbb{R}", document.getElementById("graph-formula-omega"));
-  
 
+  katex.render("\\mathcal{O} = \\{v\\in V: L(v) = l_o\\}", document.getElementById("graph-segmentation-formula"));
+  katex.render("\\mathcal{C}(\\mathcal{O})=\\{\\langle s,t\\rangle\\in E: s\\in \\mathcal{O}\\text{ e } t\\notin\\mathcal{O}\\}", document.getElementById("cut-formula"));
+  katex.render("\\mathcal{X}=\\{\\mathcal{O}_1, \\mathcal{O}_2,\\ldots\\}", document.getElementById("family-formula"));
+  katex.render("\\varepsilon:\\mathcal{X}\\rightarrow\\mathbb{R}", document.getElementById("energy-formula"));
+  katex.render("\\varepsilon_\\infty(\\mathcal{O}) = \\max_{\\langle s,t\\rangle\\in\\mathcal{C}(\\mathcal{O})}\\omega(\\langle s,t\\rangle)", document.getElementById("energy-formula2"));
+  katex.render("\\mathcal{X}(\\mathcal{S}_o, \\mathcal{S}_b) = \\{\\mathcal{O}\\in \\mathcal{X}:\\mathcal{S}_o\\subseteq\\mathcal{O}\\subseteq V\\setminus\\mathcal{O}\\}", document.getElementById("seed-formula"));
+  katex.render("DCC_G(s) = \\{t \\in V: \\exists\\pi_{s\\leadsto t}\\in \\Pi(G)\\}", document.getElementById("dcc-formula"));
+  katex.render("SCC_G(s) = \\{t \\in V: t\\in DCC_G(s) \\text{ e } s\\in DCC_G(t)\\}", document.getElementById("scc-formula"));
+  katex.render("f:\\Pi\\rightarrow\\mathbb{R}", document.getElementById("connectivity-formula"));
+  katex.render("f(\\pi_t)\\geq f(\\pi'_t), \\forall\\pi'_t\\in\\Pi_t", document.getElementById("connectivity-optimum-formula"));
+  katex.render("\\forall t\\in V, \\pi_t^{Pr}", document.getElementById("opsf-formula"));
+  katex.render("Pr", document.getElementById("floresta-formula"));
+  katex.render("\\ldots", document.getElementById("family-etcetera"));
 
   const tl: TimelineMax = new TimelineMax();
 
@@ -285,14 +297,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Conceitos: Grafos
-  const graphPicture: HTMLElement = document.getElementById("graph-picture");
+  let graphPicture: HTMLElement = document.getElementById("graph-picture");
   const graphPictureEdges: SVGGElement = document.querySelector("#graph-picture .edges") as any;
   const graphPictureEdgesWeights: SVGGElement = document.querySelector("#graph-picture .edges-weights") as any;
   const graphPictureArcs: SVGGElement = document.querySelector("#graph-picture .arcs") as any;
   const graphPictureArcsWeights: SVGGElement = document.querySelector("#graph-picture .arcs-weights") as any;
   const graphPictureArcsReversed: SVGGElement = document.querySelector("#graph-picture .arcs-reversed") as any;
   const graphPictureArcsWeightsReversed: SVGGElement = document.querySelector("#graph-picture .arcs-weights-reversed") as any;
-  const graphCanvas = new GraphCanvas(graphPicture);
+  let graphCanvas = new GraphCanvas(graphPicture);
   const n1 = graphCanvas.addNode(6 , 6);
   const n2 = graphCanvas.addNode(26, 16);
   const n3 = graphCanvas.addNode(46, 8);
@@ -402,34 +414,160 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#image-graph", 0.4, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
-  // Draw graph
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-430vw, -330vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  // Graph Segmentation Image
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-430vw, -350vh, 20vmin)", ease: Power2.easeInOut}, 0);
   //timelines[c].to("#image-graph", 0.4, {opacity: 0}, 0.3);
   timelines[c].from("#graph-segmentation", 0.4, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
-  timelines[c].from("#graph-segmentation-object", 0.4, {opacity: 0}, 0.3);
-  timelines[c].to("#graph-segmentation-bitmap", 0.4, {opacity: 0}, 0.3);
-  timelines[c].from("#graph-segmentation-object2", 0.4, {opacity: 0}, 0.3);
-  timelines[c].to("#graph-segmentation-bitmap2", 0.4, {opacity: 0}, 0.3);
+  // Graph Partition
+  timelines[c].from("#graph-segmentation-object", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-segmentation-formula", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#graph-segmentation-bitmap", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#graph-segmentation-object2", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#graph-segmentation-bitmap2", 0.4, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
-  timelines[c].from("#cut1", 0.4, {opacity: 0}, 0.0);
-  timelines[c].from("#cut2", 0.4, {opacity: 0}, 0.0);
-  timelines[c].to("#graph-segmentation-object", 0.2, {opacity: 0}, 0.2);
-  timelines[c].to("#graph-segmentation-object2", 0.2, {opacity: 0}, 0.2);
+  // Cut
+  timelines[c].from("#cut1", 0.2, {opacity: 0}, 0.0);
+  timelines[c].from("#cut2", 0.2, {opacity: 0}, 0.0);
+  timelines[c].from("#cut-title", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#cut-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#graph-segmentation-title", 0.2, {opacity: 0}, 0.1);
+  timelines[c].to("#graph-segmentation-formula", 0.2, {opacity: 0}, 0.1);
+  timelines[c].to("#graph-segmentation-object", 0.2, {opacity: 0}, 1);
+  timelines[c].to("#graph-segmentation-object2", 0.2, {opacity: 0}, 1);
   tl.add(timelines[c++]);
 
+  // Family
+  timelines[c].from("#family-title", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#cut-title", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#graph-segmentation-imgs", 0.9, {transform: "scale(0.5,0.5) translateX(-10vw)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#cut-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#family-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#graph-segmentation-imgs3", 0.2, {opacity: 0}, 0.5);
+  tl.add(timelines[c++]);
 
+  // Energy
+  timelines[c].from("#energy-title", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#energy-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#energy-formula2", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#family-title", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#family-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#graph-segmentation-imgs", 0.9, {transform: "translateY(5vw)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#graph-segmentation-imgs3", 0.2, {opacity: 0}, 0);
+
+  tl.add(timelines[c++]);
+
+  // Seed
+  timelines[c].to("#energy-title", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#energy-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#energy-formula2", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#seed-title", 0.4, {opacity: 0}, 0);
+  timelines[c].from("#seed-formula", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#seed1", 0.2, {opacity: 0}, 0);
+  timelines[c].from("#seed2", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#cut1", 0.2, {opacity: 0}, 0.2);
+  timelines[c].to("#cut2", 0.2, {opacity: 0}, 0.2);
+
+  tl.add(timelines[c++]);
+
+  // Caminho
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-360vw, -390vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].from("#graph-path", 0.2, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
+
+  // Mapa de Predecessores
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-400vw, -430vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].from("#graph-predecessor", 0.2, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
+
+  // Floresta Geradora
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-450vw, -430vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].from("#graph-spanning", 0.2, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
+
+  // Components
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-398vw, -498vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].from("#graph-component", 0.2, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
+
+  // Tarjan Step 1
+  timelines[c].from("#tarjan-step1", 0.2, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  // Tarjan Step 2
+  timelines[c].from("#tarjan-step2", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#tarjan-step1", 0.2, {opacity: 0}, 0.1);
+  tl.add(timelines[c++]);
+  // Tarjan Step 3
+  timelines[c].from("#tarjan-step3", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#tarjan-step2", 0.2, {opacity: 0}, 0.1);
+  tl.add(timelines[c++]);
+  // Tarjan Step 4
+  timelines[c].from("#tarjan-step4", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#tarjan-step3", 0.2, {opacity: 0}, 0.1);
+  tl.add(timelines[c++]);
+  // Tarjan Step 5
+  timelines[c].from("#tarjan-step5", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#tarjan-step4", 0.2, {opacity: 0}, 0.1);
+  tl.add(timelines[c++]);
+  // Tarjan Step 6
+  timelines[c].from("#tarjan-step6", 0.2, {opacity: 0}, 0);
+  timelines[c].to("#tarjan-step5", 0.2, {opacity: 0}, 0.1);
+  tl.add(timelines[c++]);
+
+  // Connectivity
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-488vw, -498vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].from("#graph-connectivity", 0.2, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
+
+  // OPSF
+  timelines[c].to("#opsf-line1", 1.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
+  timelines[c].to("#opsf-line2", 1.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
+  timelines[c].to("#blocks", 1.9, {transform: "translate3d(-508vw, -468vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#opsf", 1, {opacity: 0}, 0.6);
+
+  tl.add(timelines[c++]);
+
+  // IFT
+  graphPicture = document.getElementById("ift-steps");
+  graphCanvas  = new GraphCanvas(graphPicture);
+
+  // adding nodes
+  const nodes: SVGCircleElement[] = [];
+  for (let y = 0; y < 4; y++) {
+    for (let x = 0; x < 4; x++) {
+      nodes.push(graphCanvas.addNode(x * 16 + 8, y * 16 + 8));
+    }
+  }
+
+  // adding edges
+  const neighbors = [[1, 0], [0, 1]];
+  const weights   = [[15, 15], [14, 13], [12, 17], [0, 5],
+                     [13, 0] , [16, 4] , [10, 13], [0, 16],
+                     [17, 15], [7, 11], [17, 15], [0, 17],
+                     [15, 0] , [11, 0], [13, 0], [0, 0]];
+  for (let y = 0; y < 4; y++) {
+    for (let x = 0; x < 4; x++) {
+      for (let i = 0; i < neighbors.length; i++) {
+        const nx = x + neighbors[i][0];
+        const ny = y + neighbors[i][1];
+        if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3) {
+          const e = graphCanvas.addEdge(nodes[ny * 4 + nx], nodes[y * 4 + x]);
+          graphCanvas.addWeight(e, weights[y * 4 + x][i].toString());
+        }
+      }
+    }
+  }
+
+  timelines[c].to("#ift-steps-pictures", 0.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-560vw, -510vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#ift", 1, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 32;
+  const cur = 50;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
 });
-
-
-
-
-

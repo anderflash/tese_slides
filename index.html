@@ -264,21 +264,96 @@
       </div>
     </div>
     <div id="graph-segmentation">
-      <h1>Segmentação</h1>
+      <h1>
+        <span id="graph-segmentation-title">Segmentação</span>
+        <span id="cut-title">Corte</span>
+        <span id="family-title">Família</span>
+        <span id="energy-title">Energia</span>
+        <span id="seed-title">Sementes</span>
+      </h1>
+      <div class="formulas">
+        <div id="graph-segmentation-formula"></div>
+        <div id="cut-formula"></div>
+        <div id="family-formula"></div>
+        <div id="energy-formula"></div>
+        <div id="energy-formula2"></div>
+        <div id="seed-formula"></div>
+      </div>
       <div id="graph-segmentation-imgs">
         <div id="graph-segmentation-imgs1">
           <img id="graph-segmentation-bitmap" src="assets/object_bitmap.svg">
           <img id="graph-segmentation-object" src="assets/object.svg">
           <img id="cut1" src="assets/cut.svg">
+          <img id="seed1" src="assets/seed.svg">
         </div>
         <div id="graph-segmentation-imgs2">
           <img id="graph-segmentation-bitmap2" src="assets/object2_bitmap.svg">
           <img id="graph-segmentation-object2" src="assets/object2.svg">
           <img id="cut2" src="assets/cut2.svg">
+          <img id="seed2" src="assets/seed2.svg">
+        </div>
+        <div id="graph-segmentation-imgs3">
+          <div id="family-etcetera"></div>
         </div>
       </div>
     </div>
-    <div id="energy"></div>
+    <div id="graph-path">
+      <h1>Caminho</h1>
+      <img src="assets/path.svg">
+    </div>
+
+    <div id="graph-predecessor">
+      <h1>Mapa de Predecessores</h1>
+      <img src="assets/predecessor_map.svg">
+    </div>
+
+    <div id="graph-spanning">
+      <h1>Floresta Geradora</h1>
+      <img src="assets/spanning_forest.svg">
+    </div>
+
+    <div id="graph-component">
+      <h1>Componentes</h1>
+      <div id="dcc-formula"></div>
+      <div id="scc-formula"></div>
+      <h2>Tarjan</h2>
+      <div id="tarjan-steps">
+        <img id="tarjan-step1" src="assets/tarjan_step1.svg">
+        <img id="tarjan-step2" src="assets/tarjan_step2.svg">
+        <img id="tarjan-step3" src="assets/tarjan_step3.svg">
+        <img id="tarjan-step4" src="assets/tarjan_step4.svg">
+        <img id="tarjan-step5" src="assets/tarjan_step5.svg">
+        <img id="tarjan-step6" src="assets/tarjan_step6.svg">
+      </div>
+    </div>
+    <svg id="opsf-lines">
+      <line id="opsf-line1" x1="0" x2="0" y1="0" y2="0" stroke="#555" stroke-width="0.5vmin" fill="none"></line>
+      <line id="opsf-line2" x1="0" x2="0" y1="250" y2="250" stroke="#555" stroke-width="0.5vmin" fill="none"></line>
+    </svg>
+    <div id="graph-connectivity">
+      <h1>Conexidade</h1>
+      <div id="connectivity-formula"></div>
+      <div id="graph-connectivity-optimum-path">
+        <h2>Caminho ótimo:</h2>
+        <div id="connectivity-optimum-formula"></div>
+      </div>
+      <img id="connectivity-picture" src="assets/connectivity1.svg">
+    </div>
+    <div id="opsf">
+      <h1>Floresta Geradora de Caminhos Ótimos (OPSF)</h1>
+      <h2>Floresta <span id="floresta-formula"></span></h2>
+      <span id="opsf-formula"></span><h2 id="floresta-completo">é ótimo completo</h2>
+    </div>
+    <div id="">
+      
+    </div>
+    <div id="ift">
+      <h1>Transformada Imagem-Floresta (IFT)</h1>
+      <svg id="ift-steps">
+        <g id="ift-steps-pictures"></g>
+      </svg>
+    </div>
+
   </div>
 
 <!-- <div class="slides">

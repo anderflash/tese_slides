@@ -1,0 +1,70 @@
+% tikzpic.tex
+\documentclass[crop,tikz]{standalone}% 'crop' is the default for v1.0, before it was 'preview'
+\usepackage{fourier}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\newcommand{\lan}{\langle}
+\newcommand{\ran}{\rangle}
+\usetikzlibrary{arrows,shapes}
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+\begin{document}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+\tikzstyle{vertex}=[circle,draw=black!65,fill=white,minimum size=15pt,inner sep=0pt]
+\tikzstyle{selected vertex} = [vertex, fill=red!24]
+\tikzstyle{edge} = [draw,thick,-]
+\tikzstyle{dedge} = [draw,thick,->]
+\tikzstyle{weight} = [font=\small]
+\tikzstyle{selected edge} = [draw,line width=5pt,-,red!50]
+\tikzstyle{ignored edge} = [draw,line width=5pt,-,black!20]
+
+\begin{tikzpicture}[scale=1.8, auto,swap]
+  % Draw nodes
+	\foreach \pos/\name/\label in {
+	  {(0,2)/a/a}, {(1,2)/b/b}, {(2,2)/c/c}, 
+		{(0,1)/d/d}, {(1,1)/e/e}, {(2,1)/f/f},
+	  {(0,0)/g/g}}{
+    \node[vertex] (\label) at \pos {$\name$};
+	}
+  % Draw edges
+	\foreach \source/ \dest /\weight/\weightd in {a/b/7/4, a/d/8/3, b/c/5/6, b/e/9/4}{
+    \path[dedge] (\source) edge [bend left=20] node[weight, inner sep=0.5] {$\weightd$} (\dest);
+    \path[dedge] (\dest) edge [bend left=20] node[outer sep=-9,weight] {$\weight$} (\source);
+  }
+
+  % Draw highlighted vertex
+  % \path node[selected vertex] at (a) {$a$};
+  % \path node[selected vertex] at (b) {$b$};
+  % \path node[selected vertex] at (e) {$e$};
+  % \path node[selected vertex] at (d) {$e$};
+  % \path node[vertex, fill=blue!50] at (g) {$g$};
+  \foreach \source/ \dest /\weight in {d/e/7, d/g/1, e/f/15}{
+    \path[dedge] (\dest) edge [bend left=20] node[weight, inner sep=0.5] {$\weight$} (\source);
+  }
+  \node[] at (1,0.15) {
+    $
+    \begin{aligned}
+    \color{red!80}f_{\min}(\pi_{d\leadsto b}) &\color{red!80}= 4\\[-0.5em]
+    \color{blue!80}f_{\min}(\pi_{f\leadsto b}) &\color{blue!80}= 9\\[-0.5em]
+    \color{green!80!black}f_{\min}(\pi_{c\leadsto b}) &\color{green!80!black}= 5\\
+    \end{aligned}
+    $
+  };
+  % \node[] at (0.5,2.2) {\scriptsize $\lan s,t\ran$};
+  % \node[] at (0.5,1.95) {\scriptsize $\lan t,s\ran$};
+  % \draw[->,thick,red] (0.5,2.2) -- (0.5,2.4) node[yshift=3]{\scriptsize arco};
+  % \draw[->,thick,red] (0,2.1) -- (0,2.3) node[yshift=5]{\scriptsize nó};
+  % \draw[->,thick,red] (0.5,1.75) -- (0.5,1.6) node[yshift=-3]{\scriptsize $\omega(\lan s,t\ran)$};
+
+  % Draw highlighted arcs
+	\begin{pgfonlayer}{background}
+	  \path[selected edge, bend left=25] (a.center) edge (b.center);
+    \path[selected edge, bend left=25] (d.center) edge (a.center);
+	  \path[selected edge, blue!30, bend left=25] (e.center) edge (b.center);
+    \path[selected edge, blue!30, bend left=25] (f.center) edge (e.center);
+    \path[selected edge, green!90!black, bend left=25] (c.center) edge (b.center);
+	\end{pgfonlayer}
+\end{tikzpicture}
+\end{document}
