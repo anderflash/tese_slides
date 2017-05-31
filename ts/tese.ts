@@ -1,5 +1,111 @@
 // import * as katex from "katex";
+import * as PriorityQueue from "js-priority-queue";
 import { SlideDeck } from "./slidedeck";
+
+
+function fmax(s: IFTNode, i: number): number {
+  return Math.max(s.connectivity, s.neighbors[i].connectivity);
+}
+function fmin(s: IFTNode, i: number): number {
+  return Math.min(s.connectivity, s.neighbors[i].connectivity);
+}
+
+interface IAtArc {
+  to: IAtNode;
+  weight: number;
+}
+interface IAtNode {
+  index: number;
+  arcs: IAtArc[];
+}
+interface IFTNode {
+  node: IAtNode;
+  connectivity: number;
+  root: IFTNode;
+  predecessor: IFTNode;
+  processed: boolean;
+  neighbors: IFTNode[];
+  inQueue: boolean;
+}
+
+interface IFTStep {
+  s: IFTNode;
+}
+
+type ConnectivityFunc = (s: IFTNode, i: number) => number;
+
+class AtGraph {
+  public nodes: IAtNode[];
+  constructor(n: number) {
+    this.nodes = new Array<IAtNode>(n);
+    for (let i = 0; i < n; i++) {
+      this.nodes[i] = {index: i, arcs: []};
+    }
+  }
+  public addEdge(n1: number, n2: number, weight: number) {
+    this.nodes[n1].arcs.push({to: this.nodes[n2], weight});
+  }
+}
+
+class IFT {
+  public nodes: IFTNode[];
+  public queue: PriorityQueue<IFTNode>;
+  public seeds: IFTNode[];
+  public f: ConnectivityFunc;
+
+  constructor(graph: AtGraph, seeds: number[], f: ConnectivityFunc) {
+    this.nodes = [];
+    this.queue = new PriorityQueue<IFTNode>({ comparator: (a, b) => b.connectivity - a.connectivity});
+    for (let i = 0; i < graph.nodes.length; i++) {
+      // Fill IFT nodes based on Graph nodes
+      this.nodes[i] = {node: graph.nodes[i], connectivity: 0, root: this.nodes[i], predecessor: null, processed: false, neighbors: [], inQueue: false};
+      // Fill neighbors of IFT nodes based on Graph neighbors
+      graph.nodes[i].arcs.forEach((arc) => this.nodes[i].neighbors.push(this.nodes[arc.to.index]));
+    }
+    this.seeds = this.getNodes(seeds);
+    this.f = f;
+  }
+
+  public reset() {
+    // Reset nodes
+    this.nodes.forEach((node) => {
+      node.connectivity = -Infinity;
+      node.predecessor = null;
+      node.root = null;
+      node.processed = false;
+      node.inQueue = false;
+    });
+
+    // Reset seeds
+    this.seeds.forEach((seed) => {
+      seed.connectivity = Infinity;
+      this.queue.queue(seed);
+    });
+  }
+  public getNodes(indices: number[]): IFTNode[] {
+    const nodes: IFTNode[] = [];
+    indices.forEach((i) => nodes.push(this.nodes[i]));
+    return nodes;
+  }
+
+  public step(): IFTStep {
+    const s = this.queue.dequeue();
+    s.processed = true;
+    s.neighbors.forEach((t, i) => {
+      if (!t.processed) {
+        const best = this.f(s, i);
+        if (best > t.connectivity) {
+          t.predecessor = s;
+          t.connectivity = best;
+          t.root = s.root;
+          // Atualizar a fila
+          // this.queue.
+        }
+      }
+    });
+    return {s};
+  }
+}
 
 class GraphCanvas {
   private svg: SVGSVGElement;
@@ -177,12 +283,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("\\forall t\\in V, \\pi_t^{Pr}", document.getElementById("opsf-formula"));
   katex.render("Pr", document.getElementById("floresta-formula"));
   katex.render("\\ldots", document.getElementById("family-etcetera"));
+  katex.render("f(\\pi_a)", document.getElementById("opsf-subpath-conn-formula"));
+  katex.render("a", document.getElementById("opsf-subpath-conn-formula-before"));
+  katex.render("f^\\male(\\langle t\\rangle) = \\begin{cases}\\infty & \\text{ se } t \\in \\mathcal{S}_o \\cup \\mathcal{S}_b \\\\-\\infty & \\text{c.c}\\end{cases}", document.getElementById("oift-formula"));
+  katex.render("f^\\male(\\pi_{r\\leadsto s}\\cdot\\langle s,t\\rangle) = \\begin{cases}\\min\\{f^\\male(\\pi_{r\\leadsto s}), \\xmlClass{oift-tie-zone}{2\\times} \\omega(\\langle s,t\\rangle)\\} & \\text{se } r \\in \\mathcal{S}_o \\\\\\min\\{f^\\male(\\pi_{r\\leadsto s}), \\xmlClass{oift-tie-zone}{2\\times} \\omega(\\langle \\xmlClass{oift-reversed}{t,s}\\rangle) \\xmlClass{oift-tie-zone}{+ 1}\\} & \\text{c.c}\\end{cases}", document.getElementById("oift-formula2"));
+  katex.render("\\varepsilon_\\infty", document.getElementById("oift-formula-energy"));
+  katex.render("\\varepsilon^\\downarrow_\\infty=\\min_{\\mathcal{O}\\in\\mathcal{X}(\\mathcal{S}_o,\\mathcal{S}_b)}\\{\\varepsilon_\\infty(\\mathcal{O})\\}", document.getElementById("oift-formula-energy2"));
 
+  const sosb: string = "\\mathcal{S}_o,\\mathcal{S}_b";
+  const xinfsosb: string = "\\mathcal{X}^\\downarrow_\\infty(" + sosb + ")";
+  const obj: string = "\\mathcal{O}";
+  const xsosb: string = "\\mathcal{X}(" + sosb + ")";
+  const einf: string = "\\varepsilon_\\infty";
+  const einfdown: string = einf + "^\\downarrow";
+
+  katex.render(xinfsosb + " = \\{" + obj + " \\in " + xsosb + ": " + einf + "(" + obj + ") = " + einfdown + "\\}", document.getElementById("oift-formula-energy3"));
+  katex.render("\\mathcal{A}_{OIFT}(\\mathcal{S}_o,\\mathcal{S}_b) \\in \\mathcal{X}^\\downarrow_\\infty(\\mathcal{S}_o,\\mathcal{S}_b)", document.getElementById("oift-formula-energy4"));
   const tl: TimelineMax = new TimelineMax();
 
   // Criando todas as timelines
-  const timelines: TimelineMax[] = new Array<TimelineMax>(70);
-  for (let i = 0; i < 70; i++) {
+  const nslides: number = 100;
+  const timelines: TimelineMax[] = new Array<TimelineMax>(nslides);
+  for (let i = 0; i < nslides; i++) {
     timelines[i] = new TimelineMax();
   }
 
@@ -528,15 +650,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let n: SVGCircleElement[] = [];
   let e: SVGLineElement[] = [];
 
-  n.push(graphCanvas.addNode(10, 20));n[0].id = "opsf-n1";
-  n.push(graphCanvas.addNode(25, 20));n[1].id = "opsf-n2";
-  n.push(graphCanvas.addNode(40, 20));n[2].id = "opsf-n3";
-  n.push(graphCanvas.addNode(55, 10));n[3].id = "opsf-n4";
-  n.push(graphCanvas.addNode(55, 30));n[4].id = "opsf-n5";
-  e.push(graphCanvas.addEdge(n[0],n[1]));
-  e.push(graphCanvas.addEdge(n[1],n[2]));
-  e.push(graphCanvas.addEdge(n[2],n[3]));
-  e.push(graphCanvas.addEdge(n[2],n[4]));
+  n.push(graphCanvas.addNode(10, 20)); n[0].id = "opsf-n1";
+  n.push(graphCanvas.addNode(25, 20)); n[1].id = "opsf-n2";
+  n.push(graphCanvas.addNode(40, 20)); n[2].id = "opsf-n3";
+  n.push(graphCanvas.addNode(55, 10)); n[3].id = "opsf-n4";
+  n.push(graphCanvas.addNode(55, 30)); n[4].id = "opsf-n5";
+  e.push(graphCanvas.addEdge(n[0], n[1])); e[0].id = "opsf-e1";
+  e.push(graphCanvas.addEdge(n[1], n[2])); e[1].id = "opsf-e2";
+  e.push(graphCanvas.addEdge(n[2], n[3])); e[2].id = "opsf-e3";
+  e.push(graphCanvas.addEdge(n[2], n[4])); e[3].id = "opsf-e4";
   
   timelines[c].to("#opsf-line1", 1.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
   timelines[c].to("#opsf-line2", 1.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
@@ -546,58 +668,145 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Dynamic Programming
+  timelines[c].from("#opsf-smooth", 0.2, {opacity: 0}, 0);
   timelines[c].from("#opsf-dynamic", 0.2, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
-  timelines[c].to("#opsf-n1", 0.2, {attr:{cx:"40vmin"}, onUpdate:()=>{
+  let n12Intersected: boolean = false;
+  timelines[c].to("#opsf-n1", 0.4, {attr: {cx: "40vmin"}, onUpdate: () => {
     graphCanvas.updateEdge(e[0], n[0], n[1]);
-  }}, 0);
-  timelines[c].to("#opsf-n2", 0.2, {attr:{cx:"40vmin"}, onUpdate:()=>{
+  }, ease: Power0.easeNone}, 0);
+  timelines[c].to("#opsf-n2", 0.4, {attr: {cx: "40vmin"}, onUpdate: () => {
+    graphCanvas.updateEdge(e[0], n[0], n[1]);
     graphCanvas.updateEdge(e[1], n[1], n[2]);
-  }}, 0);
+  }, ease: Power0.easeNone}, 0);
+  let l1: SVGLineElement = document.getElementById("opsf-conn1") as any;
+  let l2: SVGLineElement = document.getElementById("opsf-conn2") as any;
+  let ex = e[2].x2.baseVal.value;
+  let ey = e[2].y2.baseVal.value;
+  l1.x1.baseVal.value = e[2].x1.baseVal.value;
+  l1.x2.baseVal.value = e[2].x1.baseVal.value;
+  l1.y1.baseVal.value = e[2].y1.baseVal.value;
+  l1.y2.baseVal.value = e[2].y1.baseVal.value;
+
+  l2.x1.baseVal.value = e[3].x1.baseVal.value;
+  l2.x2.baseVal.value = e[3].x1.baseVal.value;
+  l2.y1.baseVal.value = e[3].y1.baseVal.value;
+  l2.y2.baseVal.value = e[3].y1.baseVal.value;
+  console.log(e[2].x1.baseVal.value);
+  console.log(e[2].y1.baseVal.value);
+  console.log(e[2].x2.baseVal.value);
+  console.log(e[2].y2.baseVal.value);
+
+  timelines[c].from("#opsf-subpath-conn-formula", 0.2, {opacity: 0, ease: Power0.easeNone}, 0.2);
+  timelines[c].to("#opsf-e1", 0.2, {opacity: 0, ease: Power0.easeNone}, 0);
+  timelines[c].to("#opsf-e2", 0.2, {opacity: 0, ease: Power0.easeNone}, 0);
+  timelines[c].to("#opsf-e3", 0.5, {css: {stroke: "red"}}, 0.8);
+  timelines[c].to("#opsf-e4", 0.5, {css: {stroke: "red"}}, 0.8);
+  timelines[c].to("#opsf-conn1", 0.5, {attr: {x2: ex, y2: ey}}, 0.8);
+  timelines[c].to("#opsf-conn2", 0.5, {attr: {x2: e[3].x2.baseVal.value, y2: e[3].y2.baseVal.value}}, 0.8);
+  timelines[c].to("#opsf-n1", 0.5, {opacity: 0}, 0.2);
+  timelines[c].to("#opsf-n2", 0.5, {opacity: 0}, 0.2);
+  timelines[c].to("#opsf-n3", 0.5, {css: {stroke: "red"}}, 0.2);
+  //timelines[c].to("#opsf-subpath-conn-formula-before", 0.2, {opacity: 0}, 0.2);
   
   tl.add(timelines[c++]);
 
 
 
   // IFT
-  graphPicture = document.getElementById("ift-steps");
-  graphCanvas  = new GraphCanvas(graphPicture);
+  // graphPicture = document.getElementById("ift-steps");
+  // graphCanvas  = new GraphCanvas(graphPicture);
 
-  // adding nodes
-  const nodes: SVGCircleElement[] = [];
-  for (let y = 0; y < 4; y++) {
-    for (let x = 0; x < 4; x++) {
-      nodes.push(graphCanvas.addNode(x * 16 + 8, y * 16 + 8));
-    }
-  }
+  // // adding nodes
+  // let offsetx = 8;
+  // let offsety = 30;
+  // const nodes: SVGCircleElement[] = [];
+  // for (let y = 0; y < 4; y++) {
+  //   for (let x = 0; x < 4; x++) {
+  //     nodes.push(graphCanvas.addNode(x * 16 + offsetx, y * 16 + offsety));
+  //   }
+  // }
 
-  // adding edges
-  const neighbors = [[1, 0], [0, 1]];
-  const weights   = [[15, 15], [14, 13], [12, 17], [0, 5],
-                     [13, 0] , [16, 4] , [10, 13], [0, 16],
-                     [17, 15], [7, 11], [17, 15], [0, 17],
-                     [15, 0] , [11, 0], [13, 0], [0, 0]];
-  for (let y = 0; y < 4; y++) {
-    for (let x = 0; x < 4; x++) {
-      for (let i = 0; i < neighbors.length; i++) {
-        const nx = x + neighbors[i][0];
-        const ny = y + neighbors[i][1];
-        if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3) {
-          const e = graphCanvas.addEdge(nodes[ny * 4 + nx], nodes[y * 4 + x]);
-          graphCanvas.addWeight(e, weights[y * 4 + x][i].toString());
-        }
-      }
-    }
-  }
+  // // adding edges
+  // const neighbors = [[1, 0], [0, 1]];
+  // const weights   = [[15, 15], [14, 13], [12, 17], [0, 5],
+  //                    [13, 0] , [16, 4] , [10, 13], [0, 16],
+  //                    [17, 15], [7, 11], [17, 15], [0, 17],
+  //                    [15, 0] , [11, 0], [13, 0], [0, 0]];
 
-  timelines[c].to("#ift-steps-pictures", 0.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-590vw, -480vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  // for (let y = 0; y < 4; y++) {
+  //   for (let x = 0; x < 4; x++) {
+  //     for (let i = 0; i < neighbors.length; i++) {
+  //       const nx = x + neighbors[i][0];
+  //       const ny = y + neighbors[i][1];
+  //       if (nx >= 0 && nx <= 3 && ny >= 0 && ny <= 3) {
+  //         const e = graphCanvas.addEdge(nodes[ny * 4 + nx], nodes[y * 4 + x]);
+  //         graphCanvas.addWeight(e, weights[y * 4 + x][i].toString());
+  //       }
+  //     }
+  //   }
+  // }
+
+  // timelines[c].to("#ift-steps-pictures", 0.9, {attr: {x2: 200, y2: 80}, ease: Power0.easeNone}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-630vw, -510vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#ift", 1, {opacity: 0}, 0.6);
   tl.add(timelines[c++]);
 
+  for (let i = 0; i < 15; i++) {
+    timelines[c].from("#ift-step-" + (i + 2), 0.5, {opacity: 0}, 0);
+    timelines[c].to("#ift-step-" + (i + 1), 0.5, {opacity: 0}, 0.2);
+    tl.add(timelines[c++]);
+  }
+
+  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-680vw, -510vh, 60vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#border-polarity", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-680vw, -550vh, 60vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#shape-constraints", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-680vw, -590vh, 60vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#connectedness", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // OIFT
+  timelines[c].to("#blocks", 0.8, {transform: "translate3d(-810vw, -550vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#oift", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // OIFT tie zones
+  timelines[c].to(".mord.oift-tie-zone, .mbin.oift-tie-zone", 0.4, {color: "red"}, 0);
+  tl.add(timelines[c++]);
+  // OIFT reversed arcs
+  timelines[c].to(".mord.oift-tie-zone, .mbin.oift-tie-zone", 0.4, {color: "black"}, 0);
+  timelines[c].to(".mord.oift-reversed, .mbin.oift-reversed", 0.4, {color: "red"}, 0);
+  tl.add(timelines[c++]);
+
+  // OIFT energy
+  timelines[c].to(".mord.oift-reversed, .mbin.oift-reversed", 0.4, {color: "black"}, 0);
+  timelines[c].from("#oift-formula-energy2", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // OIFT energy
+  // timelines[c].to("#oift-formula-energy2", 0.4, {opacity: 0}, 0.2);
+  timelines[c].from("#oift-formula-energy3", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // OIFT energy
+  // timelines[c].to("#oift-formula-energy3", 0.4, {opacity: 0}, 0.2);
+  timelines[c].from("#oift-formula-energy4", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // ORFC
+  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-810vw, -610vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#orfc", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 50;
+  const cur = 74;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);

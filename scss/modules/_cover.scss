@@ -1,4 +1,24 @@
 #cover{
+  padding: 2vmin;
+  h2{
+    margin-top: 2vmin;
+  }
+  #cover-title {
+    margin-top: 5vmin;
+    margin-bottom: 5vmin;
+  }
+  #cover-author{
+    margin-top: 10vmin;
+    margin-bottom: 10vmin;
+    font-weight: 500;
+  }
+
+  #cover-title, #cover-author, #cover-date, #cover-institute, #cover-university{
+    text-align: center;
+  }
+  #cover-date{
+    margin-top: 5vmin;
+  }
 }
 
 // Segmentation
@@ -424,13 +444,74 @@
   width: 60vw;
   height: 30vw;
 }
+#opsf-subpath-conn-formula-before {
+}
+#opsf-subpath-names{
+  position: relative;
+}
+#opsf-subpath-conn-formula .katex{
+  font-size: 7vmin;
+  color: red;
+}
+#opsf-smooth{
+  margin-top: 3vmin;
+  margin-bottom: -5vmin;
+}
 #ift{
   transform: translate3d(630vw, 500vh, -20vmin);
   width: 60vw;
 }
 #ift-steps{
   width: 60vw;
-  height: 60vw;
+  height: 80vw;
+}
+#ift-pictures{
+  position: relative;
+  img{
+    position: absolute;
+    width: 100vmin;
+    height: 100vmin;
+  }
+}
+#border-polarity{
+  transform: translate3d(683vw, 512vh, -60vmin);
+  width: 100vw;
+  img {
+    width: 40vw;
+  }
+}
+#shape-constraints{
+  transform: translate3d(683vw, 560vh, -60vmin);
+  width: 100vw;
+  img {
+    width: 40vw;
+  }
+}
+#connectedness{
+  transform: translate3d(683vw, 620vh, -60vmin);
+  width: 100vw;
+  img {
+    width: 30vw;
+  }
+}
+
+#oift{
+  transform: translate3d(800vw, 540vh, -20vmin);
+  width: 110vw;
+  .katex{
+    font-size: 5vmin;
+  }
+}
+
+#oift-formula-energy, #oift h2{
+  display: inline;
+}
+#orfc{
+  transform: translate3d(800vw, 610vh, -20vmin);
+  width: 110vw;
+  .katex{
+    font-size: 5vmin;
+  }
 }
 // #digital-image{
 //   width: 50vw;

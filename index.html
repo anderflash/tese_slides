@@ -16,11 +16,11 @@
 
     <!-- Capa -->
     <div id="cover" class="fullscreen">
-      <h1>Interactive 3D Segmentation Repair with Image-Foresting Transform, Supervoxels and Seed Robustness</h1>
-      <h2>Anderson Tavares</h2>
-      <h2>Instituto de Matemática e Estatística</h2>
-      <h2>Universidade de São Paulo</h2>
-      <h2>Junho de 2017</h2>
+      <h1 id="cover-title">Interactive 3D Segmentation Repair with Image-Foresting Transform, Supervoxels and Seed Robustness</h1>
+      <h2 id="cover-author">Anderson Tavares</h2>
+      <h2 id="cover-institute">Instituto de Matemática e Estatística</h2>
+      <h2 id="cover-university">Universidade de São Paulo</h2>
+      <h2 id="cover-date">Junho de 2017</h2>
     </div>
 
     <!-- Sobre segmentação -->
@@ -156,8 +156,7 @@
        viewBox="0 0 154.62811 97.690529"
        height="97.690529mm"
        width="154.62811mm">
-      <defs
-         id="defs5844">
+      <defs id="defs5844">
         <marker
            style="overflow:visible"
            id="marker6701"
@@ -343,21 +342,82 @@
       <h1>Floresta Geradora de Caminhos Ótimos (OPSF)</h1>
       <h2>Floresta <span id="floresta-formula"></span></h2>
       <span id="opsf-formula"></span><h2 id="floresta-completo">é ótimo completo</h2>
-
+      <h2 id="opsf-smooth">Função Suave</h2>
       <svg id="opsf-dynamic">
-        
+        <line id="opsf-conn1" x1="0" x2="0" y1="0" y2="0" stroke="rgba(255,0,0,0.5)" stroke-width="1.5vmin" fill="none"></line>
+        <line id="opsf-conn2" x1="0" x2="0" y1="0" y2="0" stroke="rgba(255,0,0,0.5)" stroke-width="1.5vmin" fill="none"></line>
+        <foreignObject x="37.5vmin" y="15vmin">
+          <div id="opsf-subpath-conn-formula-before"></div>
+        </foreignObject>
+
+        <foreignObject x="32vmin" y="25vmin">
+          <div id="opsf-subpath-conn-formula"></div>
+        </foreignObject>
+
       </svg>
+
     </div>
     <div id="">
       
     </div>
     <div id="ift">
       <h1>Transformada Imagem-Floresta (IFT)</h1>
-      <svg id="ift-steps">
-        <g id="ift-steps-pictures"></g>
-      </svg>
+      <div id="ift-pictures">
+        <img id="ift-step-1" src="assets/ift_step_1.svg">
+        <img id="ift-step-2" src="assets/ift_step_2.svg">
+        <img id="ift-step-3" src="assets/ift_step_3.svg">
+        <img id="ift-step-4" src="assets/ift_step_4.svg">
+        <img id="ift-step-5" src="assets/ift_step_5.svg">
+        <img id="ift-step-6" src="assets/ift_step_6.svg">
+        <img id="ift-step-7" src="assets/ift_step_7.svg">
+        <img id="ift-step-8" src="assets/ift_step_8.svg">
+        <img id="ift-step-9" src="assets/ift_step_9.svg">
+        <img id="ift-step-10" src="assets/ift_step_10.svg">
+        <img id="ift-step-11" src="assets/ift_step_11.svg">
+        <img id="ift-step-12" src="assets/ift_step_12.svg">
+        <img id="ift-step-13" src="assets/ift_step_13.svg">
+        <img id="ift-step-14" src="assets/ift_step_14.svg">
+        <img id="ift-step-15" src="assets/ift_step_15.svg">
+        <img id="ift-step-16" src="assets/ift_step_16.svg">
+      </div>
     </div>
 
+    <div id="border-polarity">
+      <h1>Polaridade de borda</h1>
+      <img src="assets/oift_polarity1.png">
+      <img src="assets/oift_polarity2.png">
+    </div>
+
+    <div id="shape-constraints">
+      <h1>Restrições de forma</h1>
+      <img src="assets/shapeconstraints1.png">
+      <img src="assets/shapeconstraints2.png">
+    </div>
+
+    <div id="connectedness">
+      <h1>Conexidade</h1>
+      <img src="assets/connectedness1.png">
+      <img src="assets/connectedness2.png">
+      <img src="assets/connectedness3.png">
+    </div>
+
+    <div id="oift">
+      <h1>Oriented Image-Foresting Transform (OIFT)</h1>
+      <div id="oift-formula"></div>
+      <div id="oift-formula2"></div>
+      <div>
+        <div id="oift-formula-energy"></div><h2>-minimizador</h2>
+      </div>
+      <div id="oift-formula-energy2"></div>
+      <div id="oift-formula-energy3"></div>
+      <div id="oift-formula-energy4"></div>
+    </div>
+
+    <div id="orfc">
+      <h1>Oriented Relative Fuzzy Connectedness (ORFC)</h1>
+      <div id="orfc-formula"></div>
+      <div id="orfc-formula2"></div>
+    </div>
   </div>
 
 <!-- <div class="slides">
