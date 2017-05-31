@@ -506,13 +506,93 @@
 #oift-formula-energy, #oift h2{
   display: inline;
 }
+
+#oift-formula-energy2, #oift-formula-energy3, #oift-formula-energy4 {
+  margin-top: 4vmin;
+}
 #orfc{
-  transform: translate3d(800vw, 610vh, -20vmin);
-  width: 110vw;
+  transform: translate3d(800vw, 620vh, -20vmin);
+  width: 120vw;
   .katex{
     font-size: 5vmin;
   }
 }
+#orfc-formula{
+  margin-top: 3vmin;
+}
+#orfc-algo{
+  font-size: 4vmin;
+  table {
+    margin-top: 4vmin;
+  }
+  th{
+    //font-size: 5vmin;
+    font-weight: 500;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+  }
+  td{
+    padding: 1vmin;
+  }
+  td:nth-child(1) {  
+    width: 7vmin;
+  }
+}
+#orfc-steps{
+  position: relative;
+  img {
+    position: absolute;
+    width: 60vw;
+  }
+}
+#orfc-algo-highlight{
+  width: 118vw;
+  background: rgba(255,0,0,0.2);
+  height: 8vmin;
+  position: absolute;
+  z-index: -1;
+  transform: translateY(7vmin);
+}
+
+#orfc-energy{
+  transform: translate(80vw,10vh);
+}
+#orfc-energy2{
+  transform: translate(72vw,15vh);
+}
+#orfc-energy-formula, #orfc-energy h2{
+  display: inline;
+}
+#seed-robustness {
+  transform: translate3d(924vw, 670vh, -20vmin);
+  width: 100vw;
+}
+#segmentation-repair {
+  transform: translate3d(944vw, 565vh, 0vmin);
+  width: 100vw;
+}
+#redundancy-analysis{
+  transform: translate3d(1044vw, 465vh, 0vmin);
+  width: 100vw;
+}
+#ift-slic{
+  transform: translate3d(1044vw, 565vh, 0vmin);
+  width: 100vw;
+}
+#publications {
+  transform: translate3d(1144vw, 565vh, 0vmin);
+  width: 100vw;
+}
+#thanks {
+  transform: translate3d(1140vw, 660vh, 0vmin);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
 // #digital-image{
 //   width: 50vw;
 //   height: 50vh;

@@ -291,14 +291,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("\\varepsilon^\\downarrow_\\infty=\\min_{\\mathcal{O}\\in\\mathcal{X}(\\mathcal{S}_o,\\mathcal{S}_b)}\\{\\varepsilon_\\infty(\\mathcal{O})\\}", document.getElementById("oift-formula-energy2"));
 
   const sosb: string = "\\mathcal{S}_o,\\mathcal{S}_b";
-  const xinfsosb: string = "\\mathcal{X}^\\downarrow_\\infty(" + sosb + ")";
+  const sisb: string = "\\{s_i\\},\\mathcal{S}_b";
+  const xinf: string = "\\mathcal{X}^\\downarrow_\\infty";
+  const xinfsosb: string = xinf + "(" + sosb + ")";
+  const xinfsisb: string = xinf + "(" + sisb + ")";
   const obj: string = "\\mathcal{O}";
   const xsosb: string = "\\mathcal{X}(" + sosb + ")";
   const einf: string = "\\varepsilon_\\infty";
   const einfdown: string = einf + "^\\downarrow";
+  const aorfc: string = "\\mathcal{A}_{ORFC}";
+  const aorfcsosb: string = aorfc + "(" + sosb + ")";
+  const aorfcsisb: string = aorfc + "(" + sisb + ")";
+  const fminr: string = "f_{min}^\\longleftarrow";
 
   katex.render(xinfsosb + " = \\{" + obj + " \\in " + xsosb + ": " + einf + "(" + obj + ") = " + einfdown + "\\}", document.getElementById("oift-formula-energy3"));
   katex.render("\\mathcal{A}_{OIFT}(\\mathcal{S}_o,\\mathcal{S}_b) \\in \\mathcal{X}^\\downarrow_\\infty(\\mathcal{S}_o,\\mathcal{S}_b)", document.getElementById("oift-formula-energy4"));
+
+  katex.render(aorfcsosb + " = \\underset{s_i\\in\\mathcal{S}_o}{\\bigcup} \\left(" + aorfcsisb + " = \\underset{\\mathcal{O}\\in" + xinfsisb + "}{\\arg\\min} |\\mathcal{O}| \\right)", document.getElementById("orfc-formula"));
+  katex.render("\\begin{aligned}f_{min}^\\longleftarrow(\\langle t\\rangle) &= \\begin{cases}\\infty & \\text{se } t \\in \\mathcal{S}_b \\\\ -\\infty & \\text{c.c.} \\end{cases} \\\\ f_{min}^\\longleftarrow(\\pi_s\\cdot\\langle s,t\\rangle) &=\\min\\{f_{min}^\\longleftarrow(\\pi_s),\\omega(\\langle t,s\\rangle)\\}\\end{aligned}", document.getElementById("orfc-formula2"));  
+  katex.render(aorfcsisb, document.getElementById("orfc-algo-title"));
+  katex.render("C_{opt}",document.getElementById("orfc-algo-conn"));
+  katex.render(fminr,document.getElementById("orfc-algo-fmin"));
+  katex.render("G_{>}",document.getElementById("orfc-algo-gm1"));
+  katex.render("G = (V, E, \\omega)",document.getElementById("orfc-algo-g"));
+  katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\omega(\\langle s,t\\rangle) > C_{opt}(s_i)\\}",document.getElementById("orfc-algo-el"));
+  katex.render("DCC_{G_{>}}(s_i)", document.getElementById("orfc-algo-dcc"));
+  katex.render(einf,document.getElementById("orfc-energy-formula"));
+  katex.render(aorfcsosb + " \\in " + xinfsosb,document.getElementById("orfc-energy2"));
+
   const tl: TimelineMax = new TimelineMax();
 
   // Criando todas as timelines
@@ -800,13 +820,67 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // ORFC
-  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-810vw, -610vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-810vw, -620vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#orfc", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#orfc-formula2", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // 
+  timelines[c].from("#orfc-algo", 0.4, {opacity: 0}, 0.2);
+  timelines[c].to("#blocks", 0.6, {transform: "translate3d(-810vw, -630vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#orfc-step-1", 0.5, {opacity: 0}, 0.2);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-810vw, -680vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#orfc-algo-highlight", 0.5, {opacity: 0}, 0);
+  for (let i = 0; i < 3; i++) {
+    timelines[c].from("#orfc-step-" + (i + 2), 0.5, {opacity: 0}, 0);
+    timelines[c].to("#orfc-step-" + (i + 1), 0.5, {opacity: 0}, 0.2);
+    timelines[c].to("#orfc-algo-highlight", 0.5, {transform: "translateY(" + ((i + 1) * 8 - 1) + "vmin)"}, 0);
+    tl.add(timelines[c++]);
+  }
+
+  timelines[c].from("#orfc-energy", 0.4, {opacity: 0}, 0.2);
+  timelines[c].from("#orfc-energy2", 0.4, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // Seed Robustness
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -680vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#seed-robustness", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Reparação de Segmentações
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#segmentation-repair", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Análise de Redundância
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1040vw, -460vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#redundancy-analysis", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // IFT-SLIC
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1040vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#ift-slic", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Publicações
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1140vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#publications", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Thanks
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1140vw, -660vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#thanks", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 74;
+  const cur = 85;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
