@@ -563,10 +563,51 @@
 #orfc-energy-formula, #orfc-energy h2{
   display: inline;
 }
+#oift-orfc-difference {
+  transform: translate3d(790vw, 800vh, -20vmin);
+  width: 140vw;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    display: inline-block;
+    text-align: center;
+    img {
+      width: 40vw;
+    }
+  }
+}
+#seed-robustness-relation-formula {
+  transform: translate3d(810vw, 845vh, -20vmin);
+}
 #seed-robustness {
   transform: translate3d(924vw, 670vh, -20vmin);
   width: 100vw;
 }
+#seed-robustness-equivalence-pictures {
+  position: relative;
+}
+.seed-robustness-equivalence-picture {
+  position: absolute;
+}
+#seed-robustness-formulas{
+  // position: absolute;
+  // transform: translate(60vw, 10vh);
+}
+#seed-robustness-classes {
+  transform: translate3d(980vw, 670vh, -20vmin);
+  width: 100vw;
+}
+#seed-robustness-aorfc-noift{
+  transform: translate3d(924vw, 770vh, -20vmin);
+  width: 120vw;
+  display: flex;
+  img{
+    width:40vw;
+  }
+}
+
 #segmentation-repair {
   transform: translate3d(944vw, 565vh, 0vmin);
   width: 100vw;

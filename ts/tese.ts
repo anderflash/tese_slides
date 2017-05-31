@@ -318,6 +318,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("DCC_{G_{>}}(s_i)", document.getElementById("orfc-algo-dcc"));
   katex.render(einf,document.getElementById("orfc-energy-formula"));
   katex.render(aorfcsosb + " \\in " + xinfsosb,document.getElementById("orfc-energy2"));
+  katex.render("s_1 \\equiv s_2",document.getElementById("seed-robustness-equivalence-formula"));
+  katex.render("[s] = \\{t \\in A(\\{s\\},\\mathcal{S}_b): s\\equiv t\\}",document.getElementById("equivalence-class-formula"));
+  katex.render("\\mathcal{N}(\\{s\\},\\mathcal{S}_b) = [s]", document.getElementById("core-formula"));
+  katex.render("A_{ORFC}(" + sosb + ") \\subseteq A_{OIFT}(" + sosb + ")", document.getElementById("seed-robustness-relation-formula"));
 
   const tl: TimelineMax = new TimelineMax();
 
@@ -848,9 +852,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#orfc-energy2", 0.4, {opacity: 0}, 0.2);
   tl.add(timelines[c++]);
 
+  // Diferença entre OIFT e ORFC
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-810vw, -780vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#oift-orfc-difference", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#oift-orfc-other", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#seed-robustness-relation-formula", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+
   // Seed Robustness
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -680vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#seed-robustness", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Seed Equivalence 2
+  timelines[c].from("#seed-robustness-equivalence-2", 0.5, {opacity: 0}, 0);
+  timelines[c].to("#seed-robustness-equivalence-1", 0.5, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // Seed Equivalence 3
+  timelines[c].from("#seed-robustness-equivalence-3", 0.5, {opacity: 0}, 0);
+  timelines[c].to("#seed-robustness-equivalence-2", 0.5, {opacity: 0}, 0.2);
+  tl.add(timelines[c++]);
+
+  // Equivalence Class
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -680vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#seed-robustness-classes", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // Equivalence Class
+  timelines[c].from(".seed-robustness-core", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  // AORFC NOIFT
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -720vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#seed-robustness-aorfc-noift", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
   // Reparação de Segmentações
@@ -880,7 +920,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 85;
+  const cur = 91;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
