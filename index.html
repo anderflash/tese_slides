@@ -25,8 +25,10 @@
 
     <!-- Sobre segmentação -->
     <div id="intro-segmentation"  class="fullscreen">
-      <img src="assets/intro-segmentation-original.png" id="intro-segmentation-original">
-      <img src="assets/intro-segmentation-mask.png" id="intro-segmentation-mask">
+      <div id="intro-segmentation-first">
+        <img src="assets/intro-segmentation-original.png" id="intro-segmentation-original">
+        <img src="assets/intro-segmentation-mask.png" id="intro-segmentation-mask">
+      </div>
       <img src="assets/intro-segmentation-result.png" id="intro-segmentation-result">
     </div>
 
@@ -43,18 +45,18 @@
       <div id="intro-type-manual">
         <i id="intro-type-manual-user" class="fa fa-user"></i>
         <i id="intro-type-manual-arrow" class="fa fa-arrow-down arrow"></i>
-        <img src="assets/intro-segmentation-original.png" id="intro-type-manual-result">
+        <img src="assets/intro-segmentation-result.png" id="intro-type-manual-result">
       </div>
       <div id="intro-type-automatic">
         <i id="intro-type-automatic-laptop" class="fa fa-laptop"></i>
         <i id="intro-type-automatic-arrow" class="fa fa-arrow-down arrow"></i>
-        <img src="assets/intro-segmentation-original.png" id="intro-type-automatic-result">
-        <img src="assets/intro-segmentation-original.png" id="intro-type-automatic-result2">
+        <img src="assets/intro-segmentation-result.png" id="intro-type-automatic-result">
+        <img src="assets/intro-segmentation-result.png" id="intro-type-automatic-result2">
       </div>
       <div id="intro-type-interactive">
         <i id="intro-type-interactive-user" class="fa fa-user"></i>
         <i id="intro-type-interactive-arrow" class="fa fa-arrow-down arrow"></i>
-        <img src="assets/intro-segmentation-original.png" id="intro-type-interactive-seeds">
+        <img src="assets/intro-segmentation-seeds.svg" id="intro-type-interactive-seeds">
         <div>
           <i id="intro-type-interactive-arrow2"         class="fa fa-arrow-down arrow left"></i>
           <i id="intro-type-interactive-arrow2-reverse" class="fa fa-arrow-up arrow right"></i>
@@ -64,7 +66,7 @@
           <i id="intro-type-interactive-arrow3"         class="fa fa-arrow-down arrow left"></i>
           <i id="intro-type-interactive-arrow3-reverse" class="fa fa-arrow-up arrow right"></i>
         </div>
-        <img src="assets/intro-segmentation-original.png" id="intro-type-interactive-result">
+        <img src="assets/intro-segmentation-result.png" id="intro-type-interactive-result">
       </div>
       <div id="intro-type-interactive-save">
         <i id="intro-type-interactive-save-arrow"  class="fa fa-arrow-down arrow"></i>
@@ -100,26 +102,25 @@
           </div>
         </div>
       </div>
-      
-      <div id="related-superficies-gc-hci">
-        <div id="related-superficies">
-          <h1>Superfícies Paramêtricas</h1>
-          <h2>Jackowski et al. 2003</h2>
-          <img id="related-jackowski" src="assets/related-jackowski.png">
-          <h2>Valenzuela et al. 2015</h2>
-          <img id="related-valenzuela" src="assets/related-valenzuela.png">
+    </div>
+    <div id="related-superficies-gc-hci">
+      <div id="related-superficies">
+        <h1>Superfícies Paramêtricas</h1>
+        <h2>Jackowski et al. 2003</h2>
+        <img id="related-jackowski" src="assets/related-jackowski.png">
+        <h2>Valenzuela et al. 2015</h2>
+        <img id="related-valenzuela" src="assets/related-valenzuela.png">
+      </div>
+      <div id="related-gc-hci">
+        <div id="related-gc">
+          <h1>Graph Cut</h1>
+          <h2>Yang e Choe. 2011</h2>
+          <img id="related-yang" src="assets/related-yang.png">
         </div>
-        <div id="related-gc-hci">
-          <div id="related-gc">
-            <h1>Graph Cut</h1>
-            <h2>Yang e Choe. 2011</h2>
-            <img id="related-yang" src="assets/related-yang.png">
-          </div>
-          <div id="related-hci">
-            <h1>Interação Humano-Computador</h1>
-            <h2>Karimov et al. 2015</h2>
-            <img id="related-karimov" src="assets/related-karimov.png">
-          </div>
+        <div id="related-hci">
+          <h1>Interação Humano-Computador</h1>
+          <h2>Karimov et al. 2015</h2>
+          <img id="related-karimov" src="assets/related-karimov.png">
         </div>
       </div>
     </div>
@@ -144,78 +145,31 @@
         <!-- <line x1="50" y1="50" x2="250" y2="50" stroke="#000" stroke-width="5" marker-end="url(#arrow)" /> -->
         <path d="M10 10 C 20 0, 40 0, 50 10" stroke="black" fill="transparent" stroke-width=0.5 marker-end="url(#arrow)"/>
       </svg>
-      <svg id="digital-image-result"
-       xmlns:dc="http://purl.org/dc/elements/1.1/"
-       xmlns:cc="http://creativecommons.org/ns#"
-       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-       xmlns:svg="http://www.w3.org/2000/svg"
-       xmlns="http://www.w3.org/2000/svg"
-       xmlns:xlink="http://www.w3.org/1999/xlink"
-       id="svg5850"
-       version="1.1"
-       viewBox="0 0 154.62811 97.690529"
-       height="97.690529mm"
-       width="154.62811mm">
-      <defs id="defs5844">
-        <marker
-           style="overflow:visible"
-           id="marker6701"
-           refX="0"
-           refY="0"
-           orient="auto">
-          <path
-             transform="matrix(-0.4,0,0,-0.4,-4,0)"
-             style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
-             d="M 0,0 5,-5 -12.5,0 5,5 Z"
-             id="path6699" />
-        </marker>
-        <marker
-           style="overflow:visible"
-           id="Arrow1Mend"
-           refX="0"
-           refY="0"
-           orient="auto">
-          <path
-             transform="matrix(-0.4,0,0,-0.4,-4,0)"
-             style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
-             d="M 0,0 5,-5 -12.5,0 5,5 Z"
-             id="path6408" />
-        </marker>
-      </defs>
-      <metadata
-         id="metadata5847">
-        <rdf:RDF>
-          <cc:Work
-             rdf:about="">
-            <dc:format>image/svg+xml</dc:format>
-            <dc:type
-               rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-            <dc:title></dc:title>
-          </cc:Work>
-        </rdf:RDF>
-      </metadata>
-      <g
-         transform="translate(-26.492409,-105.09158)"
-         id="layer1">
-        <image
-           xlink:href="assets/flower.png"
-           y="120.27626"
-           x="41.677082"
-           id="image8453"
-           style="stroke-width:2.42885756;image-rendering:optimizeSpeed"
-           preserveAspectRatio="none"
-           height="81.772552"
-           width="139.43456" />
-        <path
-           id="path6395"
-           d="m 41.677081,105.09158 v 95.30805"
-           style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6701)" />
-        <path
-           id="path6397"
-           d="M 26.492409,120.27625 H 180.0777"
-           style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)" />
-      </g>
-    </svg>
+      <svg id="digital-image-result"       xmlns:dc="http://purl.org/dc/elements/1.1/"       xmlns:cc="http://creativecommons.org/ns#"   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"       xmlns:svg="http://www.w3.org/2000/svg"       xmlns="http://www.w3.org/2000/svg"       xmlns:xlink="http://www.w3.org/1999/xlink"       id="svg5850"       version="1.1"       viewBox="0 0 154.62811 97.690529"       height="97.690529mm"       width="154.62811mm">
+        <defs id="defs5844">
+          <marker           style="overflow:visible"           id="marker6701"           refX="0"           refY="0"           orient="auto">
+            <path             transform="matrix(-0.4,0,0,-0.4,-4,0)"             style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"             d="M 0,0 5,-5 -12.5,0 5,5 Z"             id="path6699" />
+          </marker>
+          <marker           style="overflow:visible"           id="Arrow1Mend"           refX="0"           refY="0"           orient="auto">
+            <path             transform="matrix(-0.4,0,0,-0.4,-4,0)"             style="fill:#000000;fill-opacity:1;fill-rule:evenodd;troke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"             d="M 0,0 5,-5 -12.5,0 5,5 Z"             id="path6408" />
+          </marker>
+        </defs>
+        <metadata         id="metadata5847">
+          <rdf:RDF>
+            <cc:Work             rdf:about="">
+              <dc:format>image/svg+xml</dc:format>
+              <dc:type               rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+              <dc:title></dc:title>
+            </cc:Work>
+          </rdf:RDF>
+        </metadata>
+        <g transform="translate(-26.492409,-105.09158)" id="layer1">
+          <image xlink:href="assets/flower.png"           y="120.27626"           x="41.677082"           id="image8453"           style="stroke-width:2.42885756;image-rendering:optimizeSpeed"           preserveAspectRatio="none"           height="81.772552"           width="139.43456" />
+          <path           id="path6395"           d="m 41.677081,105.09158 v 95.30805"           style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker6701)" />
+          <path           id="path6397"           d="M 26.492409,120.27625 H 180.0777"           style="fill:none;stroke:#000000;stroke-width:0.5291667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)" />
+        </g>
+      </svg>
+      <img id="digital-image-3d" src="assets/3D.png">
 
     </div>
 
@@ -472,24 +426,181 @@
     <div id="seed-robustness-classes">
       <h2>Classes de Equivalência</h2>
       <div id="equivalence-class-formula"></div>
-      <img src="assets/equivalence-class.svg">
+      <div id="equivalence-class-pictures">
+        <img id="equivalence-class-1" src="assets/seed-robustness-4.svg">
+        <img id="equivalence-class-n" src="assets/equivalence-class.svg">
+      </div>
       <h2 class="seed-robustness-core">Núcleo</h2>
       <div class="seed-robustness-core" id="core-formula"></div>
     </div>
     <div id="seed-robustness-aorfc-noift">
-      <img src="assets/aorfc_noift1.svg">
-      <img src="assets/aorfc_noift2.svg">
-      <img src="assets/aorfc_noift3.svg">
+      <h1><span id="aorfc-noift-formula"></span>?</h1>
+      <img id="aorfc-noift-pic-1" src="assets/aorfc_noift1.svg">
+      <img id="aorfc-noift-pic-2" src="assets/aorfc_noift2.svg">
+      <img id="aorfc-noift-pic-3" src="assets/aorfc_noift3.svg">
     </div>
-    
+
+    <div id="seed-robustness-noift-norfc">
+      <h1><span id="noift-norfc-formula"></span>?</h1>
+      <div class="noift-norfc-pic" id="noift-norfc-pic-1"><img src="assets/noift_norfc1.svg">ORFC</div>
+      <div class="noift-norfc-pic" id="noift-norfc-pic-2"><img src="assets/noift_norfc2.svg">OIFT</div>
+      <div class="noift-norfc-pic" id="noift-norfc-pic-3"><img src="assets/noift_norfc3.svg">ORFC=OIFT</div>
+      <div class="noift-norfc-pic" id="noift-norfc-pic-4"><img src="assets/noift_norfc4.svg">NORFC</div>
+      <div class="noift-norfc-pic" id="noift-norfc-pic-5"><img src="assets/noift_norfc5.svg">NOIFT</div>
+    </div>
+
+
+    <div id="seed-robustness-ncoh-noift">
+      <h1><span id="ncoh-noift-formula"></span>?</h1>
+      <div class="ncoh-noift-pic" id="ncoh-noift-pic-1"><img src="assets/ncoh_noift1.svg">ORFC</div>
+      <div class="ncoh-noift-pic" id="ncoh-noift-pic-2"><img src="assets/ncoh_noift2.svg">CoH(OIFT)</div>
+      <div class="ncoh-noift-pic" id="ncoh-noift-pic-3"><img src="assets/ncoh_noift3.svg">OIFT</div>
+      <div class="ncoh-noift-pic" id="ncoh-noift-pic-4"><img src="assets/ncoh_noift4.svg">NORFC</div>
+      <div class="ncoh-noift-pic" id="ncoh-noift-pic-5"><img src="assets/ncoh_noift5.svg">NOIFT</div>
+    </div>
+
+    <div id="seed-robustness-norfc-ncoh-noift">
+      <div id="norfc-ncoh-noift-formula"></div>
+      <div id="norfc-noift-proof-steps">
+        <img class="norfc-noift-proof" id="norfc-noift-proof1" src="assets/norfc_noift_proof-1.svg">
+        <img class="norfc-noift-proof" id="norfc-noift-proof2" src="assets/norfc_noift_proof-2.svg">
+        <img class="norfc-noift-proof" id="norfc-noift-proof3" src="assets/norfc_noift_proof-3.svg">
+        <img class="norfc-noift-proof" id="norfc-noift-proof4" src="assets/norfc_noift_proof-4.svg">
+      </div>
+    </div>
+
+    <div id="orfc-core">
+      <h1>Núcleo do ORFC</h1>
+
+
+    </div>
+
+    <div id="orfc-core-example">
+      <img class="orfc-core-example-pic" id="orfc-core-example-pic-1" src="assets/orfc-example-1.png">
+      <img class="orfc-core-example-pic" id="orfc-core-example-pic-2" src="assets/orfc-example-2.png">
+      <img class="orfc-core-example-pic" id="orfc-core-example-pic-3" src="assets/orfc-example-3.png">
+      <img class="orfc-core-example-pic" id="orfc-core-example-pic-4" src="assets/orfc-example-4.png">
+      <img class="orfc-core-example-pic" id="orfc-core-example-pic-5" src="assets/orfc-example-5.png">
+    </div>
+
+    <div id="oift-core">
+      <h1>Núcleo do OIFT</h1>
+      <div>
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-1" src="assets/orfc_oift_rag1.png">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-2" src="assets/orfc_oift_rag2.png">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-3" src="assets/orfc_oift_rag3.png">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-4" src="assets/orfc_oift_rag4.png">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-5" src="assets/orfc_oift_rag5.png">
+      </div>
+      <div>
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-1" src="assets/orfc_oift_rag6.png">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-2" src="assets/orfc_oift_rag7.png">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-3" src="assets/orfc_oift_rag8.png">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-4" src="assets/orfc_oift_rag9.png">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-5" src="assets/orfc_oift_rag10.png">
+      </div>
+      <div>
+        <img src="assets/subgraph1.svg">
+        <img src="assets/subgraph2.svg">
+        <img src="assets/subgraph3.svg">
+        <img src="assets/subgraph4.svg">
+      </div>
+    </div>
+    <div id="robustness-coefficient">
+      <h1>Coeficiente de Robustez</h1>
+      <div id="robustness-coefficient-formula"></div>
+    </div>
     <div id="segmentation-repair">
       <h1>Reparação Interativa de Segmentações</h1>
+      <div>
+        <img src="assets/brain_a.png">
+        <img src="assets/brain_b.png">
+        <img src="assets/brain_c.png">
+        <img src="assets/brain_d.png">
+      </div>
+      <div>
+        <img src="assets/car_a.png">
+        <img src="assets/car_b.png">
+        <img src="assets/car_c.png">
+        <img src="assets/car_d.png">
+      </div>
+      <div>
+        <img src="assets/talus1_a.png">
+        <img src="assets/talus1_b.png">
+        <img src="assets/talus1_c.png">
+        <img src="assets/talus1_d.png">
+      </div>
+      <div>
+        <img src="assets/talus2_a.png">
+        <img src="assets/talus2_e.png">
+        <img src="assets/talus2_b.png">
+        <img src="assets/talus2_f.png">
+        <img src="assets/talus2_c.png">
+        <img src="assets/talus2_d.png">
+      </div>
+      <div>
+        <img src="assets/wrist_a.png">
+        <img src="assets/wrist_b.png">
+        <img src="assets/wrist_c.png">
+        <img src="assets/wrist_d.png">
+      </div>
+      <div>
+        <img src="assets/dice_rc_talus.svg">
+      </div>
     </div>
     <div id="redundancy-analysis">
       <h1>Análise de Redundância</h1>
+      <div>
+        <img src="assets/redundance_counter1.svg">
+        <img src="assets/redundance_counter2.svg">
+        <img src="assets/redundance_counter3.svg">
+        <img src="assets/redundance_counter4.svg">
+      </div>
+      <div>
+        <img src="assets/redundance_counter_suf1.svg">
+        <img src="assets/redundance_counter_suf2.svg">
+        <img src="assets/redundance_counter_suf3.svg">
+        <img src="assets/redundance_counter_suf4.svg">
+      </div>
+      <div>
+        <img src="assets/redundance_oift1.svg">
+        <img src="assets/redundance_oift2.svg">
+        <img src="assets/redundance_oift3.svg">
+        <img src="assets/redundance_oift4.svg">
+      </div>
+    </div>
+    <div id="hybrid">
+      <div>
+        <img src="assets/shrinking1.png">
+        <img src="assets/shrinking2.png">
+        <img src="assets/shrinking3.png">
+      </div>
+      <div>
+        <img src="assets/talus_oift2.png">
+        <img src="assets/talus_rfcgc2.png">
+        <img src="assets/talus_orfc2.png">
+        <img src="assets/talus_orfccore2.png">
+        <img src="assets/talus_orfcgc2.png">
+        <img src="assets/talus_orfccoregc2.png">
+      </div>
+      <div>
+        <img src="assets/ift-slic-chart.svg">
+      </div>
     </div>
     <div id="ift-slic">
       <h1>IFT-SLIC</h1>
+      <div>
+        <img src="assets/spixels_ift_001.svg"> 
+        <img src="assets/spixels_ift_004.svg"> 
+        <img src="assets/spixels_ift_008.svg"> 
+      </div>
+      <div>
+        <img src="assets/garota_seeds_it01_.svg">
+        <img src="assets/spixels_ift_01_.svg">
+        <img src="assets/sp_center.svg">
+        <img src="assets/garota_seeds_it10_.svg">
+        <img src="assets/spixels_ift_10_.svg">
+      </div>
     </div>
     <div id="publications">
       <h1>Publicações</h1>

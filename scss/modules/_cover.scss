@@ -40,6 +40,9 @@
   max-height: 100vh;
   margin: 0.5vmin;
 }
+#intro-segmentation-result {
+  position: absolute;
+}
 
 // Applications
 #intro-applications {
@@ -47,12 +50,12 @@
   text-align: center;
   transform: translate3d(100vw, 50vh, 0vw);
   > img {
-    max-width: 24vw;
-    max-height: 40vh;
+    width: 24vw;
+    height: 24vw;
   }
 }
 #intro-type{
-  transform: translate3d(100vw, 100vh, 0vw);
+  transform: translate3d(100vw, 120vh, 0vw);
   display: flex;
   align-items: center;
   h1 {
@@ -144,21 +147,29 @@
 #related-superficies{
   //margin-top: 5vh;
 }
-#related-jackowski, #related-valenzuela, #related-yang, #related-harrison {
-  width: 60vw;
+#related-yang, #related-harrison {
+  max-width: 60vw;
+  max-height: 40vh;
+}
+#related-jackowski, #related-valenzuela{
+  max-width: 60vw;
+  max-height: 40vh;
 }
 #related-gc{
   transform: translate3d(5vw, 0vh, 0vw);
 }
 #related-hci{
   transform: translate3d(5vw, 5vh, 0vw);
+  width: 100vw;
 }
 #related-superficies-gc-hci{
+  transform: translate3d(190vw, 210vh, 0vmin);
   display: flex;
   margin-top: 5vh;
 }
 #related-karimov {
-  width: 60vw;
+  max-width: 60vw;
+  max-height: 40vh;
 }
 #related-ift, #related-user-robot{
   transform: translate3d(5vw, -0vh, 0vw);
@@ -174,7 +185,7 @@
   width: 60vw;
 }
 #digital-image {
-  transform: translate3d(330vw, 150vh, -20vmin);
+  transform: translate3d(330vw, 170vh, -20vmin);
   h1, #digital-image-formula{
     padding: 2vmin;
   }
@@ -189,6 +200,7 @@
 }
 #digital-image-formula-color{
   transform: translate3d(23vw, 0vw, 0vw);
+  position: absolute;
 }
 #digital-image-color-space {
   width: 40vw;
@@ -198,6 +210,13 @@
 #digital-image-coordinate-space {
   width: 45vw;
   transform: translate3d(2.5vw, 0vw, 0vw);
+}
+#digital-image-3d{
+  position: absolute;
+  width: 45vw;
+  height: 28vw;
+  left: 0;
+  transform: translate3d(2.5vw, 5.5vw, 0vw);
 }
 #digital-image-arrow{
   position: absolute;
@@ -277,7 +296,7 @@
 }
 
 #graph-adjacency {
-  transform: translate3d(330vw, 250vh, -20vmin);
+  transform: translate3d(330vw, 270vh, -20vmin);
   > h1 {
     margin: 2vmin;
   }
@@ -375,35 +394,36 @@
   }
 }
 #scc-formula .katex, #dcc-formula .katex, #connectivity-formula .katex, #connectivity-optimum-formula .katex{
-  font-size: 4vw;
+  font-size: 4vmin;
 }
 #opsf-formula .katex, #floresta-formula .katex{
-  font-size: 5vw;
+  font-size: 5vmin;
 }
 
 #graph-path {
   transform: translate3d(380vw, 410vh, -20vmin);
   width: 50vw;
   img {
-    width: 40vw;
+    height: 60vh;
   }
 }
 #graph-predecessor {
   transform: translate3d(430vw, 450vh, -20vmin);
   width: 60vw;
   img {
-    width: 40vw;
+    height: 60vh;
   }
 }
 #graph-spanning {
   transform: translate3d(490vw, 450vh, -20vmin);
   width: 50vw;
   img {
-    width: 40vw;
+    height: 60vh;
+    max-width: 40vw;
   }
 }
 #graph-component {
-  transform: translate3d(400vw, 510vh, -20vmin);
+  transform: translate3d(400vw, 520vh, -20vmin);
   width: 60vw;
   img {
     width: 40vw;
@@ -411,9 +431,9 @@
   }
 }
 #graph-connectivity{
-  transform: translate3d(490vw, 510vh, -20vmin);
+  transform: translate3d(490vw, 520vh, -20vmin);
   img {
-    width: 40vw;
+    height: 60vh;
   }
 }
 #graph-connectivity-optimum-path{
@@ -477,21 +497,21 @@
   transform: translate3d(683vw, 512vh, -60vmin);
   width: 100vw;
   img {
-    width: 40vw;
+    height: 40vh;
   }
 }
 #shape-constraints{
   transform: translate3d(683vw, 560vh, -60vmin);
   width: 100vw;
   img {
-    width: 40vw;
+    height: 52vh;
   }
 }
 #connectedness{
   transform: translate3d(683vw, 620vh, -60vmin);
   width: 100vw;
   img {
-    width: 30vw;
+    height: 30vh;
   }
 }
 
@@ -542,7 +562,7 @@
   position: relative;
   img {
     position: absolute;
-    width: 60vw;
+    height: 60vh;
   }
 }
 #orfc-algo-highlight{
@@ -579,7 +599,8 @@
   }
 }
 #seed-robustness-relation-formula {
-  transform: translate3d(810vw, 845vh, -20vmin);
+  position: absolute;
+  transform: translate3d(810vw, 855vh, -20vmin);
 }
 #seed-robustness {
   transform: translate3d(924vw, 670vh, -20vmin);
@@ -601,11 +622,51 @@
 }
 #seed-robustness-aorfc-noift{
   transform: translate3d(924vw, 770vh, -20vmin);
-  width: 120vw;
-  display: flex;
+  width: 140vw;
+  text-align: center;
   img{
-    width:40vw;
+    height:40vh;
   }
+}
+.noift-norfc-pic, .norfc-noift-pic, .ncoh-noift-pic{
+  width: 25vw;
+  display: inline-block;
+}
+
+#seed-robustness-noift-norfc{
+  transform: translate3d(915vw, 830vh, -20vmin);
+  width: 150vw;
+  text-align: center;
+  img{
+    width:27vw;
+  }
+}
+
+#seed-robustness-ncoh-noift{
+  transform: translate3d(915vw, 890vh, -20vmin);
+  width: 150vw;
+  text-align: center;
+  img{
+    width:27vw;
+  }
+}
+#seed-robustness-norfc-ncoh-noift{
+  transform: translate3d(925vw, 970vh, -20vmin);
+  text-align: center;
+}
+#norfc-noift-proof-steps{
+  position: relative;
+  text-align: center;
+  width: 80vw;
+  display: inline-block;
+}
+.norfc-noift-proof{
+  position: absolute;
+  height: 60vh;
+  left: 0;
+}
+#norfc-ncoh-noift-formula .katex{
+  font-size: 5vw;
 }
 
 #segmentation-repair {
@@ -632,6 +693,13 @@
   justify-content: center;
   align-content: center;
   align-items: center;
+}
+#equivalence-class-pictures{
+  position: relative;
+}
+#equivalence-class-n{
+  position: absolute;
+  left: 0;
 }
 
 // #digital-image{

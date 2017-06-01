@@ -303,6 +303,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const aorfcsosb: string = aorfc + "(" + sosb + ")";
   const aorfcsisb: string = aorfc + "(" + sisb + ")";
   const fminr: string = "f_{min}^\\longleftarrow";
+  const s1sb: string = "\\{s_1\\}, \\mathcal{S}_b";
 
   katex.render(xinfsosb + " = \\{" + obj + " \\in " + xsosb + ": " + einf + "(" + obj + ") = " + einfdown + "\\}", document.getElementById("oift-formula-energy3"));
   katex.render("\\mathcal{A}_{OIFT}(\\mathcal{S}_o,\\mathcal{S}_b) \\in \\mathcal{X}^\\downarrow_\\infty(\\mathcal{S}_o,\\mathcal{S}_b)", document.getElementById("oift-formula-energy4"));
@@ -322,11 +323,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("[s] = \\{t \\in A(\\{s\\},\\mathcal{S}_b): s\\equiv t\\}",document.getElementById("equivalence-class-formula"));
   katex.render("\\mathcal{N}(\\{s\\},\\mathcal{S}_b) = [s]", document.getElementById("core-formula"));
   katex.render("A_{ORFC}(" + sosb + ") \\subseteq A_{OIFT}(" + sosb + ")", document.getElementById("seed-robustness-relation-formula"));
+  katex.render("A_{ORFC}(" + s1sb + ") = N_{OIFT}(" + s1sb + ")", document.getElementById("aorfc-noift-formula"));
+  katex.render("N_{ORFC}(" + s1sb + ") = N_{OIFT}(" + s1sb + ")", document.getElementById("noift-norfc-formula"));
+  katex.render("N_{CoH(ORFC)}(" + s1sb + ") = N_{OIFT}(" + s1sb + ")", document.getElementById("ncoh-noift-formula"));
+  katex.render("N_{ORFC}(" + sisb + ") \\subseteq N_{CoH(ORFC)}(" + sisb + ") \\subseteq N_{OIFT}(" + sisb + ")", document.getElementById("norfc-ncoh-noift-formula"));
+  katex.render("RC = \\frac{\\lvert\\mathcal{N}("+sosb+")\\rvert}{\\lvert A("+sosb+")\\rvert}", document.getElementById("robustness-coefficient-formula"));
 
   const tl: TimelineMax = new TimelineMax();
 
   // Criando todas as timelines
-  const nslides: number = 100;
+  const nslides: number = 200;
   const timelines: TimelineMax[] = new Array<TimelineMax>(nslides);
   for (let i = 0; i < nslides; i++) {
     timelines[i] = new TimelineMax();
@@ -337,6 +343,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].to("#blocks", 1.5, {css: {transform: "translate3d(-100vw, 50vh, 0)"}, ease: Power2.easeInOut});
   tl.add(timelines[c++]);
 
+  timelines[c].to("#intro-segmentation-original", 0.5, {transform: "translateX(15.5vw)", ease: Power2.easeInOut},0);
+  timelines[c].to("#intro-segmentation-original", 0.5, {opacity: 0}, 0.5);
+  timelines[c].to("#intro-segmentation-mask"    , 0.5, {transform: "translateX(-15.5vw)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#intro-segmentation-mask"    , 0.5, {opacity: 0}, 0);
+  timelines[c].from("#intro-segmentation-result", 0.5, {opacity: 0}, 0.5);
+  
+  tl.add(timelines[c++]);
+
   // Segmentação -> Applicações
   timelines[c].from("#intro-applications", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
   timelines[c].to("#blocks", 1.0, {css: {transform: "translate3d(-100vw, -20vh, 0)"}, ease: Power2.easeInOut}, 0);
@@ -344,7 +358,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // Aplicações -> Tipo de segmentação
   timelines[c].from("#intro-type", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
-  timelines[c].to("#blocks", 1.0, {transform: "translate3d(-100vw, -100vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 1.0, {transform: "translate3d(-100vw, -120vh, -30vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
   // Aparecer Segmentação Interativa
@@ -409,14 +423,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#related-rw", 0.9, {opacity: 0}, 0.9);
   tl.add(timelines[c++]);
 
-  // Algumas soluções se baseiam em random walks
+  // Algumas soluções se baseiam em superfícies
   timelines[c].from("#related-superficies", 0.9, {opacity: 0});
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-180vw, -180vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-188vw, -210vh, 0vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
-  // Algumas soluções se baseiam em random walks
+  // Algumas soluções se baseiam em graph cut
   timelines[c].from("#related-gc", 0.9, {opacity: 0});
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-240vw, -180vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-228vw, -210vh, 0vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
   // Interface
@@ -435,13 +449,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // Conceitos: Imagem Digital (função)
   timelines[c].from("#digital-image", 0.9, {opacity: 0});
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-330vw, -150vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-330vw, -170vh, 20vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
   // Conceitos: Imagem Digital (resultado)
   timelines[c].to("#digital-image-arrow", 0.4, {opacity: 0});
   timelines[c].to("#digital-image-coordinate-space", 0.4, {opacity: 0}, 0);
   timelines[c].from("#digital-image-result", 0.4, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  // Conceitos: Imagem Digital (3D)
+  timelines[c].from("#digital-image-3d", 0.4, {opacity: 0}, 0);
+  timelines[c].to("#digital-image-result", 0.4, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
   // Conceitos: Grafos
@@ -538,7 +557,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].to("#graph-formula", 0.4, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-330vw, -250vh, 20vmin)", ease: Power2.easeInOut}, 0);
+  // Graph Adjacency
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-330vw, -270vh, 20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#graph-adjacency", 0.4, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
@@ -636,7 +656,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Components
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-398vw, -498vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-398vw, -518vh, 20vmin)", ease: Power2.easeInOut});
   timelines[c].from("#graph-component", 0.2, {opacity: 0}, 0.6);
   tl.add(timelines[c++]);
 
@@ -665,8 +685,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Connectivity
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-488vw, -498vh, 20vmin)", ease: Power2.easeInOut});
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-488vw, -518vh, 20vmin)", ease: Power2.easeInOut});
   timelines[c].from("#graph-connectivity", 0.2, {opacity: 0}, 0.6);
+  tl.add(timelines[c++]);
+
+  // Optimum Connectivity
+  timelines[c].from("#graph-connectivity-optimum-path", 0.2, {opacity: 0}, 0.6);
   tl.add(timelines[c++]);
 
   // OPSF
@@ -888,9 +912,64 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from(".seed-robustness-core", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
+  // Equivalence Class
+  timelines[c].from("#equivalence-class-n", 0.5, {opacity: 0}, 0.3);
+  timelines[c].to("#equivalence-class-1", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+  
+
+
   // AORFC NOIFT
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -720vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#seed-robustness-aorfc-noift", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+  timelines[c].from("#aorfc-noift-pic-2", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#aorfc-noift-pic-3", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+
+  
+  // NORFC NOIFT
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -780vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#seed-robustness-noift-norfc", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+  timelines[c].from("#noift-norfc-pic-2", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#noift-norfc-pic-3", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#noift-norfc-pic-4", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#noift-norfc-pic-5", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+
+  // NCOH NOIFT
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -850vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#seed-robustness-ncoh-noift", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+  timelines[c].from("#ncoh-noift-pic-2", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#ncoh-noift-pic-3", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#ncoh-noift-pic-4", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].from("#ncoh-noift-pic-5", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+
+  // Proof
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -960vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#seed-robustness-norfc-ncoh-noift", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#norfc-noift-proof1", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].to("#norfc-noift-proof1", 0.5, {opacity: 0},0.2);
+  timelines[c].from("#norfc-noift-proof2", 0.5, {opacity: 0},0);
+  tl.add(timelines[c++]);
+  timelines[c].to("#norfc-noift-proof2", 0.5, {opacity: 0},0.2);
+  timelines[c].from("#norfc-noift-proof3", 0.5, {opacity: 0},0);
+  tl.add(timelines[c++]);
+  timelines[c].to("#norfc-noift-proof3", 0.5, {opacity: 0},0.2);
+  timelines[c].from("#norfc-noift-proof4", 0.5, {opacity: 0},0);
   tl.add(timelines[c++]);
 
   // Reparação de Segmentações
@@ -920,7 +999,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 91;
+  const cur = 110;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
