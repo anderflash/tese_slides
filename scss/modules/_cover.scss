@@ -540,8 +540,11 @@
 #orfc-formula{
   margin-top: 3vmin;
 }
-#orfc-algo{
-  font-size: 4vmin;
+#orfc-algo, #norfc-ncoh-noift-algo, #orfc-core-algo, #orfc-core-all-algo{
+  .katex{
+    font-size: 4vmin;
+  }
+  font-size: 3vmin;
   table {
     margin-top: 4vmin;
   }
@@ -667,6 +670,11 @@
 }
 #norfc-ncoh-noift-formula .katex{
   font-size: 5vw;
+}
+#orfc-core{
+  transform: translate3d(1065vw, 980vh, 0vmin);
+  width: 100vw;
+  height: 100vh;
 }
 
 #segmentation-repair {

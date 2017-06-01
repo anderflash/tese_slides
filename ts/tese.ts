@@ -300,8 +300,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const einf: string = "\\varepsilon_\\infty";
   const einfdown: string = einf + "^\\downarrow";
   const aorfc: string = "\\mathcal{A}_{ORFC}";
+  const norfc: string = "\\mathcal{N}_{ORFC}";
   const aorfcsosb: string = aorfc + "(" + sosb + ")";
   const aorfcsisb: string = aorfc + "(" + sisb + ")";
+  const norfcsisb: string = norfc + "(" + sisb + ")";
+  const norfcsosb: string = norfc + "(" + sosb + ")";
   const fminr: string = "f_{min}^\\longleftarrow";
   const s1sb: string = "\\{s_1\\}, \\mathcal{S}_b";
 
@@ -328,6 +331,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("N_{CoH(ORFC)}(" + s1sb + ") = N_{OIFT}(" + s1sb + ")", document.getElementById("ncoh-noift-formula"));
   katex.render("N_{ORFC}(" + sisb + ") \\subseteq N_{CoH(ORFC)}(" + sisb + ") \\subseteq N_{OIFT}(" + sisb + ")", document.getElementById("norfc-ncoh-noift-formula"));
   katex.render("RC = \\frac{\\lvert\\mathcal{N}("+sosb+")\\rvert}{\\lvert A("+sosb+")\\rvert}", document.getElementById("robustness-coefficient-formula"));
+  katex.render(aorfcsisb, document.getElementById("norfc-ncoh-noift-algo-title"));
+  katex.render("C_{opt}",document.getElementById("norfc-ncoh-noift-algo-conn"));
+  katex.render(fminr,document.getElementById("norfc-ncoh-noift-algo-fmin"));
+  katex.render("G_{>}",document.getElementById("norfc-ncoh-noift-algo-gm1"));
+  katex.render("G = (V, E, \\omega)",document.getElementById("norfc-ncoh-noift-algo-g"));
+  katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{norfc-ncoh-noift-algo-greater}{\\omega(\\langle s,t\\rangle) > C_{opt}(s_i)}\\}",document.getElementById("norfc-ncoh-noift-algo-el"));
+  katex.render("DCC_{G_{>}}(s_i)", document.getElementById("norfc-ncoh-noift-algo-dcc"));
+  katex.render(norfcsisb, document.getElementById("orfc-core-algo-title"));
+  katex.render("C_{opt}",document.getElementById("orfc-core-algo-conn"));
+  katex.render(fminr,document.getElementById("orfc-core-algo-fmin"));
+  katex.render("G_{>}",document.getElementById("orfc-core-algo-gm1"));
+  katex.render("G = (V, E, \\omega)",document.getElementById("orfc-core-algo-g"));
+  katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{orfc-core-algo-greater}{\\omega(\\langle s,t\\rangle) > C_{opt}(s_i)}\\wedge C_{opt}(s) = C_{opt}(t) = C_{opt}(s_i)\\}",document.getElementById("orfc-core-algo-el"));
+  katex.render("SCC_{G_{>}}(s_i)", document.getElementById("orfc-core-algo-dcc"));
+  
+  katex.render(norfcsosb, document.getElementById("orfc-core-all-algo-title"));
+  katex.render("C_{opt}",document.getElementById("orfc-core-all-algo-conn"));
+  katex.render(fminr,document.getElementById("orfc-core-all-algo-fmin"));
+  katex.render("G_{>}",document.getElementById("orfc-core-all-algo-gm1"));
+  katex.render("G = (V, E, \\omega)",document.getElementById("orfc-core-all-algo-g"));
+  katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{orfc-core-all-algo-greater}{\\omega(\\langle s,t\\rangle) > C_{opt}(s)}\\wedge C_{opt}(s) = C_{opt}(t)\\}",document.getElementById("orfc-core-all-algo-el"));
+  // katex.render("SCC_{G_{>}}(s_i)", document.getElementById("orfc-core-all-algo-dcc"));
+  
 
   const tl: TimelineMax = new TimelineMax();
 
@@ -956,11 +982,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Proof
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -960vh, -20vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -980vh, -20vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#seed-robustness-norfc-ncoh-noift", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
-
+  timelines[c].from("#norfc-ncoh-noift-algo", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
   timelines[c].from("#norfc-noift-proof1", 0.5, {opacity: 0});
+  tl.add(timelines[c++]);
+  timelines[c].to(".mord.norfc-ncoh-noift-algo-greater, .mbin.norfc-ncoh-noift-algo-greater, .mopen.norfc-ncoh-noift-algo-greater, .mpunct.norfc-ncoh-noift-algo-greater, .mrel.norfc-ncoh-noift-algo-greater, .mclose.norfc-ncoh-noift-algo-greater", 0.5, {color:"red"}, 0);
   tl.add(timelines[c++]);
   timelines[c].to("#norfc-noift-proof1", 0.5, {opacity: 0},0.2);
   timelines[c].from("#norfc-noift-proof2", 0.5, {opacity: 0},0);
@@ -970,6 +999,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
   timelines[c].to("#norfc-noift-proof3", 0.5, {opacity: 0},0.2);
   timelines[c].from("#norfc-noift-proof4", 0.5, {opacity: 0},0);
+  tl.add(timelines[c++]);
+
+  // ORFC-CORE
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1063vw, -978vh, 0vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
   // Reparação de Segmentações
@@ -999,7 +1032,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 110;
+  const cur = 117;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
