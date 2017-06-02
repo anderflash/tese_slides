@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("G", document.getElementById("hybrid-algo-3-fim"));
   katex.render("\\mathcal{N}_2\\propto\\mathcal{N}_1",document.getElementById("redundancy-symbol"));
   katex.render("t\\in DCC_{G_{>}}(s)\\Rightarrow t\\propto s?",document.getElementById("redundancy-symbol-2"));
-  katex.render("t\\in DCC_{G_>}(s) \\wedge C_{opt}(t) \\geq C_{opt}(s)\\implies \\mathcal{N}_{ORFC}(\\{t\\},\\mathcal{S}_b)",document.getElementById("redundancy-symbol-3"));
+  katex.render("t\\in DCC_{G_>}(s) \\wedge C_{opt}(t) \\geq C_{opt}(s)\\implies \\mathcal{N}_{ORFC}(\\{t\\},\\mathcal{S}_b) \\propto \\mathcal{N}_{ORFC}(\\{s\\},\\mathcal{S}_b)",document.getElementById("redundancy-symbol-3"));
   katex.render("\\omega(\\langle\\mathcal{N}_s, \\mathcal{N}_t\\rangle) > C_{opt}(s)\\wedge C_{opt}(t)\\geq C_{opt}(s)",document.getElementById("redundancy-symbol-4"));
   katex.render(`\\begin{aligned}
   f_D(\\pi_t=\\langle t \\rangle) &= \\begin{cases}
@@ -380,6 +380,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
   f_D(\\pi_{r\\leadsto s}\\cdot \\langle s,t \\rangle) &= f_D(\\pi_{r\\leadsto s})\\text{ } + (\\lVert I(t) - I(r)\\rVert\\cdot\\alpha)^\\beta + d_{euc}(s,t)
   \\end{aligned}
   `, document.getElementById("ift-slic-f"));
+
+  katex.render("\\gamma=3",document.getElementById("ift-slic-gamma-3"));
+  katex.render("\\gamma=4",document.getElementById("ift-slic-gamma-4"));
+  katex.render(`
+  \\begin{aligned}
+  f_D'(\\pi_t=\\langle t \\rangle) &= \\begin{cases}
+    0, & \\text{ se } t\\in \\mathcal{S}\\\\
+    +\\infty,& \\text{c.c}\\end{cases} \\\\
+  f_D'(\\pi_{r\\leadsto s}\\cdot \\langle s,t \\rangle) &= f_D'(\\pi_{r\\leadsto s})\\text{ } + (\\lVert I(t) - I(r)\\rVert\\cdot\\alpha\\cdot\\gamma^{B(r,t)}+\\gamma^{B(r,t)})^\\beta + d_{euc}(s,t)
+  \\end{aligned}
+  `,document.getElementById("ift-slic-fdprime"));
+  katex.render(`
+    B(r,t) = |B(r) - B(t)|
+  `, document.getElementById("ift-slic-binary"));
   // katex.render("SCC_{G_{>}}(s_i)", document.getElementById("orfc-core-all-algo-dcc"));
   
   // Carregar segmentação manual
@@ -1176,6 +1190,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#ift-slic-step-8", 0.5, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
+  timelines[c].to("#ift-slic-step-8", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-9", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
   // Publicações
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1140vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#publications", 0.5, {opacity: 0}, 0.3);
@@ -1188,7 +1206,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 139;
+  const cur = 148;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);

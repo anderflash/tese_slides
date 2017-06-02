@@ -974,7 +974,7 @@
   flex-direction: column;
   padding: 2vmin;
   .katex {
-    font-size: 5vmin;
+    font-size: 3vw;
   }
 }
 #redundancy-analysis-pictures{
@@ -1041,6 +1041,41 @@
   }
 
 }
+#ift-slic-step-5{
+  flex-direction: column;
+}
+#ift-slic-step-6{
+  img{
+    height: 30vw;
+  }
+}
+#ift-slic-binary{
+  .katex {
+    font-size: 3vw;
+  }
+}
+#ift-slic-table{
+  .toplined{
+    border-top: 1px solid black;
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+  .katex{
+    font-size: 4vmin;
+  }
+  td, th{
+    padding: 1vmin;
+  }
+  th{
+    font-weight: 500;
+  }
+}
+#ift-slic-fdprime{
+  .katex{
+    font-size: 2.8vw;
+  }
+}
+
 #publications {
   transform: translate3d(1140vw, 560vh, 0vmin);
   padding: 2vmin;
