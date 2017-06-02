@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="TweenMax.js"></script>
   <link rel="stylesheet" type="text/css" href="tese.css">
-  <link rel="stylesheet" type="text/css" href="/assets/katex.min.css">
-  <script type="text/javascript" src="/assets/katex.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/katex.min.css">
+  <script type="text/javascript" src="assets/katex.min.js"></script>
 </head>
 <body>
 
@@ -45,6 +45,7 @@
       <div id="intro-type-manual">
         <i id="intro-type-manual-user" class="fa fa-user"></i>
         <i id="intro-type-manual-arrow" class="fa fa-arrow-down arrow"></i>
+        <!-- <canvas id="intro-type-manual-canvas"></canvas> -->
         <img src="assets/intro-segmentation-result.png" id="intro-type-manual-result">
       </div>
       <div id="intro-type-automatic">
@@ -56,6 +57,7 @@
       <div id="intro-type-interactive">
         <i id="intro-type-interactive-user" class="fa fa-user"></i>
         <i id="intro-type-interactive-arrow" class="fa fa-arrow-down arrow"></i>
+        <!-- <div><img id="intro-type-interactive-arrow-curve" src="assets/interactive_arrow_curve.svg"> </div> -->
         <img src="assets/intro-segmentation-seeds.svg" id="intro-type-interactive-seeds">
         <div>
           <i id="intro-type-interactive-arrow2"         class="fa fa-arrow-down arrow left"></i>
@@ -267,7 +269,9 @@
 
     <div id="graph-component">
       <h1>Componentes</h1>
+      <h2>Directed Connected Component</h2>
       <div id="dcc-formula"></div>
+      <h2>Strongly Connected Component</h2>
       <div id="scc-formula"></div>
       <h2>Tarjan</h2>
       <div id="tarjan-steps">
@@ -481,7 +485,9 @@
         <img class="norfc-noift-proof" id="norfc-noift-proof1" src="assets/norfc_noift_proof-1.svg">
         <img class="norfc-noift-proof" id="norfc-noift-proof2" src="assets/norfc_noift_proof-2.svg">
         <img class="norfc-noift-proof" id="norfc-noift-proof3" src="assets/norfc_noift_proof-3.svg">
-        <img class="norfc-noift-proof" id="norfc-noift-proof4" src="assets/norfc_noift_proof-4.svg">
+        <img class="norfc-noift-proof" id="norfc-noift-proof4" src="assets/norfc_noift_proof-5.svg">
+        <img class="norfc-noift-proof" id="norfc-noift-proof5" src="assets/norfc_noift_proof-6.svg">
+        <!-- <img class="norfc-noift-proof" id="norfc-noift-proof4" src="assets/norfc_noift_proof-4.svg"> -->
       </div>
     </div>
 
@@ -499,7 +505,7 @@
             <td>2</td><td>Criar <span id="orfc-core-algo-gm1"></span> de <span id="orfc-core-algo-g"></span>, onde <span id="orfc-core-algo-el"></span></td>
           </tr>
           <tr id="orfc-core-algo-step-3">
-            <td>3</td><td>Retornar <span id="orfc-core-algo-dcc"></span></td>
+            <td>3</td><td>Retornar <span id="orfc-core-algo-dcc"></span> (Tarjan - Linear)</td>
           </tr>
         </table>
       </div>
@@ -532,125 +538,293 @@
 
     <div id="oift-core">
       <h1>Núcleo do OIFT</h1>
+      <h2>ORFC</h2>
       <div>
-        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-1" src="assets/orfc_oift_rag1.png">
-        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-2" src="assets/orfc_oift_rag2.png">
-        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-3" src="assets/orfc_oift_rag3.png">
-        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-4" src="assets/orfc_oift_rag4.png">
-        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-5" src="assets/orfc_oift_rag5.png">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-1" src="assets/orfc_oift_rag1.svg">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-2" src="assets/orfc_oift_rag2.svg">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-3" src="assets/orfc_oift_rag3.svg">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-4" src="assets/orfc_oift_rag4.svg">
+        <img class="oift-core-orfc-pic" id="orfc-core-orfc-pic-5" src="assets/orfc_oift_rag5.svg">
       </div>
+      <h2>OIFT</h2>
       <div>
-        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-1" src="assets/orfc_oift_rag6.png">
-        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-2" src="assets/orfc_oift_rag7.png">
-        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-3" src="assets/orfc_oift_rag8.png">
-        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-4" src="assets/orfc_oift_rag9.png">
-        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-5" src="assets/orfc_oift_rag10.png">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-1" src="assets/orfc_oift_rag6.svg">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-2" src="assets/orfc_oift_rag7.svg">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-3" src="assets/orfc_oift_rag8.svg">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-4" src="assets/orfc_oift_rag9.svg">
+        <img class="oift-core-oift-pic" id="orfc-core-oift-pic-5" src="assets/orfc_oift_rag10.svg">
       </div>
-      <div>
-        <img src="assets/subgraph1.svg">
-        <img src="assets/subgraph2.svg">
-        <img src="assets/subgraph3.svg">
-        <img src="assets/subgraph4.svg">
+    </div>
+    <div id="oift-core-rag">
+      <h2>Grafo Adjacência de Regiões (RAG)</h2>
+      <div id="oift-core-rag-pics">
+        <div>
+          <img class="oift-core-rag-pic" id="oift-core-rag-pic-1" src="assets/subgraph1.svg">
+          <img class="oift-core-rag-pic" id="oift-core-rag-pic-2" src="assets/subgraph2.svg">
+          <img class="oift-core-rag-pic" id="oift-core-rag-pic-3" src="assets/subgraph3.svg">
+          <img class="oift-core-rag-pic" id="oift-core-rag-pic-4" src="assets/subgraph4.svg">
+        </div>
       </div>
     </div>
     <div id="robustness-coefficient">
       <h1>Coeficiente de Robustez</h1>
       <div id="robustness-coefficient-formula"></div>
+      <div id="dice">
+        <h2>Dice</h2>
+        <div id="dice-formula"></div>
+        <div id="confusion-matrix-pics">
+          <img class="confusion-matrix-pic" id="pic-1" src="assets/seg_obtido.svg">
+          <img class="confusion-matrix-pic" id="pic-2" src="assets/seg_desejado.svg">
+          <img class="confusion-matrix-pic" id="pic-3" src="assets/seg_matriz.svg">
+        </div>
+      </div>
     </div>
-    <div id="segmentation-repair">
-      <h1>Reparação Interativa de Segmentações</h1>
-      <div>
-        <img src="assets/brain_a.png">
-        <img src="assets/brain_b.png">
-        <img src="assets/brain_c.png">
-        <img src="assets/brain_d.png">
+    <div id="segmentation-repair" class="fullscreen">
+      <h1>Resultados Experimentais</h1>
+      <div id="segmentation-repair-images">
+        <div class="" id="segmentation-repair-brain">
+          <div>
+            <div><img class="segmentation-repair-head" src="assets/brain_a.png"></div>
+            <div><img class="segmentation-repair-head" src="assets/brain_b.png"></div>
+            <div><img class="segmentation-repair-head core" src="assets/brain_c.png"></div>
+            <div><img class="segmentation-repair-head core" src="assets/brain_d.png"></div>
+          </div>
+          <div>
+            <div>ORFC</div>
+            <div>OIFT</div>
+            <div>NORFC (RC = 99,95%)</div>
+            <div>NOIFT (RC = 96,23%)</div>
+          </div>
+        </div>
+        <div class="" id="segmentation-repair-car">
+          <div>
+            <div><img class="segmentation-repair-head" src="assets/car_a.png"></div>
+            <div><img class="segmentation-repair-head" src="assets/car_b.png"></div>
+            <div><img class="segmentation-repair-head core" src="assets/car_c.png"></div>
+            <div><img class="segmentation-repair-head core" src="assets/car_d.png"></div>
+          </div>
+          <div>
+            <div>ORFC</div>
+            <div>OIFT</div>
+            <div>NORFC (RC = 97,89%)</div>
+            <div>NOIFT (RC = 89,06%)</div>
+          </div>
+        </div>
+        <div class="" id="segmentation-repair-talus">
+          <div>
+            <div><img class="segmentation-repair-head"      src="assets/talus1_a.png"></div>
+            <div><img class="segmentation-repair-head"      src="assets/talus1_b.png"></div>
+            <div><img class="segmentation-repair-head core" src="assets/talus1_c.png"></div>
+            <div><img class="segmentation-repair-head core" src="assets/talus1_d.png"></div>
+          </div>
+          <div>
+            <div>ORFC</div>
+            <div>OIFT</div>
+            <div>NORFC (RC = 98,60%)</div>
+            <div>NOIFT (RC = 96,01%)</div>
+          </div>
+        </div>
+        <div class="" id="segmentation-repair-talus2">
+          <div>
+            <div>
+              <div>
+                <img class="segmentation-repair-head"      src="assets/talus2_a.png">
+                <img class="segmentation-repair-head"      src="assets/talus2_e.png">
+              </div>
+              <img class="segmentation-repair-head"      src="assets/talus2_c.png">
+            </div>
+            <div>
+              <div>
+                <img class="segmentation-repair-head"      src="assets/talus2_b.png">
+                <img class="segmentation-repair-head"      src="assets/talus2_f.png">
+              </div>
+              <img class="segmentation-repair-head"      src="assets/talus2_d.png">
+            </div>
+          </div>
+          <div>
+            <div>NORFC (RC = 98,60%)</div>
+            <div>NOIFT (RC = 96,01%)</div>
+          </div>
+        </div>
+        <div class="" id="segmentation-repair-chart">
+          <img src="assets/dice_rc_talus.svg">
+        </div>
       </div>
-      <div>
-        <img src="assets/car_a.png">
-        <img src="assets/car_b.png">
-        <img src="assets/car_c.png">
-        <img src="assets/car_d.png">
-      </div>
-      <div>
-        <img src="assets/talus1_a.png">
-        <img src="assets/talus1_b.png">
-        <img src="assets/talus1_c.png">
-        <img src="assets/talus1_d.png">
-      </div>
-      <div>
-        <img src="assets/talus2_a.png">
-        <img src="assets/talus2_e.png">
-        <img src="assets/talus2_b.png">
-        <img src="assets/talus2_f.png">
-        <img src="assets/talus2_c.png">
-        <img src="assets/talus2_d.png">
-      </div>
-      <div>
-        <img src="assets/wrist_a.png">
-        <img src="assets/wrist_b.png">
-        <img src="assets/wrist_c.png">
-        <img src="assets/wrist_d.png">
-      </div>
-      <div>
-        <img src="assets/dice_rc_talus.svg">
+    </div>
+    <div id="hybrid" class="fullscreen">
+      <div id="hybrid-formula"></div>
+      <div id="hybrid-all">
+        <div id="hybrid-info">
+          <h2 id="hybrid-gc">Graph Cut</h2>
+          <div id="gc-energy-formula"></div>
+          <div>
+            <h2>Shrinking bias</h2>
+            <div>
+              <img src="assets/shrinking1.png">
+              <img src="assets/shrinking2.png">
+              <img src="assets/shrinking3.png">
+            </div>
+          </div>
+        </div>
+        <div id="hybrid-algo">
+          <table>
+            <tr>
+              <th colspan="2">Calculando <span id="hybrid-algo-title"></span></th>
+            </tr>
+            <tr id="hybrid-algo-step-1">
+              <td>1</td><td><span id="hybrid-algo-1"></span> em <span id="hybrid-algo-1-fim"></span></td>
+            </tr>
+            <tr id="hybrid-algo-step-2">
+              <td>2</td><td><span id="hybrid-algo-2"></span> em <span id="hybrid-algo-2-fim"></span></td>
+            </tr>
+            <tr id="hybrid-algo-step-3">
+              <td>3</td><td>Retornar <span id="hybrid-algo-3"></span> em <span id="hybrid-algo-3-fim"></span></td>
+            </tr>
+          </table>
+        </div>
+        <div id="hybrid-pictures">
+          <div>
+            <div><img src="assets/talus_oift2.png"><div>OIFT</div></div>
+            <div><img src="assets/talus_rfcgc2.png"><div>RFC+GC</div></div>
+            <div><img src="assets/talus_orfc2.png"><div>ORFC</div></div>
+          </div>
+          <!-- <div class="hybrid-pictures-caption">
+            <div>oi</div>
+            <div>oi</div>
+            <div>oi</div>
+          </div> -->
+          <div>
+            <div><img src="assets/talus_orfccore2.png"><div>NORFC</div></div>
+            <div><img src="assets/talus_orfcgc2.png"><div>ORFC+GC</div></div>
+            <div><img src="assets/talus_orfccoregc2.png"><div>NORFC+GC</div></div>
+          </div>
+          <!-- <div>
+            <div>oi</div>
+            <div>oi</div>
+            <div>oi</div>
+          </div> -->
+          
+        </div>
       </div>
     </div>
     <div id="redundancy-analysis">
       <h1>Análise de Redundância</h1>
       <div>
-        <img src="assets/redundance_counter1.svg">
-        <img src="assets/redundance_counter2.svg">
-        <img src="assets/redundance_counter3.svg">
-        <img src="assets/redundance_counter4.svg">
+        <div id="redundancy-symbol"></div>
+        <div id="redundancy-symbol-2"></div>
+        <div id="redundancy-symbol-3"></div>
+        <div id="redundancy-symbol-4"></div>
       </div>
-      <div>
-        <img src="assets/redundance_counter_suf1.svg">
-        <img src="assets/redundance_counter_suf2.svg">
-        <img src="assets/redundance_counter_suf3.svg">
-        <img src="assets/redundance_counter_suf4.svg">
+      <div id="redundancy-analysis-pictures">
+        <div id="redundancy-1">
+          <img src="assets/seed-robustness-4.svg">
+        </div>
+        <div id="redundancy-2">
+          <img src="assets/redundancy.svg">
+        </div>
+        <div id="redundancy-3">
+          <div>
+            <img src="assets/redundance_counter1.svg">
+            <img src="assets/redundance_counter2.svg">
+            <img src="assets/redundance_counter3.svg">
+            <img src="assets/redundance_counter4.svg">
+          </div>
+        </div>
+        <div id="redundancy-4">
+          <div>
+            <img src="assets/redundance_counter_suf1.svg">
+            <img src="assets/redundance_counter_suf2.svg">
+            <img src="assets/redundance_counter_suf3.svg">
+            <img src="assets/redundance_counter_suf4.svg">            
+          </div>
+        </div>
+        <div id="redundancy-5">
+          <div>
+            <img src="assets/redundance_oift1.svg">
+            <img src="assets/redundance_oift2.svg">
+            <img src="assets/redundance_oift3.svg">
+            <img src="assets/redundance_oift4.svg">
+          </div>
+        </div>
       </div>
-      <div>
-        <img src="assets/redundance_oift1.svg">
-        <img src="assets/redundance_oift2.svg">
-        <img src="assets/redundance_oift3.svg">
-        <img src="assets/redundance_oift4.svg">
-      </div>
+      
     </div>
-    <div id="hybrid">
-      <div>
-        <img src="assets/shrinking1.png">
-        <img src="assets/shrinking2.png">
-        <img src="assets/shrinking3.png">
-      </div>
-      <div>
-        <img src="assets/talus_oift2.png">
-        <img src="assets/talus_rfcgc2.png">
-        <img src="assets/talus_orfc2.png">
-        <img src="assets/talus_orfccore2.png">
-        <img src="assets/talus_orfcgc2.png">
-        <img src="assets/talus_orfccoregc2.png">
-      </div>
-      <div>
-        <img src="assets/ift-slic-chart.svg">
-      </div>
-    </div>
+    
     <div id="ift-slic">
       <h1>IFT-SLIC</h1>
-      <div>
-        <img src="assets/spixels_ift_001.svg"> 
-        <img src="assets/spixels_ift_004.svg"> 
-        <img src="assets/spixels_ift_008.svg"> 
-      </div>
-      <div>
-        <img src="assets/garota_seeds_it01_.svg">
-        <img src="assets/spixels_ift_01_.svg">
-        <img src="assets/sp_center.svg">
-        <img src="assets/garota_seeds_it10_.svg">
-        <img src="assets/spixels_ift_10_.svg">
+      <div id="ift-slic-f"></div>
+      <!-- <div>
+        <img src="assets/spixels_ift_001.png"> 
+        <img src="assets/spixels_ift_004.png"> 
+        <img src="assets/spixels_ift_008.png"> 
+      </div> -->
+      <div id="ift-slic-steps">
+        <div id="ift-slic-step-1">
+          <img src="assets/ift-slic-1.png">
+          <img src="assets/ift-slic-2.png">
+        </div>
+        <div id="ift-slic-step-2">
+          <img src="assets/ift-slic-3.png">
+        </div>
+        <div id="ift-slic-step-3">
+          <img src="assets/ift-slic-4.png">
+          <img src="assets/ift-slic-5.png">
+        </div>
+        <div id="ift-slic-step-4">
+          <img src="assets/ift-slic-6.png">
+          <img src="assets/ift-slic-7.png">
+          <img src="assets/ift-slic-8.png">
+        </div>
+        <div id="ift-slic-step-5">
+          <img src="assets/step01.png">
+          <img src="assets/step02.png">
+          <img src="assets/step03.png">
+        </div>
+        <div id="ift-slic-step-6">
+          <img src="assets/step04.png">
+          <img src="assets/step05.png">
+        </div>
+        <div id="ift-slic-step-7">
+          <img src="assets/step06.png">
+          <img src="assets/step07.png">
+        </div>
+        <div id="ift-slic-step-8">
+          <img src="assets/ift-slic-chart.svg">
+        </div>
       </div>
     </div>
     <div id="publications">
       <h1>Publicações</h1>
+      <div class="publication">
+        <div class="title">
+          Seed robustness of oriented relative fuzzy connectedness: core computation and its applications
+        </div>
+        <div class="proceedings">
+          Proceedings of SPIE on Medical Imaging. Vol. 10133. 2017.
+        </div>
+      </div>
+      <div class="publication">
+        <div class="title">
+          Seed Robustness of Oriented Image Foresting Transform: Core Computation and the Robustness Coefficient
+        </div>
+        <div class="proceedings">
+          International Symposium on Mathematical Morphology and Its Applications to Signal and Image Processing. Springer, Fontainebleau-France, 2017.
+        </div>
+      </div>
+      <div class="publication">
+        <div class="title">
+          A Supervoxel-Based Solution to Resume Segmentation for Interactive Correction by Differential Image-Foresting Transforms
+        </div>
+        <div class="proceedings">
+          International Symposium on Mathematical Morphology and Its Applications to Signal and Image Processing. Springer, Fontainebleau-France, 2017.
+        </div>
+      </div>
+      <div id="publications-photos">
+        <div id="publications-photos2">
+          <div><img src="assets/publicacao1.jpg"></div>
+          <div><img src="assets/publicacao2.jpg"></div>
+        </div>
+      </div>
     </div>
 
     <div id="thanks">

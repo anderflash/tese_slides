@@ -1,6 +1,7 @@
 // import * as katex from "katex";
-import * as PriorityQueue from "js-priority-queue";
+//import * as PriorityQueue from "js-priority-queue";
 import { SlideDeck } from "./slidedeck";
+import { ManualSegmentationCanvas } from "./manual-segmentation-canvas";
 
 
 function fmax(s: IFTNode, i: number): number {
@@ -47,65 +48,65 @@ class AtGraph {
   }
 }
 
-class IFT {
-  public nodes: IFTNode[];
-  public queue: PriorityQueue<IFTNode>;
-  public seeds: IFTNode[];
-  public f: ConnectivityFunc;
+// class IFT {
+//   public nodes: IFTNode[];
+//   public queue: PriorityQueue<IFTNode>;
+//   public seeds: IFTNode[];
+//   public f: ConnectivityFunc;
 
-  constructor(graph: AtGraph, seeds: number[], f: ConnectivityFunc) {
-    this.nodes = [];
-    this.queue = new PriorityQueue<IFTNode>({ comparator: (a, b) => b.connectivity - a.connectivity});
-    for (let i = 0; i < graph.nodes.length; i++) {
-      // Fill IFT nodes based on Graph nodes
-      this.nodes[i] = {node: graph.nodes[i], connectivity: 0, root: this.nodes[i], predecessor: null, processed: false, neighbors: [], inQueue: false};
-      // Fill neighbors of IFT nodes based on Graph neighbors
-      graph.nodes[i].arcs.forEach((arc) => this.nodes[i].neighbors.push(this.nodes[arc.to.index]));
-    }
-    this.seeds = this.getNodes(seeds);
-    this.f = f;
-  }
+//   constructor(graph: AtGraph, seeds: number[], f: ConnectivityFunc) {
+//     this.nodes = [];
+//     this.queue = new PriorityQueue<IFTNode>({ comparator: (a, b) => b.connectivity - a.connectivity});
+//     for (let i = 0; i < graph.nodes.length; i++) {
+//       // Fill IFT nodes based on Graph nodes
+//       this.nodes[i] = {node: graph.nodes[i], connectivity: 0, root: this.nodes[i], predecessor: null, processed: false, neighbors: [], inQueue: false};
+//       // Fill neighbors of IFT nodes based on Graph neighbors
+//       graph.nodes[i].arcs.forEach((arc) => this.nodes[i].neighbors.push(this.nodes[arc.to.index]));
+//     }
+//     this.seeds = this.getNodes(seeds);
+//     this.f = f;
+//   }
 
-  public reset() {
-    // Reset nodes
-    this.nodes.forEach((node) => {
-      node.connectivity = -Infinity;
-      node.predecessor = null;
-      node.root = null;
-      node.processed = false;
-      node.inQueue = false;
-    });
+//   public reset() {
+//     // Reset nodes
+//     this.nodes.forEach((node) => {
+//       node.connectivity = -Infinity;
+//       node.predecessor = null;
+//       node.root = null;
+//       node.processed = false;
+//       node.inQueue = false;
+//     });
 
-    // Reset seeds
-    this.seeds.forEach((seed) => {
-      seed.connectivity = Infinity;
-      this.queue.queue(seed);
-    });
-  }
-  public getNodes(indices: number[]): IFTNode[] {
-    const nodes: IFTNode[] = [];
-    indices.forEach((i) => nodes.push(this.nodes[i]));
-    return nodes;
-  }
+//     // Reset seeds
+//     this.seeds.forEach((seed) => {
+//       seed.connectivity = Infinity;
+//       this.queue.queue(seed);
+//     });
+//   }
+//   public getNodes(indices: number[]): IFTNode[] {
+//     const nodes: IFTNode[] = [];
+//     indices.forEach((i) => nodes.push(this.nodes[i]));
+//     return nodes;
+//   }
 
-  public step(): IFTStep {
-    const s = this.queue.dequeue();
-    s.processed = true;
-    s.neighbors.forEach((t, i) => {
-      if (!t.processed) {
-        const best = this.f(s, i);
-        if (best > t.connectivity) {
-          t.predecessor = s;
-          t.connectivity = best;
-          t.root = s.root;
-          // Atualizar a fila
-          // this.queue.
-        }
-      }
-    });
-    return {s};
-  }
-}
+//   public step(): IFTStep {
+//     const s = this.queue.dequeue();
+//     s.processed = true;
+//     s.neighbors.forEach((t, i) => {
+//       if (!t.processed) {
+//         const best = this.f(s, i);
+//         if (best > t.connectivity) {
+//           t.predecessor = s;
+//           t.connectivity = best;
+//           t.root = s.root;
+//           // Atualizar a fila
+//           // this.queue.
+//         }
+//       }
+//     });
+//     return {s};
+//   }
+// }
 
 class GraphCanvas {
   private svg: SVGSVGElement;
@@ -291,6 +292,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("\\varepsilon^\\downarrow_\\infty=\\min_{\\mathcal{O}\\in\\mathcal{X}(\\mathcal{S}_o,\\mathcal{S}_b)}\\{\\varepsilon_\\infty(\\mathcal{O})\\}", document.getElementById("oift-formula-energy2"));
 
   const sosb: string = "\\mathcal{S}_o,\\mathcal{S}_b";
+  const sbso: string = "\\mathcal{S}_b,\\mathcal{S}_o";
   const sisb: string = "\\{s_i\\},\\mathcal{S}_b";
   const xinf: string = "\\mathcal{X}^\\downarrow_\\infty";
   const xinfsosb: string = xinf + "(" + sosb + ")";
@@ -305,6 +307,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const aorfcsisb: string = aorfc + "(" + sisb + ")";
   const norfcsisb: string = norfc + "(" + sisb + ")";
   const norfcsosb: string = norfc + "(" + sosb + ")";
+  const norfcsbso: string = norfc + "(" + sbso + ")";
   const fminr: string = "f_{min}^\\longleftarrow";
   const s1sb: string = "\\{s_1\\}, \\mathcal{S}_b";
 
@@ -331,6 +334,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("N_{CoH(ORFC)}(" + s1sb + ") = N_{OIFT}(" + s1sb + ")", document.getElementById("ncoh-noift-formula"));
   katex.render("N_{ORFC}(" + sisb + ") \\subseteq N_{CoH(ORFC)}(" + sisb + ") \\subseteq N_{OIFT}(" + sisb + ")", document.getElementById("norfc-ncoh-noift-formula"));
   katex.render("RC = \\frac{\\lvert\\mathcal{N}("+sosb+")\\rvert}{\\lvert A("+sosb+")\\rvert}", document.getElementById("robustness-coefficient-formula"));
+  katex.render("\\begin{aligned}D(\\mathcal{O}, \\mathcal{G}) &= \\frac{2\\times|\\mathcal{O} \\cap \\mathcal{G}|}{|\\mathcal{O}|+|\\mathcal{G}|} = \\frac{2\\times|\\mathcal{O}\\cap\\mathcal{G}|}{|\\mathcal{O}\\cup\\mathcal{G}|+|\\mathcal{O}\\cap\\mathcal{G}|} \\\\ &= \\frac{2\\times |VP|}{2\\times|VP|+|FP|+|FN|}\\end{aligned}", document.getElementById("dice-formula"));
+  
+  
   katex.render(aorfcsisb, document.getElementById("norfc-ncoh-noift-algo-title"));
   katex.render("C_{opt}",document.getElementById("norfc-ncoh-noift-algo-conn"));
   katex.render(fminr,document.getElementById("norfc-ncoh-noift-algo-fmin"));
@@ -338,12 +344,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("G = (V, E, \\omega)",document.getElementById("norfc-ncoh-noift-algo-g"));
   katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{norfc-ncoh-noift-algo-greater}{\\omega(\\langle s,t\\rangle) > C_{opt}(s_i)}\\}",document.getElementById("norfc-ncoh-noift-algo-el"));
   katex.render("DCC_{G_{>}}(s_i)", document.getElementById("norfc-ncoh-noift-algo-dcc"));
+
   katex.render(norfcsisb, document.getElementById("orfc-core-algo-title"));
   katex.render("C_{opt}",document.getElementById("orfc-core-algo-conn"));
   katex.render(fminr,document.getElementById("orfc-core-algo-fmin"));
   katex.render("G_{>}",document.getElementById("orfc-core-algo-gm1"));
   katex.render("G = (V, E, \\omega)",document.getElementById("orfc-core-algo-g"));
-  katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{orfc-core-algo-greater}{\\omega(\\langle s,t\\rangle) > C_{opt}(s_i)}\\wedge C_{opt}(s) = C_{opt}(t) = C_{opt}(s_i)\\}",document.getElementById("orfc-core-algo-el"));
+  katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{orfc-core-algo-greater}{\\omega(\\langle s,t\\rangle) > \\xmlClass{orfc-core-algo-energy2}{C_{opt}(s_i)}}\\xmlClass{orfc-core-algo-energy}{\\wedge C_{opt}(s) = C_{opt}(t) = C_{opt}(s_i)}\\}",document.getElementById("orfc-core-algo-el"));
   katex.render("SCC_{G_{>}}(s_i)", document.getElementById("orfc-core-algo-dcc"));
   
   katex.render(norfcsosb, document.getElementById("orfc-core-all-algo-title"));
@@ -352,8 +359,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
   katex.render("G_{>}",document.getElementById("orfc-core-all-algo-gm1"));
   katex.render("G = (V, E, \\omega)",document.getElementById("orfc-core-all-algo-g"));
   katex.render("E'=\\{\\langle s,t\\rangle \\in E:\\xmlClass{orfc-core-all-algo-greater}{\\omega(\\langle s,t\\rangle) > C_{opt}(s)}\\wedge C_{opt}(s) = C_{opt}(t)\\}",document.getElementById("orfc-core-all-algo-el"));
+  katex.render("ORFC_{Core} + GC", document.getElementById("hybrid-formula"));
+  katex.render("\\varepsilon_1(\\mathcal{O}) = \\sum_{\\langle s,t\\rangle \\in \\mathcal{C}(\\mathcal{O})}{\\omega(\\langle s,t\\rangle)}", document.getElementById("gc-energy-formula"));
+  katex.render("A_{ORFC_{Core}} + GC(" + sosb + ")", document.getElementById("hybrid-algo-title"));
+  katex.render("\\mathcal{S_o}' \\leftarrow " + norfcsosb, document.getElementById("hybrid-algo-1"));
+  katex.render("\\mathcal{S_b}' \\leftarrow " + norfcsbso, document.getElementById("hybrid-algo-2"));
+  katex.render("A_{GC}(\\mathcal{S_o}',\\mathcal{S_b}')", document.getElementById("hybrid-algo-3"));
+
+  katex.render("G", document.getElementById("hybrid-algo-1-fim"));
+  katex.render("G^T", document.getElementById("hybrid-algo-2-fim"));
+  katex.render("G", document.getElementById("hybrid-algo-3-fim"));
+  katex.render("\\mathcal{N}_2\\propto\\mathcal{N}_1",document.getElementById("redundancy-symbol"));
+  katex.render("t\\in DCC_{G_{>}}(s)\\Rightarrow t\\propto s?",document.getElementById("redundancy-symbol-2"));
+  katex.render("t\\in DCC_{G_>}(s) \\wedge C_{opt}(t) \\geq C_{opt}(s)\\implies \\mathcal{N}_{ORFC}(\\{t\\},\\mathcal{S}_b)",document.getElementById("redundancy-symbol-3"));
+  katex.render("\\omega(\\langle\\mathcal{N}_s, \\mathcal{N}_t\\rangle) > C_{opt}(s)\\wedge C_{opt}(t)\\geq C_{opt}(s)",document.getElementById("redundancy-symbol-4"));
+  katex.render(`\\begin{aligned}
+  f_D(\\pi_t=\\langle t \\rangle) &= \\begin{cases}
+    0, & \\text{ se } t\\in \\mathcal{S}\\\\
+    +\\infty,& \\text{c.c}\\end{cases} \\\\
+  f_D(\\pi_{r\\leadsto s}\\cdot \\langle s,t \\rangle) &= f_D(\\pi_{r\\leadsto s})\\text{ } + (\\lVert I(t) - I(r)\\rVert\\cdot\\alpha)^\\beta + d_{euc}(s,t)
+  \\end{aligned}
+  `, document.getElementById("ift-slic-f"));
   // katex.render("SCC_{G_{>}}(s_i)", document.getElementById("orfc-core-all-algo-dcc"));
   
+  // Carregar segmentação manual
+  // let manualSegImage = new Image();
+  // let manualSegCanvas: ManualSegmentationCanvas;
+  // manualSegImage.addEventListener("load", function() {
+  //   manualSegCanvas = new ManualSegmentationCanvas("intro-type-manual-canvas");
+  //   manualSegCanvas.image = manualSegImage;
+  // });
+  // manualSegImage.src = "assets/3D.png";
 
   const tl: TimelineMax = new TimelineMax();
 
@@ -383,7 +419,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
 
   // Aplicações -> Tipo de segmentação
-  timelines[c].from("#intro-type", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
+  timelines[c].from("#intro-type", 1.0, {css: {opacity: 0}, ease: Power2.easeInOut, onComplete: () => {
+    // manualSegCanvas.reset();
+    // manualSegCanvas.start();
+  }}, 0);
   timelines[c].to("#blocks", 1.0, {transform: "translate3d(-100vw, -120vh, -30vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
@@ -441,7 +480,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#intro-type-reverse", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
   timelines[c].to("#intro-type-automatic", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
   timelines[c].to("#intro-type-interactive-continue", 0.5, {css: {opacity: 0}, ease: Power2.easeInOut}, 0);
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-130vw, -100vh, -30vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-130vw, -120vh, -30vmin)", ease: Power2.easeInOut}, 0);
   tl.add(timelines[c++]);
 
   // Algumas soluções se baseiam em random walks
@@ -894,7 +933,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   for (let i = 0; i < 3; i++) {
     timelines[c].from("#orfc-step-" + (i + 2), 0.5, {opacity: 0}, 0);
     timelines[c].to("#orfc-step-" + (i + 1), 0.5, {opacity: 0}, 0.2);
-    timelines[c].to("#orfc-algo-highlight", 0.5, {transform: "translateY(" + ((i + 1) * 8 - 1) + "vmin)"}, 0);
+    timelines[c].to("#orfc-algo-highlight", 0.5, {transform: "translateY(" + ((i + 1) * 6.8 - 2) + "vh)"}, 0);
     tl.add(timelines[c++]);
   }
 
@@ -991,33 +1030,150 @@ document.addEventListener("DOMContentLoaded", (event) => {
   tl.add(timelines[c++]);
   timelines[c].to(".mord.norfc-ncoh-noift-algo-greater, .mbin.norfc-ncoh-noift-algo-greater, .mopen.norfc-ncoh-noift-algo-greater, .mpunct.norfc-ncoh-noift-algo-greater, .mrel.norfc-ncoh-noift-algo-greater, .mclose.norfc-ncoh-noift-algo-greater", 0.5, {color:"red"}, 0);
   tl.add(timelines[c++]);
-  timelines[c].to("#norfc-noift-proof1", 0.5, {opacity: 0},0.2);
-  timelines[c].from("#norfc-noift-proof2", 0.5, {opacity: 0},0);
+  timelines[c].to("#norfc-noift-proof1", 0.5, {opacity: 0}, 0.2);
+  timelines[c].from("#norfc-noift-proof2", 0.5, {opacity: 0}, 0);
   tl.add(timelines[c++]);
-  timelines[c].to("#norfc-noift-proof2", 0.5, {opacity: 0},0.2);
-  timelines[c].from("#norfc-noift-proof3", 0.5, {opacity: 0},0);
+  timelines[c].to("#norfc-noift-proof2", 0.5, {opacity: 0}, 0.2);
+  timelines[c].from("#norfc-noift-proof3", 0.5, {opacity: 0}, 0);
   tl.add(timelines[c++]);
-  timelines[c].to("#norfc-noift-proof3", 0.5, {opacity: 0},0.2);
-  timelines[c].from("#norfc-noift-proof4", 0.5, {opacity: 0},0);
+  timelines[c].to("#norfc-noift-proof3", 0.5, {opacity: 0}, 0.2);
+  timelines[c].from("#norfc-noift-proof4", 0.5, {opacity: 0}, 0);
   tl.add(timelines[c++]);
+  timelines[c].to("#norfc-noift-proof4", 0.5, {opacity: 0}, 0.2);
+  timelines[c].from("#norfc-noift-proof5", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  // timelines[c].to("#norfc-noift-proof3", 0.5, {opacity: 0},0.2);
+  // timelines[c].from("#norfc-noift-proof4", 0.5, {opacity: 0},0);
+  // tl.add(timelines[c++]);
 
   // ORFC-CORE
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1063vw, -978vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#orfc-core", 0.9, {opacity: 0, ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to(".mord.orfc-core-algo-energy2, .mopen.orfc-core-algo-energy2, .mclose.orfc-core-algo-energy2", 0.9, {color: "red", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1063vw, -898vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#orfc-core-example", 0.9, {opacity: 0, ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  // OIFT-CORE
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1163vw, -978vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  // OIFT-CORE RAG
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1223vw, -978vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#oift-core-rag-pic-2", 0.4, {opacity: 0, ease: Power2.easeInOut}, 0);
+  timelines[c].to("#oift-core-rag-pic-1", 0.4, {opacity: 0, ease: Power2.easeInOut}, 0.2);
+  tl.add(timelines[c++]);
+  timelines[c].from("#oift-core-rag-pic-3", 0.4, {opacity: 0, ease: Power2.easeInOut}, 0);
+  timelines[c].to("#oift-core-rag-pic-2", 0.4, {opacity: 0, ease: Power2.easeInOut}, 0.2);
+  tl.add(timelines[c++]);
+  timelines[c].from("#oift-core-rag-pic-4", 0.4, {opacity: 0, ease: Power2.easeInOut}, 0);
+  timelines[c].to("#oift-core-rag-pic-3", 0.4, {opacity: 0, ease: Power2.easeInOut}, 0.2);
+  tl.add(timelines[c++]);
+
+  // Robustness Coefficient
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1223vw, -878vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#robustness-coefficient", 0.9, {opacity: 0, ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].from("#dice", 0.9, {opacity: 0, ease: Power2.easeInOut}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1325vw, -780vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].from("#hybrid", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#hybrid-info", 0.5, {opacity: 0}, 0.3);
+  timelines[c].from("#hybrid-algo", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#hybrid-algo", 0.5, {opacity: 0}, 0.3);
+  timelines[c].from("#hybrid-pictures", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
   // Reparação de Segmentações
-  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-940vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
+  timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1325vw, -880vh, 0vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#segmentation-repair", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
+  timelines[c].to("#segmentation-repair-brain", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#segmentation-repair-car", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  timelines[c].to("#segmentation-repair-car", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#segmentation-repair-talus", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  timelines[c].to("#segmentation-repair-talus", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#segmentation-repair-talus2", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  timelines[c].to("#segmentation-repair-talus2", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#segmentation-repair-chart", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  // timelines[c].to("#segmentation-repair-wrist", 0.5, {opacity: 0}, 0);
+  // timelines[c].from("#segmentation-repair-chart", 0.5, {opacity: 0}, 0);
+  // tl.add(timelines[c++]);
 
   // Análise de Redundância
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1040vw, -460vh, 0vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#redundancy-analysis", 0.5, {opacity: 0}, 0.3);
   tl.add(timelines[c++]);
 
+  timelines[c].to("#redundancy-1", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-2", 0.5, {opacity: 0}, 0);
+  
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#redundancy-2", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-3", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-symbol-2", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#redundancy-3", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-4", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-symbol-3", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#redundancy-4", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-5", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#redundancy-symbol-4", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+
   // IFT-SLIC
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1040vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#ift-slic", 0.5, {opacity: 0}, 0.3);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-1", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-2", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-2", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-3", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-3", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-4", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-4", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-5", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+
+  timelines[c].to("#ift-slic-step-5", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-6", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-6", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-7", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+  
+  timelines[c].to("#ift-slic-step-7", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-8", 0.5, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
   // Publicações
@@ -1032,8 +1188,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 117;
+  const cur = 139;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
 });
+
