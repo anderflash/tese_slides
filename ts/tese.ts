@@ -383,6 +383,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   katex.render("\\gamma=3",document.getElementById("ift-slic-gamma-3"));
   katex.render("\\gamma=4",document.getElementById("ift-slic-gamma-4"));
+  katex.render("\\gamma=3",document.getElementById("ift-slic-gamma-3-2"));
+  katex.render("\\gamma=4",document.getElementById("ift-slic-gamma-4-2"));
   katex.render(`
   \\begin{aligned}
   f_D'(\\pi_t=\\langle t \\rangle) &= \\begin{cases}
@@ -1194,6 +1196,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
   timelines[c].from("#ift-slic-step-9", 0.5, {opacity: 0}, 0);
   tl.add(timelines[c++]);
 
+  timelines[c].to("#ift-slic-step-9", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-10", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-10", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-11", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-11", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-12", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-12", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-13", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-13", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-14", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-14", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-15", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-15", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-16", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-16", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-17", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
+  timelines[c].to("#ift-slic-step-17", 0.5, {opacity: 0}, 0);
+  timelines[c].from("#ift-slic-step-18", 0.5, {opacity: 0}, 0);
+  tl.add(timelines[c++]);
+
   // Publicações
   timelines[c].to("#blocks", 0.9, {transform: "translate3d(-1140vw, -560vh, 0vmin)", ease: Power2.easeInOut}, 0);
   timelines[c].from("#publications", 0.5, {opacity: 0}, 0.3);
@@ -1206,7 +1244,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const deck: SlideDeck = new SlideDeck(tl);
-  const cur = 148;
+  const cur = -1;
   deck.seek(cur);
   deck.tweenTo(cur + 1);
   tl.pause(0);
